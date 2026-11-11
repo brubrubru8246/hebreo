@@ -8,6 +8,7 @@
 <title>Hebreo desde Álef</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%E2%98%85%E2%98%86%E2%98%95%E2%9C%88%EF%B8%8F%E2%9C%95%F0%9F%8C%B3%F0%9F%8D%85%F0%9F%8D%8C%F0%9F%8D%8E%F0%9F%8D%93%F0%9F%8D%97%F0%9F%8D%9A%F0%9F%8D%9E%F0%9F%8D%AB%F0%9F%8D%B5%F0%9F%8D%B7%F0%9F%8D%BD%F0%9F%8F%96%F0%9F%8F%A5%F0%9F%8F%A6%F0%9F%8F%A8%F0%9F%8F%AB%F0%9F%90%9F%F0%9F%92%A7%F0%9F%93%AE%F0%9F%9A%8F%F0%9F%9A%95%F0%9F%9B%8D%F0%9F%9B%92%F0%9F%A5%90%F0%9F%A5%92%F0%9F%A5%95%F0%9F%A5%9A%F0%9F%A5%9B%F0%9F%A5%A1%F0%9F%A7%80%F0%9F%A7%85%F0%9F%A7%BA%F0%9F%AA%99&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600&family=Rubik:wght@400;500;700&display=swap">
 <style>
 /* Layout: one reading column, sticky top bar, bottom sheet for letter/word details. Light-only by request. */
@@ -16,6 +17,7 @@
   --accent:#2A5FC4; --accent-soft:#E6EDFB; --on-accent:#FFFFFF;
   --ok:#3D7A2A; --ok-soft:#E7F3E0; --bad:#B4384A; --bad-soft:#FBE7EA; --hl:#FFEFC2; --gold:#9A6B00;
   --shadow:0 10px 30px rgba(30,42,63,.10);
+  --coin:#F3E4B5; --coin-edge:#C9A245; --bill:#DCEFE2; --bill-edge:#7DB08E;
   --ui:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
   --he:"Noto Sans Hebrew","Arial Hebrew","Segoe UI",sans-serif;
   color-scheme:light;
@@ -196,7 +198,73 @@ table.vt{border-collapse:collapse;width:100%;background:var(--card);border-radiu
 .vt th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
 .vt .he{font-size:28px;color:var(--accent)}
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.answer:empty::before{content:attr(data-ph);color:var(--muted);font-family:var(--ui);font-size:14px;padding:0 6px}
+.nav .ni{display:none}
+/* Minijuegos */
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.gcard{display:grid;gap:2px;text-align:left;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;align-content:start}
+.gcard:hover{border-color:var(--accent)}
+.gcard .emo{font-size:34px;line-height:1.3}
+.gcard b{font-size:16px}
+.gcard .he{color:var(--accent);font-size:17px;text-align:left}
+.gcard small{color:var(--muted);font-size:13px}
+.stars{color:var(--gold);letter-spacing:2px;font-size:14px}
+.big-stars{color:var(--gold);font-size:44px;letter-spacing:6px}
+.glist{display:flex;flex-wrap:wrap;gap:8px;direction:rtl}
+.chipw{display:inline-flex;transition:opacity .2s}
+.chipw.got{opacity:.4;text-decoration:line-through}
+.chip,.phr{font:inherit;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:4px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.chip.he,.phr{font-family:var(--he);font-size:22px}
+.chip svg{width:16px;height:16px;fill:var(--accent)}
+.shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px;border-radius:16px;background:var(--accent-soft)}
+.places{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.prod{display:grid;justify-items:center;align-content:center;min-height:88px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;padding:6px 2px;gap:2px}
+.prod .emo{font-size:36px;line-height:1.2}
+.emo,.route{font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",var(--ui)}
+.prod .pl{font-size:14px;min-height:20px;text-align:center}
+.prod .pl.he{font-size:17px}
+.prod.yes{border-color:var(--ok);background:var(--ok-soft)}
+.prod.no{border-color:var(--bad);background:var(--bad-soft)}
+.prod:disabled{cursor:default}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.say-line{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
+.money{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center}
+.coin{width:58px;height:58px;border-radius:50%;background:var(--coin);border:3px solid var(--coin-edge);font-weight:700;cursor:pointer;font-size:15px;color:var(--ink)}
+.bill{width:88px;height:50px;border-radius:8px;background:var(--bill);border:2px solid var(--bill-edge);font-weight:700;cursor:pointer;font-size:16px;color:var(--ink)}
+.tray{min-height:74px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}
+.tray .coin{width:44px;height:44px;font-size:12px}
+.tray .bill{width:66px;height:40px;font-size:13px}
+.tray:empty::before{content:"Toca monedas y billetes para pagar";color:var(--muted);font-size:14px}
+.chat{display:grid;gap:8px}
+.bub{max-width:88%;padding:8px 14px;border-radius:16px;display:grid;gap:2px;justify-items:start}
+.bub.them{justify-self:start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bub.me{justify-self:end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:4px;justify-items:end}
+.bub .who{font-size:11px;opacity:.75}
+.bub .phr{border:0;background:none;padding:0;color:inherit;font-size:24px}
+.bub .t{font-size:13px;font-style:italic;opacity:.85}
+.bub details{font-size:13px;color:var(--muted)}
+.bub summary{cursor:pointer;color:var(--accent)}
+.goal{display:flex;flex-wrap:wrap;gap:6px 12px;padding:12px 14px;border-radius:14px;background:var(--hl);font-size:15px}
+.opt .t{display:block;font-family:var(--ui);font-size:13px;font-style:italic;color:var(--muted);direction:ltr}
+.arrows{display:flex;gap:12px;justify-content:center}
+.arrows button{width:78px;height:64px;font-size:30px;border-radius:16px;border:1.5px solid var(--line);border-bottom-width:3px;background:var(--card);cursor:pointer;color:var(--ink)}
+.arrows button:hover{border-color:var(--accent)}
+.route{font-size:26px;text-align:center;min-height:36px;letter-spacing:6px;color:var(--accent)}
+@media (max-width:640px){
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:25;margin:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px));padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
+  .nav button{display:grid;justify-items:center;gap:1px;font-size:11px;border-radius:10px;padding:4px 2px;position:relative}
+  .nav .ni{display:block;width:22px;height:22px;fill:currentColor;font-family:var(--he);font-size:20px;line-height:22px;text-align:center}
+  .nav .badge{position:absolute;top:0;left:calc(50% + 6px);margin:0}
+  .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  .tabs button{padding:8px 2px;font-size:13px}
+  .shelf{gap:6px;padding:8px}
+  .prod{min-height:78px}
+  .prod .emo{font-size:30px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
 </head>
@@ -205,10 +273,11 @@ table.vt{border-collapse:collapse;width:100%;background:var(--card);border-radiu
   <button class="brand" data-go="home"><span class="he">מֵאָלֶף</span><span>Hebreo desde Álef</span></button>
   <span class="streak" id="streak"></span>
   <nav class="nav">
-    <button data-go="home" id="nav-home">Camino</button>
-    <button data-go="alef" id="nav-alef">Álef-bet</button>
-    <button data-go="words" id="nav-words">Palabras</button>
-    <button data-go="review" id="nav-review">Repaso<span class="badge" id="due"></span></button>
+    <button data-go="home" id="nav-home"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg>Camino</button>
+    <button data-go="games" id="nav-games"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm8 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-4-4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>Juegos</button>
+    <button data-go="alef" id="nav-alef"><span class="ni" aria-hidden="true">א</span>Álef-bet</button>
+    <button data-go="words" id="nav-words"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h12v14H4zM8 3h12v14h-2V5H8z"/></svg>Palabras</button>
+    <button data-go="review" id="nav-review"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>Repaso<span class="badge" id="due"></span></button>
   </nav>
 </div></header>
 <main class="wrap" id="app"></main>
@@ -491,11 +560,11 @@ U.forEach((u,ui)=>{u.words=[];u.lines.forEach(l=>l.w.forEach(a=>{const k=bare(a[
 // ---------- Estado (solo en este navegador) ----------
 const KEY='hebreo-desde-alef-v1';
 let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
-S.done=S.done||{};S.srs=S.srs||{};S.streak=S.streak||{n:0,last:''};S.view=S.view||{mode:'w',nik:true,tr:false};S.rate=S.rate||0.85;
+S.done=S.done||{};S.srs=S.srs||{};S.streak=S.streak||{n:0,last:''};S.view=S.view||{mode:'w',nik:true,tr:false};S.rate=S.rate||0.85;S.games=S.games||{};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const DAY=864e5,IV=[0,1,2,4,8,16,32,64];
 function srsAdd(k){if(!S.srs[k])S.srs[k]={b:1,d:Date.now()+DAY}}
-function srsHit(k,ok){const r=S.srs[k]||{b:0,d:0};r.b=ok?Math.min(r.b+1,IV.length-1):1;r.d=ok?Date.now()+IV[r.b]*DAY:Date.now();S.srs[k]=r}
+function srsHit(k,ok){const r=S.srs[k]||{b:0,d:0};r.b=ok?Math.min(r.b+1,IV.length-1):1;r.d=Date.now()+(ok?IV[r.b]*DAY:6e5);S.srs[k]=r}
 const dueWords=()=>Object.keys(S.srs).filter(k=>WORDS[k]&&S.srs[k].d<=Date.now()).sort((a,b)=>S.srs[a].d-S.srs[b].d);
 const day=d=>d.toISOString().slice(0,10);
 function bumpStreak(){const t=day(new Date());if(S.streak.last===t)return;S.streak.n=S.streak.last===day(new Date(Date.now()-DAY))?S.streak.n+1:1;S.streak.last=t}
@@ -576,12 +645,14 @@ function home(){
   app.innerHTML=`<div class="stack">
    <section class="hero"><div>
      <h1>Aprende a leer hebreo leyendo hebreo</h1>
-     <p>Diez textos cortos (diálogos, oraciones, poemas y un relato) te llevan del álef-bet al nivel A2. Primero lees y tocas cada letra para oírla. Luego practicas. La gramática llega cuando ya la viste en el texto.</p>
+     <p>Diez textos cortos (diálogos, oraciones, poemas y un relato) y minijuegos de la vida diaria te llevan del álef-bet al nivel A2. Primero lees y tocas cada letra para oírla. Luego practicas. La gramática llega cuando ya la viste en el texto.</p>
      <div class="row"><button class="btn primary" data-go="unit" data-u="${next}">${unitDone(next)?'Repasar':'Continuar'}: ${U[next].t}</button>
      <button class="btn" data-go="review">Repaso de hoy · ${d}</button></div></div>
      <div><div class="hero-word">${clusters('שָׁלוֹם').map(c=>`<button data-cl="${c}">${c}</button>`).join('')}</div><div class="hero-cap">Toca cada letra</div></div>
    </section>
    <div class="voice-warn" id="voice-warn" hidden></div>
+   <div class="sec-h"><h2>Vida diaria</h2><button class="back" data-go="games">Ver juegos ›</button></div>
+   <div class="games">${GAMES.map(gameCard).join('')}</div>
    <h2>Tu camino</h2>
    <div class="units">${U.map((u,i)=>`<button class="unit ${i===next&&!unitDone(i)?'next':''} ${unitDone(i)?'complete':''}" data-go="unit" data-u="${i}">
      <span class="num"><b>${HEBNUM[i]}</b><small>${i+1}</small></span>
@@ -616,7 +687,7 @@ function unit(ui,tab){
 
 function readTab(ui,el){
   const u=U[ui],o=S.view;
-  el.innerHTML=`<p class="hint">Lee primero en voz alta e intenta entender. Toca una <b>palabra</b> para oírla y ver cómo se pronuncia; tócala otra vez para ver su significado. En modo <b>letras</b> ves cómo suena cada letra con su vocal. La traducción está oculta a propósito.</p>
+  el.innerHTML=`<p class="hint">Lee en voz alta. Toca una <b>palabra</b> para oírla; tócala otra vez para ver qué significa. Con <b>Letras</b> ves cómo suena cada letra.</p>
    <div class="controls">
      <span class="seg" role="group" aria-label="Qué tocar"><button data-mode="w" class="${o.mode==='w'?'on':''}">Palabras</button><button data-mode="l" class="${o.mode==='l'?'on':''}">Letras</button></span>
      <label class="chk"><input type="checkbox" id="opt-nik" ${o.nik?'checked':''}> Vocales (nikud)</label>
@@ -654,19 +725,19 @@ function lettersTab(ui,el){
    <h3>Vocales (nikud) de este texto</h3>
    <div class="lgrid">${unitVowels(u).map(v=>`<button class="lcard" data-cl="מ${v}"><span class="he">מ${v}</span><b>${V[v][0]}</b><small>${V[v][1]}</small></button>`).join('')}</div>
    <div class="row"><button class="btn primary" id="go">Practicar letras y sonidos</button><button class="btn" data-go="alef">Ver todo el álef-bet</button></div>`;
-  $('#go').onclick=()=>run(makeSession(ui,'letters',8),()=>{mark(ui,'letters');unit(ui,'practice')});
+  const go=()=>run(makeSession(ui,'letters',8),()=>{mark(ui,'letters');unit(ui,'practice')},()=>unit(ui,'letters'),go);$('#go').onclick=go;
 }
 function practiceTab(ui,el){
-  el.innerHTML=`<div class="card"><h3>Práctica mezclada</h3><p class="muted">10 ejercicios de distintos tipos: escuchar, reconocer, construir palabras, ordenar oraciones, completar y repetir en voz alta. Incluye palabras de unidades anteriores para que no se olviden.</p>
+  el.innerHTML=`<div class="card"><h3>Práctica mezclada</h3><p class="muted">10 ejercicios de distintos tipos: escuchar, reconocer, construir palabras, ordenar oraciones, completar y repetir en voz alta. Incluye palabras de unidades anteriores. Lo que falles vuelve al final de la sesión. Con 60 % de aciertos completas el paso.</p>
    <div class="row"><button class="btn primary" id="go">Empezar</button></div></div>`;
-  $('#go').onclick=()=>run(makeSession(ui,'mix',10),()=>{mark(ui,'practice');unit(ui,'grammar')});
+  const go=()=>run(makeSession(ui,'mix',10),()=>{mark(ui,'practice');unit(ui,'grammar')},()=>unit(ui,'practice'),go);$('#go').onclick=go;
 }
 function grammarTab(ui,el){
   const u=U[ui];
   el.innerHTML=`<p class="hint">Ya viste estas formas en el texto. Aquí solo les ponemos nombre. Toca el hebreo para oírlo.</p>
    ${u.gram.notes.map(n=>`<div class="card"><h3>${n[0]}</h3><p>${n[1]}</p></div>`).join('')}
    <div class="row"><button class="btn primary" id="go">Comprobar lo aprendido</button></div>`;
-  $('#go').onclick=()=>run(makeSession(ui,'grammar',6),()=>{mark(ui,'grammar');home()});
+  const go=()=>run(makeSession(ui,'grammar',6),()=>{mark(ui,'grammar');home()},()=>unit(ui,'grammar'),go);$('#go').onclick=go;
 }
 
 // ---------- Generadores de ejercicios ----------
@@ -685,8 +756,8 @@ const G={
     return ch('¿Qué significa?',`<div class="q-big">${t.k}</div>`,[t,...o].map(w=>({h:w.es})),{sayAfter:t.k,word:t.k,explain:wordExp(t)})},
   reverse(x,t){const p=x.pool;if(p.length<4)return null;t=t||pick(p);const o=shuffle(uniqBy(p.filter(w=>w.es!==t.es&&w.k!==t.k),w=>w.k)).slice(0,3);if(o.length<3)return null;
     return ch(`¿Cómo se dice «${t.es}»?`,'',[t,...o].map(w=>({h:w.k,he:1})),{sayAfter:t.k,word:t.k,explain:wordExp(t)})},
-  build(x,t){const c=x.pool.filter(w=>{const n=clusters(w.k).length;return n>=2&&n<=7});if(!c.length||(t&&!c.includes(t)))return null;t=t||pick(c);const tg=clusters(t.k);
-    const extra=shuffle(x.syl.map(s=>s.c).filter(cc=>!tg.includes(cc))).slice(0,2);
+  build(x,t){const c=x.pool.filter(w=>{const n=clusters(w.k).length;return n>=2&&n<=7&&!w.k.includes(' ')});if(!c.length||(t&&!c.includes(t)))return null;t=t||pick(c);const tg=clusters(t.k);
+    const bases=new Set(tg.map(c=>c[0]));const extra=shuffle(uniqBy(x.syl.filter(s=>!bases.has(s.c[0])),s=>s.c[0])).slice(0,2).map(s=>s.c);
     return{kind:'build',title:'Construye la palabra',prompt:`<p class="q-help" style="font-size:18px">«${t.es}» · <i>${t.tr}</i></p>`,target:tg,pieces:shuffle([...tg,...extra]),say:t.k,word:t.k,explain:wordExp(t)}},
   order(x){const ls=x.u.lines.filter(l=>l.w.length>=3&&l.w.length<=8);if(!ls.length)return null;const l=pick(ls);const tg=l.w.map(w=>bare(w[0]));
     return{kind:'build',words:true,title:'Ordena la oración',prompt:`<p class="q-help" style="font-size:18px">«${l.es}»</p>`,target:tg,pieces:shuffle(tg),sayAfter:lineText(l),key:'o'+l.es,explain:`<span class="he say" style="font-size:22px">${tg.join(' ')}</span><br><i>${l.w.map(w=>w[1]).join(' ')}</i>`}},
@@ -725,13 +796,13 @@ function makeSession(ui,mode,n){
 // ---------- Motor de ejercicios ----------
 let KEYH=null;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();hidePop()}KEYH&&KEYH(e)});
-function run(list,onFinish,backTo){
+function run(list,onFinish,backTo,retry){
   let i=0,ok=0;const total=list.length;
   function show(){
-    chrome(null);if(i>=total)return finish();
+    chrome(null);if(i>=list.length)return finish();
     const e=list[i];
-    app.innerHTML=`<div class="run-top"><button class="back" id="quit">✕ Salir</button><div class="bar"><span style="width:${i/total*100}%"></span></div><span class="cnt">${i+1} / ${total}</span></div>
-     <div class="ex"><div class="ex-type">${TYPE[e.type]||''}</div>
+    app.innerHTML=`<div class="run-top"><button class="back" id="quit">✕ Salir</button><div class="bar"><span style="width:${i/list.length*100}%"></span></div><span class="cnt">${i+1} / ${list.length}</span></div>
+     <div class="ex"><div class="ex-type">${TYPE[e.type]||''}${e.retry?' · otra vez':''}</div>
      <div class="ex-head">${e.say?`<button class="spk" id="say" aria-label="Escuchar">${SPK}</button>`:''}<h2>${e.title}</h2></div>
      ${e.prompt||''}<div id="area"></div><div id="fb"></div></div>`;
     $('#quit').onclick=()=>{window.speechSynthesis&&speechSynthesis.cancel();backTo?backTo():home()};
@@ -747,7 +818,7 @@ function run(list,onFinish,backTo){
   }
   function build(e,area){
     const cls=e.words?'tile wd':'tile';
-    area.innerHTML=`<div class="answer" id="ans" aria-label="Tu respuesta"></div><div class="tiles" id="tiles">${e.pieces.map((p,j)=>`<button class="${cls}" data-j="${j}">${p}</button>`).join('')}</div>
+    area.innerHTML=`<div class="answer" id="ans" aria-label="Tu respuesta" data-ph="${e.words?'La primera palabra va a la derecha →':'Empieza por la derecha: el hebreo se escribe de derecha a izquierda'}"></div><div class="tiles" id="tiles">${e.pieces.map((p,j)=>`<button class="${cls}" data-j="${j}">${p}</button>`).join('')}</div>
      <div class="row"><button class="btn primary" id="check" disabled>Comprobar</button><button class="btn" id="clear">Borrar</button></div>`;
     const ans=$('#ans'),chosen=[];
     const sync=()=>{ans.innerHTML=chosen.map((j,n)=>`<button class="${cls}" data-n="${n}">${e.pieces[j]}</button>`).join('');area.querySelectorAll('#tiles .tile').forEach(t=>t.hidden=chosen.includes(+t.dataset.j));$('#check').disabled=chosen.length!==e.target.length};
@@ -765,22 +836,23 @@ function run(list,onFinish,backTo){
     $('#sh-ok').onclick=()=>{ok++;next()};$('#sh-bad').onclick=next;
   }
   function answer(e,good){
-    if(good)ok++;if(e.word)srsHit(e.word,good);save();
+    if(good&&!e.retry)ok++;if(e.word&&!e.retry)srsHit(e.word,good);if(!good&&!e.retry)list.push(Object.assign({},e,{retry:true}));save();
     if(e.sayAfter)speak(e.sayAfter);
-    $('#fb').innerHTML=`<div class="fb ${good?'ok':'bad'}"><h3>${good?'¡Correcto!':'Casi. Mira la respuesta:'}</h3>${e.explain?`<div>${e.explain}</div>`:''}${!good&&e.target?`<div class="he" style="font-size:26px">${e.target.join(e.words?' ':'')}</div>`:''}<div class="row"><button class="btn primary" id="next">Continuar</button></div></div>`;
+    $('#fb').innerHTML=`<div class="fb ${good?'ok':'bad'}"><h3>${good?'¡Correcto!':'Casi. Mira la respuesta:'}</h3>${!good&&!e.retry?'<p class="muted" style="font-size:14px">Volverá al final de la sesión.</p>':''}${e.explain?`<div>${e.explain}</div>`:''}<div class="row"><button class="btn primary" id="next">Continuar</button></div></div>`;
     const nb=$('#next');nb.onclick=next;nb.focus();
     KEYH=ev=>{if(ev.key==='Enter'){ev.preventDefault();next()}};
   }
   function next(){KEYH=null;i++;show()}
   function finish(){
     bumpStreak();save();chrome(null);
-    const pct=total?Math.round(ok/total*100):0;
+    const pct=total?Math.round(ok/total*100):0,pass=!retry||pct>=60;
     app.innerHTML=`<div class="stack" style="text-align:center;justify-items:center;padding-top:30px">
-      <div class="he" style="font-size:40px;color:var(--accent)">${pct>=80?'כׇּל הַכָּבוֹד!':'יוֹפִי!'}</div>
+      <div class="he" style="font-size:40px;color:var(--accent)">${pct>=80?'כׇּל הַכָּבוֹד!':pass?'יוֹפִי!':'עוֹד פַּעַם!'}</div>
       <div class="score">${ok} / ${total}</div>
-      <p class="muted">${pct>=80?'Muy bien hecho. Las palabras volverán en tu repaso en unos días.':'Buen trabajo. Lo que fallaste volverá pronto en el repaso.'}</p>
-      <div class="row" style="justify-content:center"><button class="btn primary" id="fin">Continuar</button></div></div>`;
-    $('#fin').onclick=()=>onFinish&&onFinish(ok,total);
+      <p class="muted">${pass?(pct>=80?'Muy bien. Las palabras volverán a tu repaso en unos días.':'Buen trabajo. Lo que fallaste volverá pronto en el repaso.'):'aciertos a la primera. Necesitas 60 % para completar este paso. Inténtalo otra vez: cada intento trae ejercicios distintos.'}</p>
+      <div class="row" style="justify-content:center">${pass?'<button class="btn primary" id="fin">Continuar</button>':'<button class="btn primary" id="again">Intentar de nuevo</button><button class="btn" id="back">Volver</button>'}</div></div>`;
+    if(pass)$('#fin').onclick=()=>onFinish&&onFinish(ok,total);
+    else{$('#again').onclick=retry;$('#back').onclick=()=>backTo?backTo():home()}
   }
   if(!total){app.innerHTML='<p class="muted">No hay ejercicios disponibles todavía.</p>';return}
   show();
@@ -825,12 +897,179 @@ function alef(){
 function words(){
   chrome('words');
   const ks=Object.keys(S.srs).filter(k=>WORDS[k]);
+  const row=w=>`<button class="wrow" data-word="${w.k}"><span class="he">${w.k}</span><span><i class="muted">${w.tr}</i> · ${w.es}</span><span class="lvl" aria-label="Nivel ${S.srs[w.k].b}">${[1,2,3,4,5,6].map(n=>`<i class="${S.srs[w.k].b>n?'on':''}"></i>`).join('')}</span></button>`;
+  const grp=(t,ws)=>ws.length?`<h3>${t}</h3><div class="wlist">${ws.map(row).join('')}</div>`:'';
   app.innerHTML=`<div class="stack"><h1>Mis palabras</h1>
-   <p class="hint">${ks.length?`${ks.length} palabras guardadas · ${dueWords().length} para repasar hoy. Las barras verdes muestran cuánto las dominas.`:'Aún no hay palabras. Se guardan al terminar de leer cada texto.'}</p>
+   <p class="hint">${ks.length?`${ks.length} palabras guardadas · ${dueWords().length} para repasar hoy. Las barras verdes muestran cuánto las dominas. Toca una palabra para oírla.`:'Aún no hay palabras. Se guardan al terminar de leer cada texto o al acertar en los minijuegos.'}</p>
    ${ks.length&&dueWords().length?'<div class="row"><button class="btn primary" data-go="review">Repasar ahora</button></div>':''}
-   ${U.map((u,ui)=>{const ws=u.words.filter(w=>w.u===ui&&S.srs[w.k]);if(!ws.length)return'';
-     return`<h3>${ui+1}. ${u.t}</h3><div class="wlist">${ws.map(w=>`<button class="wrow" data-word="${w.k}"><span class="he">${w.k}</span><span><i class="muted">${w.tr}</i> · ${w.es}</span><span class="lvl" aria-label="Nivel ${S.srs[w.k].b}">${[1,2,3,4,5,6].map(n=>`<i class="${S.srs[w.k].b>n?'on':''}"></i>`).join('')}</span></button>`).join('')}</div>`}).join('')}
+   ${U.map((u,ui)=>grp(`${ui+1}. ${u.t}`,u.words.filter(w=>w.u===ui&&S.srs[w.k]))).join('')}
+   ${grp('Vida diaria (minijuegos)',Object.values(WORDS).filter(w=>w.u==='g'&&S.srs[w.k]))}
   </div>`;
+}
+
+// ---------- Minijuegos de vida diaria ----------
+// [hebreo, transliteración, español, dibujo]
+const FOOD=[['לֶחֶם','léjem','pan','🍞'],['חָלָב','jaláv','leche','🥛'],['בֵּיצִים','beitsím','huevos','🥚'],['גְּבִינָה','gviná','queso','🧀'],['תַּפּוּחַ','tapúaj','manzana','🍎'],['בָּנָנָה','banána','plátano','🍌'],['עַגְבָנִיָּה','agvaniyá','tomate','🍅'],['מְלָפְפוֹן','melafefón','pepino','🥒'],['אֹרֶז','órez','arroz','🍚'],['מַיִם','máyim','agua','💧'],['קָפֶה','kafé','café','☕'],['דָּג','dag','pescado','🐟'],['עוֹף','of','pollo','🍗'],['שׁוֹקוֹלָד','shokolád','chocolate','🍫'],['תּוּת','tut','fresa','🍓'],['גֶּזֶר','guézer','zanahoria','🥕'],['בָּצָל','batsál','cebolla','🧅'],['יַיִן','yáyin','vino','🍷']];
+// [lugar, translit., español, dibujo, «al lugar», translit.]
+const PLACES=[['בַּנְק','bank','banco','🏦','לַבַּנְק','la-bank'],['יָם','yam','mar; playa','🏖️','לַיָּם','la-yám'],['שׁוּק','shuk','mercado','🧺','לַשּׁוּק','la-shúk'],['מָלוֹן','malón','hotel','🏨','לַמָּלוֹן','la-malón'],['פַּארְק','park','parque','🌳','לַפַּארְק','la-párk'],['מִסְעָדָה','misadá','restaurante','🍽️','לַמִּסְעָדָה','la-misadá'],['בֵּית חוֹלִים','beit jolím','hospital','🏥','לְבֵית הַחוֹלִים','le-beit ha-jolím'],['בֵּית סֵפֶר','beit séfer','escuela','🏫','לְבֵית הַסֵּפֶר','le-beit ha-séfer'],['תַּחֲנָה','tajaná','parada de autobús','🚏','לַתַּחֲנָה','la-tajaná'],['שְׂדֵה תְּעוּפָה','sdé teufá','aeropuerto','✈️','לִשְׂדֵה הַתְּעוּפָה','li-sdé ha-teufá'],['קַנְיוֹן','kanyón','centro comercial','🛍️','לַקַּנְיוֹן','la-kanyón'],['דֹּאַר','dóar','correo','📮','לַדֹּאַר','la-dóar']];
+const DIRS=[['יָשָׁר','yashár','recto','↑'],['יָמִינָה','yamína','a la derecha','→'],['שְׂמֹאלָה','smóla','a la izquierda','←']];
+[...FOOD,...PLACES,...DIRS].forEach(a=>{const k=bare(a[0]);if(!WORDS[k])WORDS[k]={k,tr:a[1],es:a[2],note:'',u:'g',name:false}});
+
+// Números (forma masculina, la que concuerda con שְׁקָלִים)
+const UNITS=[null,['אֶחָד','ejád'],['שְׁנַיִם','shnáyim'],['שְׁלוֹשָׁה','shloshá'],['אַרְבָּעָה','arbaá'],['חֲמִשָּׁה','jamishá'],['שִׁשָּׁה','shishá'],['שִׁבְעָה','shivá'],['שְׁמוֹנָה','shmoná'],['תִּשְׁעָה','tishá']];
+const VUNITS=[null,['וְאֶחָד','ve-ejád'],['וּשְׁנַיִם','u-shnáyim'],['וּשְׁלוֹשָׁה','u-shloshá'],['וְאַרְבָּעָה','ve-arbaá'],['וַחֲמִשָּׁה','va-jamishá'],['וְשִׁשָּׁה','ve-shishá'],['וְשִׁבְעָה','ve-shivá'],['וּשְׁמוֹנָה','u-shmoná'],['וְתִשְׁעָה','ve-tishá']];
+const TENS=[null,['עֲשָׂרָה','asará'],['עֶשְׂרִים','esrím'],['שְׁלוֹשִׁים','shloshím'],['אַרְבָּעִים','arbaím'],['חֲמִשִּׁים','jamishím'],['שִׁשִּׁים','shishím'],['שִׁבְעִים','shivím'],['שְׁמוֹנִים','shmoním'],['תִּשְׁעִים','tishím']];
+// ponytail: sin 1, 2 ni 11-19 (cambian de forma ante sustantivo); añadir si se amplía el juego
+function numHe(n){const t=n/10|0,u=n%10;if(n<10)return UNITS[n];if(!u)return TENS[t];return[TENS[t][0]+' '+VUNITS[u][0],TENS[t][1]+' '+VUNITS[u][1]]}
+function price(r){if(r===0)return pick([10,20,30,40,50]);if(r===1)return pick([3,4,5,6,7,8,9,60,70,80,90]);let n;do{n=(2+Math.random()*8|0)*10+(Math.random()*10|0)}while(n%10===1);return n}
+
+let PH=[];
+const phr=a=>{PH.push(a);return`<button class="phr" data-ph="${PH.length-1}">${a[0]}</button>`};
+function gShell(g,r,R,body){chrome('games');app.innerHTML=`<div class="run-top"><button class="back" data-go="games">✕ Salir</button><div class="bar"><span style="width:${r/R*100}%"></span></div><span class="cnt">${r+1} / ${R}</span></div><div class="ex"><div class="ex-type">${g.t} · <span class="he">${g.he}</span></div>${body}</div>`}
+function gEnd(g,ok,tot){
+  bumpStreak();const f=tot?ok/tot:0,st=f>=.9?3:f>=.6?2:1;S.games[g.id]=Math.max(S.games[g.id]||0,st);save();chrome('games');
+  app.innerHTML=`<div class="stack" style="text-align:center;justify-items:center;padding-top:30px"><div class="big-stars" aria-label="${st} de 3 estrellas">${'★'.repeat(st)}${'☆'.repeat(3-st)}</div>
+   <div class="score">${ok} / ${tot}</div><p class="muted">aciertos a la primera. Las palabras nuevas ya están en tu repaso.</p>
+   <div class="row" style="justify-content:center"><button class="btn primary" id="again">Jugar otra vez</button><button class="btn" data-go="games">Otros juegos</button></div></div>`;
+  $('#again').onclick=()=>g.fn(g);
+}
+function nextBtn(label,fn){$('#fb').insertAdjacentHTML('beforeend',`<div class="row"><button class="btn primary" id="nx">${label}</button></div>`);const nx=$('#nx');nx.onclick=fn;nx.focus({preventScroll:true});nx.scrollIntoView({block:'nearest',behavior:'smooth'})}
+
+// Supermercado: leer la lista (con vocales, sin vocales y de oído) y encontrar los productos
+function gSuper(g){
+  const R=4;let r=0,ok=0,tot=0;
+  function round(){
+    PH=[];const mode=['nik','nik','plain','audio'][r],n=r<2?3:4;
+    const list=shuffle(FOOD).slice(0,n),shelf=shuffle([...list,...shuffle(FOOD.filter(f=>!list.includes(f))).slice(0,8-n)]);
+    const got=new Set();let err=0;
+    const chip=(f,i)=>mode==='nik'?phr(f):mode==='plain'?`<button class="chip he" data-say="${f[0]}">${strip(f[0])}</button>`:`<button class="chip" data-say="${f[0]}">${SPK} ${i+1}</button>`;
+    const hint={nik:'Lee la lista y toca cada producto en el estante. Toca una palabra de la lista para oírla.',plain:'Ahora sin vocales, como en los carteles de un súper en Israel.',audio:'Ahora solo de oído: toca cada número para escuchar el producto.'}[mode];
+    gShell(g,r,R,`<h2>Lista de compras <span class="he muted" style="font-weight:400">רְשִׁימַת קְנִיּוֹת</span></h2><p class="hint">${hint}</p>
+      <div class="glist">${list.map((f,i)=>`<span class="chipw" data-li="${i}">${chip(f,i)}</span>`).join('')}</div>
+      <div class="shelf">${shelf.map((f,i)=>`<button class="prod" data-p="${i}" aria-label="Producto ${i+1}"><span class="emo">${f[3]}</span><span class="pl he"></span></button>`).join('')}</div><div id="fb"></div>`);
+    if(mode==='audio')setTimeout(()=>speak(list.map(f=>f[0]).join(', ')),300);
+    document.querySelector('.shelf').onclick=e=>{
+      const b=e.target.closest('.prod');if(!b||got.size===n)return;const f=shelf[+b.dataset.p],i=list.indexOf(f);
+      b.querySelector('.pl').textContent=mode==='plain'?strip(f[0]):f[0];speak(f[0]);
+      if(i<0){err++;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake','no');return}
+      if(got.has(i))return;got.add(i);b.classList.add('yes');srsHit(bare(f[0]),true);
+      document.querySelector(`.chipw[data-li="${i}"]`).classList.add('got');
+      if(got.size===n){ok+=Math.max(n-err,0);tot+=n;save();
+        $('#fb').innerHTML=`<div class="fb ${err?'bad':'ok'}"><h3>${err?`Carrito completo, con ${err} ${err===1?'error':'errores'}`:'¡Carrito completo sin errores!'}</h3><div>${list.map(f=>`<span class="he say">${f[0]}</span> <i class="muted">${f[1]}</i> = ${f[2]}`).join('<br>')}</div></div>`;
+        nextBtn(r+1<R?'Siguiente lista':'Terminar',()=>{r++;r<R?round():gEnd(g,ok,tot)})}
+    };
+  }
+  round();
+}
+
+// Caja: entender un precio dicho en hebreo y pagar exacto
+function gCaja(g){
+  const R=5,COINS=[1,2,5,10,20,50];let r=0,ok=0;
+  function round(){
+    PH=[];const n=price(r),nh=numHe(n),parts=[['זֶה עוֹלֶה','ze olé','cuesta'],[nh[0],nh[1],'número '+n],['שְׁקָלִים','shkalím','shekels']];
+    const sent=parts.map(p=>p[0]).join(' '),tray=[];
+    gShell(g,r,R,`<h2>¿Cuánto cuesta?</h2><p class="hint">Escucha a la cajera y paga exacto. Toca una palabra para ver cómo se pronuncia.</p>
+      <div class="chat"><div class="bub them"><span class="who">Cajera · קֻפָּאִית</span><div class="say-line">${parts.map(phr).join('')}</div></div></div>
+      <div class="row"><button class="btn" data-say="${sent}">${SPK} Otra vez</button><button class="btn" data-say="${sent}" data-rate="0.55">Despacio</button></div>
+      <div class="tray" id="tray"></div><div class="row" style="justify-content:center"><b id="sum"></b></div>
+      <div class="money">${COINS.map(c=>`<button class="${c>=20?'bill':'coin'}" data-c="${c}">₪${c}</button>`).join('')}</div>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="pay" disabled>Pagar</button><button class="btn" id="clr">Borrar</button></div><div id="fb"></div>`);
+    setTimeout(()=>speak(sent),300);
+    const sum=()=>tray.reduce((a,b)=>a+b,0);
+    const draw=()=>{$('#tray').innerHTML=tray.map((c,j)=>`<button class="${c>=20?'bill':'coin'}" data-t="${j}" aria-label="Quitar ₪${c}">₪${c}</button>`).join('');$('#sum').textContent='Has puesto ₪'+sum();$('#pay').disabled=!sum()};
+    document.querySelector('.money').onclick=e=>{const b=e.target.closest('[data-c]');if(b&&!b.disabled){tray.push(+b.dataset.c);draw()}};
+    $('#tray').onclick=e=>{const b=e.target.closest('[data-t]');if(b&&!b.disabled){tray.splice(+b.dataset.t,1);draw()}};
+    $('#clr').onclick=()=>{tray.length=0;draw()};
+    $('#pay').onclick=()=>{const s=sum(),good=s===n;if(good)ok++;
+      document.querySelectorAll('.money button,#tray button,#pay,#clr').forEach(b=>b.disabled=true);
+      speak(good?'תּוֹדָה רַבָּה!':sent);
+      $('#fb').innerHTML=`<div class="fb ${good?'ok':'bad'}"><h3>${good?'¡Exacto! תּוֹדָה רַבָּה':`Costaba ₪${n}: ${s>n?'pagaste de más':'te faltó dinero'}`}</h3><div><span class="he say" style="font-size:22px">${nh[0]}</span> · <i>${nh[1]}</i> = ${n}</div></div>`;
+      nextBtn(r+1<R?'Siguiente cliente':'Terminar',()=>{r++;r<R?round():gEnd(g,ok,R)})};
+    draw();
+  }
+  round();
+}
+
+// Café: pedir siguiendo una nota de pedido
+const CAFE=[
+ {w:['שָׁלוֹם! מָה תִּרְצֶה?','shalóm! ma tirtsé?','¡Hola! ¿Qué vas a querer?'],k:'drink',o:{cafe:['קָפֶה הָפוּךְ, בְּבַקָּשָׁה','kafé hafúj, bevakashá'],te:['תֵּה, בְּבַקָּשָׁה','te, bevakashá']}},
+ {w:['גָּדוֹל אוֹ קָטָן?','gadól o katán?','¿Grande o pequeño?'],k:'size',o:{g:['גָּדוֹל, בְּבַקָּשָׁה','gadól, bevakashá'],p:['קָטָן, בְּבַקָּשָׁה','katán, bevakashá']}},
+ {w:['עוֹד מַשֶּׁהוּ?','od máshehu?','¿Algo más?'],k:'extra',o:{c:['כֵּן, גַּם קְרוּאָסוֹן','ken, gam kruasón'],n:['לֹא, זֶה הַכֹּל, תּוֹדָה','lo, ze ha-kól, todá']}},
+ {w:['לְכָאן אוֹ לָלֶכֶת?','le-kán o laléjet?','¿Para tomar aquí o para llevar?'],k:'where',o:{a:['לְכָאן','le-kán'],l:['לָלֶכֶת','laléjet']}},
+];
+const CAFE_X=[['לַיְלָה טוֹב','láila tov'],['אֲנִי לֹא יוֹדֵעַ','aní lo yodéa'],['לְהִתְרָאוֹת!','lehitraót'],['אֲנִי בַּבַּיִת','aní ba-báyit'],['יֵשׁ לִי כֶּלֶב','yesh li kélev']];
+const GOALS={drink:{cafe:'<span class=\"emo\">☕</span> café con leche',te:'<span class=\"emo\">🍵</span> té'},size:{g:'grande',p:'pequeño'},extra:{c:'<span class=\"emo\">🥐</span> con cruasán',n:'nada más'},where:{a:'para tomar aquí',l:'<span class=\"emo\">🥡</span> para llevar'}};
+function gCafe(g){
+  const R=2;let r=0,ok=0,tot=0;
+  function round(){
+    PH=[];const goal={};CAFE.forEach(s=>goal[s.k]=pick(Object.keys(s.o)));let step=0;
+    gShell(g,r,R,`<h2>Pide en el café</h2><div class="goal"><b>Tu pedido:</b>${CAFE.map(s=>`<span>${GOALS[s.k][goal[s.k]]}</span>`).join('<span aria-hidden="true">·</span>')}</div>
+      <label class="chk"><input type="checkbox" id="g-tr" ${S.gtr?'checked':''}> Mostrar transliteración</label>
+      <div class="chat" id="chat"></div><div id="opts"></div><div id="fb"></div>`);
+    $('#g-tr').onchange=e=>{S.gtr=e.target.checked;save();document.querySelectorAll('#chat .t,#opts .t').forEach(x=>x.hidden=!S.gtr)};
+    const chat=$('#chat');
+    const say=(a,me)=>{chat.insertAdjacentHTML('beforeend',`<div class="bub ${me?'me':'them'}"><span class="who">${me?'Tú':'Mesero · מֶלְצַר'}</span><span class="he" style="font-size:22px">${a[0]}</span><span class="t" ${S.gtr?'':'hidden'}>${a[1]}</span>${!me&&a[2]?`<details><summary>¿Qué dice?</summary>${a[2]}</details>`:''}</div>`);speak(a[0])};
+    function ask(){
+      if(step>=CAFE.length){say(['בְּתֵאָבוֹן!','betéavon','¡Buen provecho!']);$('#opts').innerHTML='';
+        $('#fb').innerHTML='<div class="fb ok"><h3>¡Pedido listo!</h3></div>';nextBtn(r+1<R?'Siguiente cliente':'Terminar',()=>{r++;r<R?round():gEnd(g,ok,tot)});return}
+      const s=CAFE[step],right=s.o[goal[s.k]];let miss=false;say(s.w);
+      const opts=shuffle([right,...Object.keys(s.o).filter(k=>k!==goal[s.k]).map(k=>s.o[k]),pick(CAFE_X)]);
+      $('#opts').innerHTML=`<p class="hint">Responde según tu pedido:</p><div class="opts">${opts.map((o,j)=>`<button class="opt he" data-j="${j}">${o[0]}<span class="t" ${S.gtr?'':'hidden'}>${o[1]}</span></button>`).join('')}</div>`;
+      $('#opts').onclick=e=>{const b=e.target.closest('.opt');if(!b||b.disabled)return;const o=opts[+b.dataset.j];
+        if(o===right){tot++;if(!miss)ok++;document.querySelectorAll('#opts .opt').forEach(x=>x.disabled=true);say(o,true);step++;setTimeout(ask,1600)}
+        else{miss=true;b.disabled=true;b.classList.add('bad');say(['סְלִיחָה, לֹא הֵבַנְתִּי.','slijá, lo hevánti','Perdón, no entendí.'])}};
+      $('#opts').scrollIntoView({block:'nearest',behavior:'smooth'});
+    }
+    ask();
+  }
+  round();
+}
+
+// Taxi: entender el destino y seguir indicaciones
+function gTaxi(g){
+  const R=4;let r=0,ok=0,tot=0;
+  function round(){
+    PH=[];const opts=shuffle(PLACES).slice(0,6),p=pick(opts),audio=r>=2;let miss=false;
+    const req=[p[4]+', בְּבַקָּשָׁה',p[5]+', bevakashá','A '+p[2]+', por favor'];
+    gShell(g,r,R,`<h2>¿A dónde va?</h2><p class="hint">${audio?'Ahora solo de oído: escucha al pasajero.':'Lee o escucha al pasajero y elige su destino. Toca la frase para ver cómo se pronuncia.'}</p>
+      <div class="chat"><div class="bub them"><span class="who">Pasajero · נוֹסֵעַ</span>${audio?`<button class="btn" data-say="${req[0]}">${SPK} Escuchar</button>`:phr(req)}</div></div>
+      <div class="places">${opts.map((o,j)=>`<button class="prod" data-j="${j}"><span class="emo">${o[3]}</span><span class="pl">${o[2]}</span></button>`).join('')}</div><div id="fb"></div>`);
+    setTimeout(()=>speak(req[0]),300);
+    document.querySelector('.places').onclick=e=>{const b=e.target.closest('.prod');if(!b||b.disabled)return;const o=opts[+b.dataset.j];
+      if(o!==p){miss=true;b.disabled=true;b.classList.add('no','shake');return}
+      tot++;if(!miss)ok++;srsHit(bare(p[0]),!miss);save();b.classList.add('yes');
+      document.querySelectorAll('.places .prod').forEach(x=>x.disabled=true);drive(p)};
+  }
+  function drive(p){
+    const steps=Array.from({length:3},()=>pick(DIRS)),route=[];let k=0,miss=false;
+    $('#fb').innerHTML=`<div class="card"><h3>Sigue las indicaciones del pasajero</h3><div class="chat" id="dchat"></div><div class="route" id="route" aria-live="polite">🚕</div>
+      <div class="arrows">${[['←','Izquierda'],['↑','Recto'],['→','Derecha']].map(a=>`<button data-a="${a[0]}" aria-label="${a[1]}">${a[0]}</button>`).join('')}</div></div>`;
+    const show=()=>{
+      if(k>=steps.length){const end=['פֹּה, תּוֹדָה!','po, todá','¡Aquí, gracias!'];$('#dchat').innerHTML=`<div class="bub them">${phr(end)}</div>`;speak(end[0]);
+        $('#fb').insertAdjacentHTML('beforeend',`<div class="fb ok"><h3>¡Llegaste: <span class="emo">${p[3]}</span> ${p[2]}!</h3><div><span class="he say">${p[0]}</span> <i class="muted">${p[1]}</i></div></div>`);
+        nextBtn(r+1<R?'Siguiente pasajero':'Terminar',()=>{r++;r<R?round():gEnd(g,ok,tot)});return}
+      miss=false;const d=steps[k];$('#dchat').innerHTML=`<div class="bub them">${phr(d)}</div>`;speak(d[0])};
+    document.querySelector('.arrows').onclick=e=>{const b=e.target.closest('[data-a]');const d=steps[k];if(!b||!d)return;
+      if(b.dataset.a!==d[3]){miss=true;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return}
+      tot++;if(!miss)ok++;srsHit(bare(d[0]),!miss);save();route.push(d[3]);$('#route').textContent='🚕 '+route.join(' ');k++;
+      if(k>=steps.length)document.querySelectorAll('.arrows button').forEach(x=>x.disabled=true);show()};
+    show();$('#fb').scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+  round();
+}
+
+const GAMES=[
+ {id:'super',t:'Supermercado',he:'סוּפֶּרְמַרְקֶט',ico:'🛒',sub:'Lee la lista y llena el carrito',fn:gSuper},
+ {id:'caja',t:'En la caja',he:'קֻפָּה',ico:'🪙',sub:'Escucha el precio y paga exacto',fn:gCaja},
+ {id:'cafe',t:'En el café',he:'בֵּית קָפֶה',ico:'☕',sub:'Pide en hebreo según tu nota',fn:gCafe},
+ {id:'taxi',t:'Taxi',he:'מוֹנִית',ico:'🚕',sub:'Entiende el destino y las indicaciones',fn:gTaxi},
+];
+const gameCard=g=>{const st=S.games[g.id]||0;return`<button class="gcard" data-game="${g.id}"><span class="emo" aria-hidden="true">${g.ico}</span><b>${g.t}</b><span class="he">${g.he}</span><small>${g.sub}</small><span class="stars" aria-label="${st} de 3 estrellas">${st?'★'.repeat(st)+'☆'.repeat(3-st):'Nuevo'}</span></button>`};
+function games(){
+  chrome('games');
+  app.innerHTML=`<div class="stack"><h1>Vida diaria</h1>
+   <p class="hint">Minijuegos para usar el hebreo en situaciones reales: comprar, pagar, pedir en un café y moverte en taxi. Cada partida cambia, y las palabras que aciertas se guardan en tu repaso.</p>
+   <div class="games">${GAMES.map(gameCard).join('')}</div></div>`;
 }
 
 // ---------- Navegación ----------
@@ -838,7 +1077,9 @@ document.addEventListener('click',e=>{
   const t=e.target;
   if(popFor&&!t.closest('#pop')&&!popFor.contains(t))hidePop();
   const g=t.closest('[data-go]');
-  if(g){const v=g.dataset.go;({home,alef,words,review})[v]?({home,alef,words,review})[v]():unit(+g.dataset.u,g.dataset.tab);return}
+  if(g){const v=g.dataset.go,V={home,alef,words,review,games};V[v]?V[v]():unit(+g.dataset.u,g.dataset.tab);return}
+  const ph=t.closest('[data-ph]');if(ph){tapWord(ph,PH[+ph.dataset.ph]);return}
+  const gm=t.closest('[data-game]');if(gm){const G0=GAMES.find(x=>x.id===gm.dataset.game);G0.fn(G0);return}
   const s=t.closest('[data-say]');if(s){speak(s.dataset.say,s.dataset.rate?+s.dataset.rate:undefined);return}
   const sy=t.closest('.say');if(sy){speak(sy.textContent);return}
   const w=t.closest('[data-word]');if(w){const o=WORDS[w.dataset.word];wordSheet(o.k,o.tr,o.es,o.note);return}
