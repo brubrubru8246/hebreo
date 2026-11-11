@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Aprende hebreo desde cero hasta A2 leyendo textos reales: toca cada letra y palabra para oírla.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Hebreo desde Álef</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600&family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: one reading column, sticky top bar, bottom sheet for letter/word details. Light-only by request. */
+:root{
+  --paper:#F7F9FC; --card:#FFFFFF; --ink:#1E2A3F; --muted:#5B687D; --line:#E1E7F0;
+  --accent:#2A5FC4; --accent-soft:#E6EDFB; --on-accent:#FFFFFF;
+  --ok:#3D7A2A; --ok-soft:#E7F3E0; --bad:#B4384A; --bad-soft:#FBE7EA; --hl:#FFEFC2; --gold:#9A6B00;
+  --shadow:0 10px 30px rgba(30,42,63,.10);
+  --ui:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --he:"Noto Sans Hebrew","Arial Hebrew","Segoe UI",sans-serif;
+  color-scheme:light;
+}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--ui);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.he{font-family:var(--he);direction:rtl;unicode-bidi:isolate}
+.say{cursor:pointer;border-bottom:1px dotted var(--accent)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-in{max-width:780px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:baseline;gap:8px;font-weight:700;font-size:18px;background:none;border:0;padding:0;cursor:pointer}
+.brand .he{color:var(--accent);font-size:20px;font-weight:600}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav button{border:0;background:none;padding:6px 10px;border-radius:999px;cursor:pointer;color:var(--muted);font-weight:500}
+.nav button:hover,.nav button.on{background:var(--accent-soft);color:var(--accent)}
+.badge{display:inline-block;min-width:20px;padding:0 6px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:12px;line-height:20px;text-align:center;margin-left:4px;font-variant-numeric:tabular-nums}
+.streak{font-size:13px;color:var(--gold);font-weight:500}
+.wrap{max-width:780px;margin:0 auto;padding-block:22px 140px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body.sheet-open .wrap{padding-bottom:55vh}
+h1,h2,h3{line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,5vw,36px);font-weight:700}
+h2{font-size:22px;font-weight:700}
+h3{font-size:17px;font-weight:600}
+p{margin:0}
+.stack{display:grid;gap:16px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 16px;cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn svg,.spk svg,.play svg{width:18px;height:18px;fill:currentColor}
+.muted{color:var(--muted)}
+.hint{color:var(--muted);max-width:62ch}
+.back{border:0;background:none;color:var(--accent);cursor:pointer;padding:4px 0;font-weight:500}
+
+/* Home */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:24px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.hero p{color:var(--muted);margin-top:10px;max-width:56ch}
+.hero .row{margin-top:18px}
+.hero-word{font-family:var(--he);font-size:clamp(46px,10vw,72px);direction:rtl;line-height:1.6;color:var(--accent);text-align:center}
+.hero-word button{border:0;background:none;padding:0 1px;border-radius:8px;cursor:pointer;font:inherit;color:inherit}
+.hero-word button:hover{background:var(--hl)}
+.hero-cap{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){.hero{grid-template-columns:1fr}}
+.voice-warn{padding:12px 16px;border-radius:12px;background:var(--hl);font-size:14px}
+.units{display:grid;gap:10px}
+.unit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;width:100%}
+.unit:hover{border-color:var(--accent)}
+.unit.next{border-color:var(--accent);box-shadow:var(--shadow)}
+.num{width:48px;height:48px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;line-height:1}
+.num b{font-family:var(--he);font-size:24px;font-weight:600}
+.num small{font-size:10px;color:var(--muted)}
+.unit.complete .num{background:var(--ok-soft);color:var(--ok)}
+.u-main{display:grid;gap:2px;min-width:0}
+.u-kind{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.u-title{font-weight:600;font-size:17px}
+.u-title .he{color:var(--muted);font-weight:400;font-size:16px;margin-left:6px}
+.u-sub{font-size:14px;color:var(--muted)}
+.pills{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.pill{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--paper);color:var(--muted);border:1px solid var(--line)}
+.pill.on{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chev{font-size:24px;color:var(--muted)}
+.method{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
+.method summary{cursor:pointer;font-weight:600}
+.method ul{margin:12px 0 0;padding-left:18px;display:grid;gap:8px;color:var(--ink)}
+.method li b{font-weight:600}
+
+/* Unit */
+.u-head{display:grid;gap:6px;margin:8px 0 16px}
+.u-head .he-t{font-family:var(--he);font-size:28px;color:var(--accent);direction:rtl;text-align:left}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:18px}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;font-weight:500}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tabs button.done:not(.on){color:var(--ok);border-color:var(--ok)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);font-size:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:var(--card);padding:6px 12px;cursor:pointer}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.chk{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.chk select{font:inherit;padding:3px 6px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
+.text{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 0}
+.line{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px 18px;border-bottom:1px dashed var(--line)}
+.line:last-child{border-bottom:0}
+.line.speaking{background:var(--accent-soft)}
+.play,.spk{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center;color:var(--accent)}
+.play:hover,.spk:hover{background:var(--accent-soft)}
+.l-body{display:grid;gap:4px;min-width:0}
+.heline{font-family:var(--he);font-size:clamp(26px,6vw,34px);line-height:2;direction:rtl;text-align:right}
+.w,.ch{border-radius:6px;transition:background .15s}
+.mode-w .w{cursor:pointer;padding:0 2px}
+.mode-w .w:hover{background:var(--accent-soft)}
+.mode-l .ch{cursor:pointer}
+.mode-l .ch:hover{background:var(--hl)}
+.sel{background:var(--hl)!important}
+.tr{color:var(--muted);font-size:15px;font-style:italic}
+.reveal{justify-self:start;border:0;background:none;color:var(--accent);cursor:pointer;font-size:14px;padding:2px 0}
+.es{font-size:15px}
+
+/* Etiqueta rápida bajo la palabra */
+#pop{position:absolute;z-index:45;transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:10px;padding:3px 4px 3px 10px;font-size:15px;line-height:1.4;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);white-space:nowrap}
+#pop::before{content:"";position:absolute;top:-5px;left:calc(50% + var(--ax,0px));margin-left:-5px;border:5px solid transparent;border-top:0;border-bottom-color:var(--ink)}
+#pop .dim{opacity:.7;font-size:13px}
+#pop button{border:0;background:var(--accent);color:var(--on-accent);border-radius:7px;padding:1px 8px;cursor:pointer;font-size:12px}
+/* Sheet */
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -12px 34px rgba(30,42,63,.14);border-radius:22px 22px 0 0;max-height:50vh;overflow:auto;padding-top:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet-in{max-width:780px;margin:0 auto;position:relative;display:grid;gap:14px}
+.x{position:absolute;top:-6px;right:0;border:0;background:var(--paper);width:34px;height:34px;border-radius:50%;cursor:pointer}
+.sh-top{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding-right:40px}
+.big{font-family:var(--he);font-size:56px;line-height:1.5;color:var(--accent);direction:rtl}
+.tr-b{font-size:20px;font-style:italic}
+.es-b{font-size:18px;font-weight:600}
+.note{font-size:14px;color:var(--muted);max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px 16px}
+.sh-top>div:last-child{flex:1;min-width:220px}
+.facts div{display:grid;justify-items:start}
+.lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.facts b{font-size:18px}
+.mini{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
+.mini button{font-family:var(--he);font-size:26px;min-width:46px;padding:2px 8px;border:1px solid var(--line);background:var(--paper);border-radius:10px;cursor:pointer}
+.mini button:hover{background:var(--hl)}
+
+/* Letter grids */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.lcard{display:grid;justify-items:center;gap:0;padding:10px 6px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer}
+.lcard:hover{border-color:var(--accent)}
+.lcard .he{font-size:34px;line-height:1.5;color:var(--accent)}
+.lcard b{font-size:14px;font-weight:600}
+.lcard small{font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:8px}
+.card .he{font-size:1.25em}
+
+/* Exercises */
+.run-top{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-bottom:22px}
+.bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.cnt{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ex{display:grid;gap:16px}
+.ex-type{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.ex-head{display:flex;gap:12px;align-items:center}
+.q-big{font-family:var(--he);font-size:64px;line-height:1.5;text-align:center;direction:rtl;color:var(--ink)}
+.q-sound{font-size:40px;text-align:center;font-style:italic;color:var(--accent)}
+.q-sent{font-family:var(--he);font-size:30px;line-height:2;text-align:center;direction:rtl}
+.gap{display:inline-block;min-width:70px;border-bottom:3px solid var(--accent);color:transparent}
+.q-help{color:var(--muted);text-align:center}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:480px){.opts{grid-template-columns:1fr}}
+.opt{min-height:58px;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;font-size:17px;text-align:center}
+.opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+.opt.he{font-size:26px}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.answer{min-height:66px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;direction:rtl;align-items:center}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;direction:rtl;justify-content:center}
+.tile{font-family:var(--he);font-size:28px;padding:4px 14px;border:1.5px solid var(--line);border-bottom-width:3px;border-radius:12px;background:var(--card);cursor:pointer}
+.tile.wd{font-size:22px}
+.tile:hover{border-color:var(--accent)}
+.tile[hidden]{display:none}
+.fb{border-radius:14px;padding:14px 16px;display:grid;gap:8px}
+.fb.ok{background:var(--ok-soft)}
+.fb.bad{background:var(--bad-soft)}
+.fb h3{color:var(--ok)}
+.fb.bad h3{color:var(--bad)}
+.shadow-line{font-family:var(--he);font-size:32px;line-height:2;direction:rtl;text-align:center}
+.score{font-size:56px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.wlist{display:grid;gap:6px}
+.wrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:12px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;text-align:left;width:100%}
+.wrow .he{font-size:22px;text-align:right}
+.lvl{display:flex;gap:2px}
+.lvl i{width:6px;height:14px;border-radius:2px;background:var(--line)}
+.lvl i.on{background:var(--ok)}
+table.vt{border-collapse:collapse;width:100%;background:var(--card);border-radius:14px;overflow:hidden}
+.vt td,.vt th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:15px}
+.vt th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.vt .he{font-size:28px;color:var(--accent)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <button class="brand" data-go="home"><span class="he">מֵאָלֶף</span><span>Hebreo desde Álef</span></button>
+  <span class="streak" id="streak"></span>
+  <nav class="nav">
+    <button data-go="home" id="nav-home">Camino</button>
+    <button data-go="alef" id="nav-alef">Álef-bet</button>
+    <button data-go="words" id="nav-words">Palabras</button>
+    <button data-go="review" id="nav-review">Repaso<span class="badge" id="due"></span></button>
+  </nav>
+</div></header>
+<main class="wrap" id="app"></main>
+<div id="pop" hidden role="status"></div>
+<div id="sheet" hidden role="dialog" aria-label="Detalle"><div class="sheet-in"><button class="x" id="sheet-close" aria-label="Cerrar">✕</button><div id="sheet-body" class="stack"></div></div></div>
+
+<script>
+// ---------- Contenido ----------
+// Cada palabra: [hebreo con nikud y puntuación, transliteración (tilde = sílaba tónica), significado, nota opcional]
+const U=[
+{id:'u1',t:'¡Shalom!',he:'שָׁלוֹם',kind:'Diálogo',sub:'Saludar, presentarse y despedirse',focus:'שלוםאנידטבת',
+lines:[
+ {es:'¡Hola! Yo soy Dani.',w:[['שָׁלוֹם!','shalóm','hola; paz','Significa «paz». Se usa para saludar y para despedirse.'],['אֲנִי','aní','yo'],['דָּנִי.','Dáni','Dani (nombre)']]},
+ {es:'¡Hola, Dani! Yo soy Sara.',w:[['שָׁלוֹם,','shalóm','hola; paz'],['דָּנִי!','Dáni','Dani (nombre)'],['אֲנִי','aní','yo'],['שָׂרָה.','Sará','Sara (nombre)','La שׂ con el punto a la izquierda suena s.']]},
+ {es:'¿Cómo estás, Sara?',w:[['מַה','ma','qué; cómo'],['שְׁלוֹמֵךְ,','shloméj','cómo estás (a una mujer)','Literal: «tu paz». La terminación ־ֵךְ es «tu» femenino.'],['שָׂרָה?','Sará','Sara (nombre)']]},
+ {es:'Muy bien, gracias. ¿Y tú cómo estás?',w:[['טוֹב','tov','bien; bueno'],['מְאוֹד,','meód','muy'],['תּוֹדָה.','todá','gracias'],['וּמַה','u-má','¿y qué?; ¿y cómo?','La וּ pegada al inicio significa «y».'],['שְׁלוֹמְךָ?','shlomjá','cómo estás (a un hombre)','La terminación ־ְךָ es «tu» masculino.']]},
+ {es:'Bien, gracias.',w:[['בְּסֵדֶר,','beséder','bien; de acuerdo','Literal: «en orden».'],['תּוֹדָה.','todá','gracias']]},
+ {es:'¡Hasta luego, Dani! ¡Buen día!',w:[['לְהִתְרָאוֹת,','lehitraót','hasta luego'],['דָּנִי!','Dáni','Dani (nombre)'],['יוֹם','yom','día'],['טוֹב!','tov','bueno; bien']]},
+],
+gram:{notes:[
+ ['Sin verbo «ser» en presente','En presente el hebreo no usa «ser» ni «estar»: <span class="he say">אֲנִי דָּנִי</span> significa «(yo) soy Dani».'],
+ ['Hablar a él o a ella','El hebreo marca el género de la persona con quien hablas: <span class="he say">מַה שְׁלוֹמְךָ</span> a un hombre y <span class="he say">מַה שְׁלוֹמֵךְ</span> a una mujer.'],
+ ['La «y» va pegada','«Y» es la letra ו unida a la palabra siguiente: <span class="he say">וּמַה</span> = «¿y qué?».'],
+ ['Letras finales','Cinco letras cambian de forma al final de palabra: מ→ם, נ→ן, כ→ך, פ→ף, צ→ץ. Ya las viste en <span class="he say">שָׁלוֹם</span> y <span class="he say">שְׁלוֹמֵךְ</span>.'],
+],quiz:[
+ {q:'¿Cómo le preguntas «¿cómo estás?» a una mujer?',o:['מַה שְׁלוֹמֵךְ','מַה שְׁלוֹמְךָ']},
+ {q:'¿Cuál es la forma final de מ?',o:['ם','ן','ך']},
+ {q:'«אֲנִי שָׂרָה» significa…',o:['Yo soy Sara','Ella es Sara','Hola, Sara']},
+ {q:'¿Qué significa la וּ en «וּמַה»?',o:['y','el','en']},
+]}},
+
+{id:'u2',t:'Hiné ma tov',he:'הִנֵּה מַה טּוֹב',kind:'Canción · Salmo 133',sub:'Un verso que se canta en todo el mundo',focus:'הנעחגכי',
+lines:[
+ {es:'¡Mira qué bueno y qué agradable',w:[['הִנֵּה','hiné','mira; he aquí'],['מַה','ma','qué (tan)'],['טּוֹב','tov','bueno','Lleva punto (dagesh) porque en el verso va unida a מַה.'],['וּמַה','u-má','y qué (tan)'],['נָּעִים','naím','agradable']]},
+ {es:'es que los hermanos vivan también juntos!',w:[['שֶׁבֶת','shévet','habitar; estar sentados'],['אַחִים','ajím','hermanos','Plural de אָח (hermano): masculino plural en ־ִים.'],['גַּם','gam','también'],['יָחַד.','yájad','juntos']]},
+ {es:'Les trajimos paz.',w:[['הֵבֵאנוּ','hevénu','trajimos'],['שָׁלוֹם','shalóm','paz; hola'],['עֲלֵיכֶם.','aleijém','a ustedes; sobre ustedes','También en el saludo שָׁלוֹם עֲלֵיכֶם.']]},
+ {es:'Les trajimos paz, paz, paz.',w:[['הֵבֵאנוּ','hevénu','trajimos'],['שָׁלוֹם,','shalóm','paz'],['שָׁלוֹם,','shalóm','paz'],['שָׁלוֹם','shalóm','paz'],['עֲלֵיכֶם!','aleijém','a ustedes']]},
+],
+gram:{notes:[
+ ['Plural masculino ־ִים','Casi todos los sustantivos masculinos forman el plural con ־ִים: <span class="he say">אָח</span> → <span class="he say">אַחִים</span>.'],
+ ['מַה para exclamar','<span class="he say">מַה</span> pregunta «¿qué?», pero también exclama: <span class="he say">מַה טּוֹב</span> = «¡qué bueno!».'],
+ ['Las vocales i, e','Jirik (punto abajo) suena i: <span class="he say">הִ</span>. Tseré (dos puntos) y segol (tres puntos) suenan e: <span class="he say">הֵ</span>, <span class="he say">שֶׁ</span>.'],
+],quiz:[
+ {q:'¿Cuál es el plural de אָח (hermano)?',o:['אַחִים','אָחוֹת','אַחַת']},
+ {q:'«גַּם» significa…',o:['también','juntos','bueno']},
+ {q:'«מַה טּוֹב» significa…',o:['¡qué bueno!','¿qué es bueno?','muy bueno']},
+]}},
+
+{id:'u3',t:'Mi familia',he:'הַמִּשְׁפָּחָה שֶׁלִּי',kind:'Texto',sub:'La casa, la familia y cómo describir',focus:'בכפקזגמ',
+lines:[
+ {es:'Esta es mi casa.',w:[['זֶה','ze','este; esto (es)'],['הַבַּיִת','ha-báyit','la casa','הַ = «el, la».'],['שֶׁלִּי.','shelí','mío; mi']]},
+ {es:'En la casa hay papá, mamá, un hermano y una hermana.',w:[['בַּבַּיִת','ba-báyit','en la casa','בְּ (en) + הַ (la) se funden en בַּ.'],['יֵשׁ','yesh','hay'],['אַבָּא,','ába','papá'],['אִמָּא,','íma','mamá'],['אָח','aj','hermano'],['וְאָחוֹת.','ve-ajót','y una hermana']]},
+ {es:'Mi hermano es pequeño.',w:[['הָאָח','ha-áj','el hermano'],['שֶׁלִּי','shelí','mío; mi'],['קָטָן.','katán','pequeño']]},
+ {es:'Mi hermana es pequeña.',w:[['הָאָחוֹת','ha-ajót','la hermana'],['שֶׁלִּי','shelí','mío; mi'],['קְטַנָּה.','ktaná','pequeña','Femenino de קָטָן: se añade ־ָה.']]},
+ {es:'También tenemos un perro.',w:[['יֵשׁ','yesh','hay'],['לָנוּ','lánu','a nosotros','יֵשׁ לָנוּ = «tenemos».'],['גַּם','gam','también'],['כֶּלֶב.','kélev','perro']]},
+ {es:'El perro es grande y blanco.',w:[['הַכֶּלֶב','ha-kélev','el perro'],['גָּדוֹל','gadól','grande'],['וְלָבָן.','ve-laván','y blanco']]},
+ {es:'Quiero a mi familia.',w:[['אֲנִי','aní','yo'],['אוֹהֵב','ohév','amo; quiero (hombre)','Una mujer dice אוֹהֶבֶת.'],['אֶת','et','(marca de objeto directo)','Va antes de un objeto directo con «el/la». No se traduce.'],['הַמִּשְׁפָּחָה','ha-mishpajá','la familia'],['שֶׁלִּי.','shelí','mío; mi']]},
+],
+gram:{notes:[
+ ['El artículo הַ','<span class="he say">הַ</span> = «el / la / los / las», sin género, pegado a la palabra: <span class="he say">בַּיִת</span> (una casa) → <span class="he say">הַבַּיִת</span> (la casa).'],
+ ['Posesivo con שֶׁלִּי','«Mi» va después del sustantivo con artículo: <span class="he say">הַבַּיִת שֶׁלִּי</span> = «mi casa» (la casa mía).'],
+ ['Adjetivo detrás, y concuerda','<span class="he say">אָח קָטָן</span> (hermano pequeño), <span class="he say">אָחוֹת קְטַנָּה</span> (hermana pequeña).'],
+ ['Tener = יֵשׁ + לְ','<span class="he say">יֵשׁ לִי</span> = tengo, <span class="he say">יֵשׁ לָנוּ</span> = tenemos. Literal: «hay a mí».'],
+],quiz:[
+ {q:'«La casa» se dice…',o:['הַבַּיִת','בַּיִת','בַּבַּיִת']},
+ {q:'Completa: הָאָחוֹת שֶׁלִּי ___ (pequeña)',o:['קְטַנָּה','קָטָן']},
+ {q:'«יֵשׁ לָנוּ» significa…',o:['tenemos','somos','hay nosotros']},
+ {q:'«בַּבַּיִת» significa…',o:['en la casa','la casa','mi casa']},
+]}},
+
+{id:'u4',t:'Modé aní',he:'מוֹדֶה אֲנִי',kind:'Oración de la mañana',sub:'Lo primero que se dice al despertar',focus:'מךחקרזנ',
+lines:[
+ {es:'Te doy gracias,',w:[['מוֹדֶה','modé','agradezco (hombre)','Una mujer dice מוֹדָה.'],['אֲנִי','aní','yo'],['לְפָנֶיךָ,','lefanéja','ante ti','Termina en ךָ final con kamatz: «-ja».']]},
+ {es:'Rey vivo y eterno,',w:[['מֶלֶךְ','mélej','rey'],['חַי','jai','vivo'],['וְקַיָּם,','ve-kayám','y eterno; y existente']]},
+ {es:'que me devolviste mi alma',w:[['שֶׁהֶחֱזַרְתָּ','she-hejezárta','que devolviste','שֶׁ = «que». ־ְתָּ = «tú» en pasado.'],['בִּי','bi','en mí'],['נִשְׁמָתִי','nishmatí','mi alma','־ִי al final = «mi».']]},
+ {es:'con compasión. ¡Grande es tu fidelidad!',w:[['בְּחֶמְלָה,','be-jemlá','con compasión'],['רַבָּה','rabá','grande; mucha'],['אֱמוּנָתֶךָ.','emunatéja','tu fidelidad','־ֶךָ = «tu» (masculino).']]},
+],
+gram:{notes:[
+ ['Posesivo pegado al final','Además de שֶׁלִּי, se puede pegar el posesivo: <span class="he say">נִשְׁמָתִי</span> = mi alma (־ִי), <span class="he say">אֱמוּנָתֶךָ</span> = tu fidelidad (־ךָ).'],
+ ['שֶׁ = que','El prefijo <span class="he say">שֶׁ</span> une frases como «que»: <span class="he say">שֶׁהֶחֱזַרְתָּ</span> = «que devolviste».'],
+ ['Presente: él / ella','<span class="he say">מוֹדֶה</span> (él) · <span class="he say">מוֹדָה</span> (ella). Casi siempre la forma femenina termina en ־ָה o ־ֶת.'],
+ ['Vocal o con ו','La ו con punto arriba (וֹ) no suena v, suena o: <span class="he say">מוֹדֶה</span>. Con punto en medio (וּ) suena u.'],
+],quiz:[
+ {q:'«נִשְׁמָתִי» significa…',o:['mi alma','tu alma','el alma']},
+ {q:'¿Qué dice una mujer al despertar?',o:['מוֹדָה אֲנִי','מוֹדֶה אֲנִי']},
+ {q:'El prefijo שֶׁ significa…',o:['que','y','en']},
+ {q:'¿Cómo suena וֹ?',o:['o','v','u']},
+]}},
+
+{id:'u5',t:'Por la mañana',he:'בַּבֹּקֶר',kind:'Texto',sub:'Rutina diaria y el presente',focus:'קשעהכלת',
+lines:[
+ {es:'Por la mañana me levanto a las siete.',w:[['בַּבֹּקֶר','ba-bóker','por la mañana'],['אֲנִי','aní','yo'],['קָם','kam','me levanto (hombre)'],['בְּשֶׁבַע.','be-shéva','a las siete']]},
+ {es:'Bebo café y como pan.',w:[['אֲנִי','aní','yo'],['שׁוֹתֶה','shoté','bebo (hombre)'],['קָפֶה','kafé','café'],['וְאוֹכֵל','ve-ojél','y como (hombre)'],['לֶחֶם.','léjem','pan']]},
+ {es:'Después voy al trabajo.',w:[['אַחַר','ajár','después'],['כָּךְ','kaj','así','אַחַר כָּךְ = «después».'],['אֲנִי','aní','yo'],['הוֹלֵךְ','holéj','voy; camino (hombre)'],['לָעֲבוֹדָה.','la-avodá','al trabajo','לְ (a) + הַ (el) = לָ.']]},
+ {es:'Sara se levanta a las ocho.',w:[['שָׂרָה','Sará','Sara (nombre)'],['קָמָה','kamá','se levanta (mujer)'],['בִּשְׁמוֹנֶה.','bi-shmoné','a las ocho']]},
+ {es:'Ella bebe té y lee un libro.',w:[['הִיא','hi','ella'],['שׁוֹתָה','shotá','bebe (mujer)'],['תֵּה','te','té'],['וְקוֹרֵאת','ve-korét','y lee (mujer)'],['סֵפֶר.','séfer','libro']]},
+ {es:'Por la noche comemos juntos.',w:[['בָּעֶרֶב','ba-érev','por la noche; en la tarde'],['אֲנַחְנוּ','anájnu','nosotros'],['אוֹכְלִים','ojlím','comemos; comen (plural)'],['יַחַד.','yájad','juntos']]},
+],
+gram:{notes:[
+ ['El presente tiene 4 formas','Cambia por género y número, no por persona: <span class="he say">אוֹכֵל</span> (él/yo, m.) · <span class="he say">אוֹכֶלֶת</span> (ella, f.) · <span class="he say">אוֹכְלִים</span> (ellos, m. pl.) · <span class="he say">אוֹכְלוֹת</span> (ellas).'],
+ ['Pronombres','<span class="he say">אֲנִי</span> yo · <span class="he say">אַתָּה</span> tú (m.) · <span class="he say">אַתְּ</span> tú (f.) · <span class="he say">הוּא</span> él · <span class="he say">הִיא</span> ella · <span class="he say">אֲנַחְנוּ</span> nosotros.'],
+ ['Preposiciones pegadas','<span class="he say">בְּ</span> en, <span class="he say">לְ</span> a, <span class="he say">וְ</span> y. Con artículo: בַּ, לָ, como en <span class="he say">בַּבֹּקֶר</span> y <span class="he say">לָעֲבוֹדָה</span>.'],
+],quiz:[
+ {q:'«Ella bebe»: הִיא ___',o:['שׁוֹתָה','שׁוֹתֶה','שׁוֹתִים']},
+ {q:'«אֲנַחְנוּ» significa…',o:['nosotros','ellos','ustedes']},
+ {q:'«לָעֲבוֹדָה» significa…',o:['al trabajo','el trabajo','en el trabajo']},
+ {q:'Muchos hombres comen: הֵם ___',o:['אוֹכְלִים','אוֹכֵל','אוֹכְלוֹת']},
+]}},
+
+{id:'u6',t:'En el mercado',he:'בַּשּׁוּק',kind:'Diálogo',sub:'Precios, números y pedir con cortesía',focus:'כקעשצפר',
+lines:[
+ {es:'¡Hola! ¿Cuánto cuestan las manzanas?',w:[['שָׁלוֹם!','shalóm','hola; paz'],['כַּמָּה','káma','cuánto'],['עוֹלִים','olím','cuestan','Literal: «suben». Se usa para precios.'],['הַתַּפּוּחִים?','ha-tapujím','las manzanas']]},
+ {es:'Diez shekels el kilo.',w:[['עֲשָׂרָה','asará','diez'],['שְׁקָלִים','shkalím','shekels (moneda de Israel)'],['לְקִילוֹ.','le-kílo','por kilo']]},
+ {es:'Quiero dos kilos, por favor.',w:[['אֲנִי','aní','yo'],['רוֹצָה','rotsá','quiero (mujer)','Un hombre dice רוֹצֶה.'],['שְׁנֵי','shnei','dos (de…)'],['קִילוֹ,','kílo','kilo'],['בְּבַקָּשָׁה.','bevakashá','por favor']]},
+ {es:'Aquí tiene. ¿Algo más?',w:[['בְּבַקָּשָׁה.','bevakashá','aquí tiene; por favor','Sirve para pedir, para dar y para decir «de nada».'],['עוֹד','od','más; otro'],['מַשֶּׁהוּ?','máshehu','algo']]},
+ {es:'Sí, también pan, por favor.',w:[['כֵּן,','ken','sí'],['גַּם','gam','también'],['לֶחֶם,','léjem','pan'],['בְּבַקָּשָׁה.','bevakashá','por favor']]},
+ {es:'Muy bien. Treinta shekels.',w:[['בְּסֵדֶר.','beséder','bien; de acuerdo'],['שְׁלוֹשִׁים','shloshím','treinta'],['שְׁקָלִים.','shkalím','shekels']]},
+ {es:'¡Muchas gracias!',w:[['תּוֹדָה','todá','gracias'],['רַבָּה!','rabá','mucha']]},
+],
+gram:{notes:[
+ ['Preguntar','<span class="he say">כַּמָּה?</span> ¿cuánto? · <span class="he say">מַה?</span> ¿qué? · <span class="he say">מִי?</span> ¿quién? · <span class="he say">אֵיפֹה?</span> ¿dónde?'],
+ ['Querer','<span class="he say">רוֹצֶה</span> (él) · <span class="he say">רוֹצָה</span> (ella). Fíjate que la mujer del diálogo dice אֲנִי רוֹצָה.'],
+ ['Números redondos','<span class="he say">עֶשְׂרִים</span> 20 · <span class="he say">שְׁלוֹשִׁים</span> 30 · <span class="he say">אַרְבָּעִים</span> 40. Las decenas terminan en ־ִים, como un plural.'],
+],quiz:[
+ {q:'Un hombre dice «quiero»:',o:['אֲנִי רוֹצֶה','אֲנִי רוֹצָה']},
+ {q:'«כַּמָּה» significa…',o:['cuánto','qué','quién']},
+ {q:'«תּוֹדָה רַבָּה» significa…',o:['muchas gracias','por favor','de nada']},
+ {q:'¿Cuál es 30?',o:['שְׁלוֹשִׁים','עֲשָׂרָה','שְׁנֵי']},
+]}},
+
+{id:'u7',t:'Bereshit',he:'בְּרֵאשִׁית',kind:'Texto bíblico · Génesis 1',sub:'El primer verso de la Biblia',focus:'ראשיץתו',
+lines:[
+ {es:'En el principio creó Dios los cielos y la tierra.',w:[['בְּרֵאשִׁית','bereshít','en el principio','Viene de רֹאשׁ (cabeza).'],['בָּרָא','bará','creó'],['אֱלֹהִים','Elohím','Dios'],['אֵת','et','(marca de objeto directo)'],['הַשָּׁמַיִם','ha-shamáyim','los cielos'],['וְאֵת','ve-ét','y (marca de objeto)'],['הָאָרֶץ.','ha-árets','la tierra','Termina en ץ, la tsadi final.']]},
+ {es:'Y dijo Dios: «¡Que haya luz!»',w:[['וַיֹּאמֶר','vayómer','y dijo','Forma bíblica. En hebreo moderno se dice וְאָמַר.'],['אֱלֹהִים:','Elohím','Dios'],['יְהִי','yehí','que haya; sea'],['אוֹר!','or','luz']]},
+ {es:'Y hubo luz.',w:[['וַיְהִי','vayehí','y hubo; y fue'],['אוֹר.','or','luz']]},
+ {es:'Y vio Dios que la luz era buena.',w:[['וַיַּרְא','vayár','y vio'],['אֱלֹהִים','Elohím','Dios'],['אֶת','et','(marca de objeto directo)'],['הָאוֹר','ha-ór','la luz'],['כִּי','ki','que; porque'],['טוֹב.','tov','bueno']]},
+],
+gram:{notes:[
+ ['אֶת marca el objeto','Antes de un objeto directo definido va <span class="he say">אֶת</span>: <span class="he say">רָאָה אֶת הָאוֹר</span> = vio la luz. Ya lo usaste en אוֹהֵב אֶת הַמִּשְׁפָּחָה.'],
+ ['הָ ante א, ע, ר','El artículo cambia a <span class="he say">הָ</span> antes de algunas letras: <span class="he say">הָאָרֶץ</span>, <span class="he say">הָאוֹר</span>.'],
+ ['Raíces de tres letras','Casi todas las palabras salen de una raíz: ב־ר־א (crear) → <span class="he say">בָּרָא</span>; ר־א־שׁ (cabeza) → <span class="he say">בְּרֵאשִׁית</span>.'],
+],quiz:[
+ {q:'¿Cuándo se usa אֶת?',o:['Antes de un objeto directo definido','Antes de cualquier sustantivo','Para decir «y»']},
+ {q:'«הָאָרֶץ» significa…',o:['la tierra','una tierra','en la tierra']},
+ {q:'«אוֹר» significa…',o:['luz','día','cielo']},
+ {q:'«כִּי» significa…',o:['que; porque','y','como']},
+]}},
+
+{id:'u8',t:'Shabat shalom',he:'שַׁבָּת שָׁלוֹם',kind:'Poema',sub:'El viernes al atardecer',focus:'שקעחלנ',
+lines:[
+ {es:'Viernes, el sol se pone,',w:[['יוֹם','yom','día'],['שִׁשִּׁי,','shishí','sexto','יוֹם שִׁשִּׁי = viernes (el sexto día).'],['הַשֶּׁמֶשׁ','ha-shémesh','el sol','Es femenino.'],['שׁוֹקַעַת,','shokáat','se pone (fem.)']]},
+ {es:'la casa está tranquila y limpia.',w:[['הַבַּיִת','ha-báyit','la casa'],['שָׁקֵט','shakét','tranquilo'],['וְנָקִי.','ve-nakí','y limpio']]},
+ {es:'Sobre la mesa, velas y jalá,',w:[['עַל','al','sobre'],['הַשֻּׁלְחָן','ha-shulján','la mesa'],['נֵרוֹת','nerót','velas','Plural de נֵר: masculino pero con ־וֹת.'],['וְחַלָּה,','ve-jalá','y jalá (pan trenzado)']]},
+ {es:'y todos dicen: ¡Shabat shalom!',w:[['וְכֻלָּם','ve-julám','y todos'],['אוֹמְרִים:','omrím','dicen (plural)'],['שַׁבָּת','shabát','sábado; Shabat'],['שָׁלוֹם!','shalóm','paz']]},
+],
+gram:{notes:[
+ ['Días de la semana','<span class="he say">יוֹם רִאשׁוֹן</span> domingo (día primero) … <span class="he say">יוֹם שִׁשִּׁי</span> viernes · <span class="he say">שַׁבָּת</span> sábado.'],
+ ['Género de las cosas','<span class="he say">שֶׁמֶשׁ</span> es femenino, por eso <span class="he say">הַשֶּׁמֶשׁ שׁוֹקַעַת</span>. <span class="he say">בַּיִת</span> es masculino: <span class="he say">הַבַּיִת שָׁקֵט</span>.'],
+ ['Plurales en ־וֹת','El femenino plural usa ־וֹת, y algunos masculinos también: <span class="he say">נֵר</span> → <span class="he say">נֵרוֹת</span>.'],
+],quiz:[
+ {q:'«יוֹם שִׁשִּׁי» es…',o:['viernes','sábado','domingo']},
+ {q:'«Ellos dicen»:',o:['הֵם אוֹמְרִים','הֵם אוֹמֶרֶת','הוּא אוֹמֵר']},
+ {q:'שֶׁמֶשׁ (sol) es…',o:['femenino','masculino']},
+ {q:'«עַל הַשֻּׁלְחָן» significa…',o:['sobre la mesa','en la casa','con la mesa']},
+]}},
+
+{id:'u9',t:'Ayer en Jerusalén',he:'אֶתְמוֹל',kind:'Relato',sub:'Contar lo que pasó: el pasado',focus:'צחעתכר',
+lines:[
+ {es:'Ayer estuve en Jerusalén.',w:[['אֶתְמוֹל','etmól','ayer'],['הָיִיתִי','hayíti','estuve; fui'],['בִּירוּשָׁלַיִם.','bi-Yerushaláyim','en Jerusalén']]},
+ {es:'Fui a la Ciudad Vieja con una amiga.',w:[['הָלַכְתִּי','halájti','fui; caminé','־תִּי al final = «yo» en pasado.'],['לָעִיר','la-ír','a la ciudad'],['הָעַתִּיקָה','ha-atiká','la antigua'],['עִם','im','con'],['חֲבֵרָה.','javerá','amiga']]},
+ {es:'Vimos el Muro y compramos flores.',w:[['רָאִינוּ','raínu','vimos','־נוּ al final = «nosotros» en pasado.'],['אֶת','et','(marca de objeto directo)'],['הַכֹּתֶל','ha-kótel','el Muro (de los Lamentos)'],['וְקָנִינוּ','ve-kanínu','y compramos'],['פְּרָחִים.','prajím','flores']]},
+ {es:'Al mediodía comimos falafel en el mercado.',w:[['בַּצָּהֳרַיִם','ba-tsohoráyim','al mediodía'],['אָכַלְנוּ','ajálnu','comimos'],['פָלָאפֶל','faláfel','falafel'],['בַּשּׁוּק.','ba-shúk','en el mercado']]},
+ {es:'Por la noche volví a casa.',w:[['בָּעֶרֶב','ba-érev','por la noche'],['חָזַרְתִּי','jazárti','volví'],['הַבַּיְתָה.','ha-báyta','a casa','La ־ָה final indica dirección: «hacia casa».']]},
+ {es:'¡Fue un día muy bonito!',w:[['הָיָה','hayá','fue; era'],['יוֹם','yom','día'],['יָפֶה','yafé','bonito'],['מְאוֹד!','meód','muy']]},
+],
+gram:{notes:[
+ ['Pasado: yo y nosotros','Al verbo se le pega la persona: <span class="he say">הָלַכְתִּי</span> (yo fui), <span class="he say">אָכַלְנוּ</span> (comimos). ־תִּי = yo, ־נוּ = nosotros.'],
+ ['«Ser» sí existe en pasado','En presente no se usa, pero en pasado sí: <span class="he say">הָיִיתִי</span> (fui/estuve), <span class="he say">הָיָה</span> (fue).'],
+ ['Artículo doble','Si el sustantivo lleva הַ, el adjetivo también: <span class="he say">הָעִיר הָעַתִּיקָה</span> = la ciudad antigua.'],
+],quiz:[
+ {q:'«Yo comí»:',o:['אָכַלְתִּי','אָכַלְנוּ','אוֹכֵל']},
+ {q:'«Nosotros vimos»:',o:['רָאִינוּ','רָאִיתִי']},
+ {q:'«La ciudad antigua»:',o:['הָעִיר הָעַתִּיקָה','הָעִיר עַתִּיקָה','עִיר הָעַתִּיקָה']},
+ {q:'«אֶתְמוֹל» significa…',o:['ayer','mañana','hoy']},
+]}},
+
+{id:'u10',t:'Mañana, el mar',he:'מָחָר',kind:'Poema',sub:'Deseos y planes: querer + infinitivo',focus:'לכתבשמע',
+lines:[
+ {es:'Mañana quiero ir al mar,',w:[['מָחָר','majár','mañana (el día siguiente)'],['אֲנִי','aní','yo'],['רוֹצֶה','rotsé','quiero (hombre)'],['לָלֶכֶת','laléjet','ir'],['לַיָּם,','la-yám','al mar']]},
+ {es:'escuchar las olas y beber agua fría.',w:[['לִשְׁמֹעַ','lishmóa','escuchar','La ע final con pataj se pronuncia antes: -óa.'],['אֶת','et','(marca de objeto directo)'],['הַגַּלִּים','ha-galím','las olas'],['וְלִשְׁתּוֹת','ve-lishtót','y beber'],['מַיִם','máyim','agua','Siempre es plural.'],['קָרִים.','karím','fríos']]},
+ {es:'Quiero escribir un pequeño poema',w:[['אֲנִי','aní','yo'],['רוֹצֶה','rotsé','quiero (hombre)'],['לִכְתֹּב','lijtóv','escribir'],['שִׁיר','shir','poema; canción'],['קָטָן','katán','pequeño']]},
+ {es:'sobre el cielo azul.',w:[['עַל','al','sobre'],['הַשָּׁמַיִם','ha-shamáyim','el cielo'],['הַכְּחֻלִּים.','ha-kjulím','azules','De כָּחֹל (azul). שָׁמַיִם es plural.']]},
+ {es:'¿Y tú? ¿Qué quieres hacer?',w:[['וְאַתָּה?','ve-atá','¿y tú? (hombre)'],['מָה','ma','qué'],['אַתָּה','atá','tú (hombre)'],['רוֹצֶה','rotsé','quieres (hombre)'],['לַעֲשׂוֹת?','laasót','hacer']]},
+],
+gram:{notes:[
+ ['Infinitivo con לְ','Los infinitivos empiezan con ל: <span class="he say">לָלֶכֶת</span> ir, <span class="he say">לִשְׁתּוֹת</span> beber, <span class="he say">לִכְתֹּב</span> escribir, <span class="he say">לַעֲשׂוֹת</span> hacer.'],
+ ['Querer + infinitivo','<span class="he say">אֲנִי רוֹצֶה לִשְׁתּוֹת</span> = quiero beber. Igual que en español.'],
+ ['Palabras siempre plurales','<span class="he say">מַיִם</span> (agua) y <span class="he say">שָׁמַיִם</span> (cielo) son plurales, por eso el adjetivo va en plural: <span class="he say">מַיִם קָרִים</span>.'],
+],quiz:[
+ {q:'«Quiero beber»:',o:['אֲנִי רוֹצֶה לִשְׁתּוֹת','אֲנִי רוֹצֶה שׁוֹתֶה','אֲנִי שׁוֹתֶה רוֹצֶה']},
+ {q:'En «מַיִם קָרִים», קָרִים va en plural porque…',o:['מַיִם es plural','es femenino','es un error']},
+ {q:'«לַיָּם» significa…',o:['al mar','el mar','en el mar']},
+ {q:'¿Cuál es un infinitivo?',o:['לִכְתֹּב','כָּתַבְתִּי','כּוֹתֵב']},
+]}},
+];
+
+// ---------- Letras y vocales ----------
+const LT={
+'א':['Álef','אָלֶף','muda','No tiene sonido propio: solo lleva la vocal.'],
+'ב':['Bet / Vet','בֵּית','b / v','Con punto (בּ) suena b; sin punto (ב) suena v.'],
+'ג':['Guímel','גִּימֶל','g','Siempre g fuerte, como en «gato».'],
+'ד':['Dálet','דָּלֶת','d',''],
+'ה':['He','הֵא','h','h suave y aspirada, como en inglés «hello». Al final de palabra suele ser muda.'],
+'ו':['Vav','וָו','v','También es vocal: וֹ = o, וּ = u.'],
+'ז':['Záyin','זַיִן','z','z sonora, como la z del inglés «zoo».'],
+'ח':['Jet','חֵית','j','Como la j española de «jamón».'],
+'ט':['Tet','טֵית','t',''],
+'י':['Yud','יוּד','y','Como vocal alarga la i o la e: אֲנִי = aní.'],
+'כ':['Kaf / Jaf','כַּף','k / j','Con punto (כּ) suena k; sin punto (כ) suena j.'],
+'ך':['Jaf final','כַּף סוֹפִית','j','Forma de כ al final de palabra.'],
+'ל':['Lámed','לָמֶד','l',''],
+'מ':['Mem','מֵם','m',''],
+'ם':['Mem final','מֵם סוֹפִית','m','Forma de מ al final de palabra.'],
+'נ':['Nun','נוּן','n',''],
+'ן':['Nun final','נוּן סוֹפִית','n','Forma de נ al final de palabra.'],
+'ס':['Sámej','סָמֶךְ','s',''],
+'ע':['Áyin','עַיִן','muda','Hoy casi siempre es muda, como la א.'],
+'פ':['Pe / Fe','פֵּא','p / f','Con punto (פּ) suena p; sin punto (פ) suena f.'],
+'ף':['Fe final','פֵּא סוֹפִית','f','Forma de פ al final de palabra.'],
+'צ':['Tsadi','צָדִי','ts','Como «ts» en «tsunami».'],
+'ץ':['Tsadi final','צָדִי סוֹפִית','ts','Forma de צ al final de palabra.'],
+'ק':['Kuf','קוֹף','k',''],
+'ר':['Resh','רֵישׁ','r','r gutural, parecida a la r francesa.'],
+'ש':['Shin / Sin','שִׁין','sh / s','Punto a la derecha (שׁ) = sh; punto a la izquierda (שׂ) = s.'],
+'ת':['Tav','תָּו','t',''],
+};
+const ALEF='אבגדהוזחטיכךלמםנןסעפףצץקרשת';
+const SND={'א':'','ב':'v','ג':'g','ד':'d','ה':'h','ו':'v','ז':'z','ח':'j','ט':'t','י':'y','כ':'j','ך':'j','ל':'l','מ':'m','ם':'m','נ':'n','ן':'n','ס':'s','ע':'','פ':'f','ף':'f','צ':'ts','ץ':'ts','ק':'k','ר':'r','ש':'sh','ת':'t'};
+const DG={'ב':'b','כ':'k','פ':'p'};
+const V={'ְ':['Shvá','e muy breve o muda',''],'ֱ':['Jataf segol','e','e'],'ֲ':['Jataf pataj','a','a'],'ֳ':['Jataf kamatz','o','o'],'ִ':['Jirik','i','i'],'ֵ':['Tseré','e','e'],'ֶ':['Segol','e','e'],'ַ':['Pataj','a','a'],'ָ':['Kamatz','a','a'],'ֹ':['Jolam','o','o'],'ֺ':['Jolam','o','o'],'ֻ':['Kubutz','u','u'],'ׇ':['Kamatz katán','o','o']};
+const VORDER=['ַ','ָ','ֵ','ֶ','ִ','ֹ','ֻ','ְ','ֲ','ֱ','ֳ'];
+
+// ---------- Utilidades ----------
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const strip=s=>s.replace(/[֑-ׇ]/g,'');
+const bare=s=>s.replace(/[!?,.:;"'()]/g,'').trim();
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.random()*a.length|0];
+const uniqBy=(a,f)=>{const s=new Set();return a.filter(x=>{const k=f(x);if(s.has(k))return false;s.add(k);return true})};
+const isHeb=c=>/[א-ת]/.test(c[0]);
+function clusters(s){const out=[];for(const ch of s){const c=ch.charCodeAt(0);if(c>=0x0591&&c<=0x05C7&&out.length)out[out.length-1]+=ch;else out.push(ch)}return out}
+const lineText=l=>l.w.map(w=>w[0]).join(' ');
+const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>';
+const PLAY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+const HEBNUM='אבגדהוזחטי';
+const STEPS=[['read','Leer'],['letters','Letras'],['practice','Práctica'],['grammar','Gramática']];
+
+// Información fonética de una letra con sus signos
+function info(c){
+  const b=c[0],L=LT[b];if(!L)return null;
+  const m=[...c.slice(1)],dg=m.includes('ּ'),vk=m.find(x=>V[x]);
+  let cons=(dg&&DG[b])||SND[b];
+  if(b==='ש')cons=m.includes('ׂ')?'s':m.includes('ׁ')?'sh':'sh / s';
+  if(b==='ו'&&!vk&&dg)return{L,cons:'',v:['Shuruk (וּ)','u'],syl:'u',note:'Aquí la ו no es consonante: es la vocal u.'};
+  if(b==='ו'&&(vk==='ֹ'||vk==='ֺ')&&m.filter(x=>V[x]).length===1)return{L,cons:'',v:['Jolam malé (וֹ)','o'],syl:'o',note:'Aquí la ו no es consonante: es la vocal o.'};
+  if(c.length===1)return{L,cons:L[2],v:null,syl:'',note:''};
+  const v=vk?V[vk]:null;let syl,note='';
+  if(!v){if('אעהי'.includes(b)){syl='';note='Sin vocal propia: aquí no suena, solo alarga la vocal anterior.'}else{syl=cons;note='Sin vocal: se pronuncia la consonante sola.'}}
+  else if(vk==='ְ'){syl='ךםןףץ'.includes(b)||!cons?cons:cons+'(e)';note='La shvá suena como una e muy breve (sobre todo al inicio de palabra) o no suena.'}
+  else syl=cons+v[2];
+  if(dg&&DG[b])note=(note?note+' ':'')+'El punto dentro (dagesh) hace que suene '+DG[b]+' y no '+SND[b]+'.';
+  return{L,cons,v,syl,note};
+}
+
+// Índice de palabras
+const WORDS={};
+U.forEach((u,ui)=>{u.words=[];u.lines.forEach(l=>l.w.forEach(a=>{const k=bare(a[0]);if(!WORDS[k])WORDS[k]={k,tr:a[1],es:a[2],note:a[3]||'',u:ui,name:a[2].includes('(nombre)')};if(!u.words.includes(WORDS[k]))u.words.push(WORDS[k])}))});
+
+// ---------- Estado (solo en este navegador) ----------
+const KEY='hebreo-desde-alef-v1';
+let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+S.done=S.done||{};S.srs=S.srs||{};S.streak=S.streak||{n:0,last:''};S.view=S.view||{mode:'w',nik:true,tr:false};S.rate=S.rate||0.85;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const DAY=864e5,IV=[0,1,2,4,8,16,32,64];
+function srsAdd(k){if(!S.srs[k])S.srs[k]={b:1,d:Date.now()+DAY}}
+function srsHit(k,ok){const r=S.srs[k]||{b:0,d:0};r.b=ok?Math.min(r.b+1,IV.length-1):1;r.d=ok?Date.now()+IV[r.b]*DAY:Date.now();S.srs[k]=r}
+const dueWords=()=>Object.keys(S.srs).filter(k=>WORDS[k]&&S.srs[k].d<=Date.now()).sort((a,b)=>S.srs[a].d-S.srs[b].d);
+const day=d=>d.toISOString().slice(0,10);
+function bumpStreak(){const t=day(new Date());if(S.streak.last===t)return;S.streak.n=S.streak.last===day(new Date(Date.now()-DAY))?S.streak.n+1:1;S.streak.last=t}
+function mark(ui,step){(S.done[U[ui].id]=S.done[U[ui].id]||{})[step]=1;save()}
+const isDone=(ui,step)=>!!(S.done[U[ui].id]||{})[step];
+const unitDone=ui=>STEPS.every(s=>isDone(ui,s[0]));
+function chrome(nav){
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.id==='nav-'+nav));
+  const d=dueWords().length;$('#due').textContent=d||'';$('#due').hidden=!d;
+  const live=S.streak.last===day(new Date())||S.streak.last===day(new Date(Date.now()-DAY));
+  $('#streak').textContent=live&&S.streak.n?`Racha: ${S.streak.n} ${S.streak.n===1?'día':'días'}`:'';
+  KEYH=null;closeSheet();hidePop();window.scrollTo(0,0);
+}
+
+// ---------- Voz ----------
+let heVoice=null;
+function pickVoice(){try{heVoice=speechSynthesis.getVoices().find(v=>/^(he|iw)/i.test(v.lang))||null}catch(e){}}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function utter(t,rate){const u=new SpeechSynthesisUtterance(t);u.lang='he-IL';if(heVoice)u.voice=heVoice;u.rate=rate||S.rate;return u}
+function speak(t,rate){if(!('speechSynthesis' in window)||!t)return;speechSynthesis.cancel();speechSynthesis.speak(utter(t,rate))}
+function speakLines(items){ // items: [{text, el}]
+  if(!('speechSynthesis' in window))return;speechSynthesis.cancel();
+  items.forEach(({text,el})=>{const u=utter(text);u.onstart=()=>{document.querySelectorAll('.speaking').forEach(x=>x.classList.remove('speaking'));el&&el.classList.add('speaking')};u.onend=()=>el&&el.classList.remove('speaking');speechSynthesis.speak(u)});
+}
+
+// ---------- Hoja de detalle ----------
+function openSheet(html){$('#sheet-body').innerHTML=html;$('#sheet').hidden=false;document.body.classList.add('sheet-open')}
+function closeSheet(){$('#sheet').hidden=true;document.body.classList.remove('sheet-open');document.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'))}
+function wordSheet(he,tr,es,note){
+  const k=bare(he);
+  openSheet(`<div class="sh-top"><div class="big">${k}</div><div><div class="tr-b">${tr}</div><div class="es-b">${es}</div></div></div>
+  ${note?`<p class="note">${note}</p>`:''}
+  <div class="row"><button class="btn primary" data-say="${k}">${SPK} Escuchar</button><button class="btn" data-say="${k}" data-rate="0.5">Despacio</button></div>
+  <div class="lab">Toca una letra de la palabra</div>
+  <div class="mini">${clusters(k).filter(isHeb).map(c=>`<button data-cl="${c}">${c}</button>`).join('')}</div>`);
+  speak(k);
+}
+function letterSheet(c){
+  const I=info(c);if(!I)return;const L=I.L;
+  openSheet(`<div class="sh-top"><div class="big">${c}</div>
+   <div class="facts">
+    <div><span class="lab">Letra</span><b>${L[0]}</b><span class="he say" style="font-size:20px">${L[1]}</span></div>
+    <div><span class="lab">Consonante</span><b>${I.cons||'muda'}</b></div>
+    ${I.v?`<div><span class="lab">Vocal</span><b>${I.v[0]}</b><span>${I.v[1]}</span></div>`:''}
+    ${c.length>1?`<div><span class="lab">Se lee</span><b style="color:var(--accent)">${I.syl||'(no suena)'}</b></div>`:''}
+   </div></div>
+   ${L[3]?`<p class="note">${L[3]}</p>`:''}${I.note?`<p class="note">${I.note}</p>`:''}
+   <div class="row">${c.length>1&&I.syl?`<button class="btn primary" data-say="${c}">${SPK} Oír sílaba</button>`:''}<button class="btn ${c.length>1&&I.syl?'':'primary'}" data-say="${L[1]}">${SPK} Oír el nombre</button></div>`);
+  speak(c.length>1&&I.syl?c:L[1]);
+}
+
+// Toque 1: etiqueta pequeña con la pronunciación. Toque 2 (o «más»): ficha completa.
+let popFor=null;
+function showPop(el,html,more){
+  const p=$('#pop');p.innerHTML=html+'<button id="pop-more">más</button>';p.hidden=false;popFor=el;
+  $('#pop-more').onclick=()=>{hidePop();more()};
+  const r=el.getBoundingClientRect(),w=p.offsetWidth,vw=document.documentElement.clientWidth,c=r.left+r.width/2;
+  const cl=Math.min(Math.max(c,w/2+8),vw-w/2-8);
+  p.style.left=cl+scrollX+'px';p.style.top=r.bottom+scrollY+4+'px';p.style.setProperty('--ax',(c-cl)+'px');
+}
+function hidePop(){$('#pop').hidden=true;popFor=null;document.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'))}
+function tapWord(el,a){
+  if(popFor===el){hidePop();wordSheet(a[0],a[1],a[2],a[3]);return}
+  speak(bare(a[0]));showPop(el,`<i>${a[1]}</i>`,()=>wordSheet(a[0],a[1],a[2],a[3]));el.classList.add('sel');
+}
+function tapLetter(el,c){
+  const I=info(c);if(!I)return;
+  if(popFor===el){hidePop();letterSheet(c);return}
+  const multi=c.length>1;speak(multi&&I.syl?c:I.L[1]);
+  showPop(el,`<b>${multi?(I.syl||'no suena'):I.L[2]}</b><span class="dim">${I.L[0]}</span>`,()=>letterSheet(c));el.classList.add('sel');
+}
+window.addEventListener('resize',()=>hidePop());
+
+// ---------- Inicio ----------
+function home(){
+  chrome('home');
+  const next=Math.max(0,U.findIndex((u,i)=>!unitDone(i)));const d=dueWords().length;
+  app.innerHTML=`<div class="stack">
+   <section class="hero"><div>
+     <h1>Aprende a leer hebreo leyendo hebreo</h1>
+     <p>Diez textos cortos (diálogos, oraciones, poemas y un relato) te llevan del álef-bet al nivel A2. Primero lees y tocas cada letra para oírla. Luego practicas. La gramática llega cuando ya la viste en el texto.</p>
+     <div class="row"><button class="btn primary" data-go="unit" data-u="${next}">${unitDone(next)?'Repasar':'Continuar'}: ${U[next].t}</button>
+     <button class="btn" data-go="review">Repaso de hoy · ${d}</button></div></div>
+     <div><div class="hero-word">${clusters('שָׁלוֹם').map(c=>`<button data-cl="${c}">${c}</button>`).join('')}</div><div class="hero-cap">Toca cada letra</div></div>
+   </section>
+   <div class="voice-warn" id="voice-warn" hidden></div>
+   <h2>Tu camino</h2>
+   <div class="units">${U.map((u,i)=>`<button class="unit ${i===next&&!unitDone(i)?'next':''} ${unitDone(i)?'complete':''}" data-go="unit" data-u="${i}">
+     <span class="num"><b>${HEBNUM[i]}</b><small>${i+1}</small></span>
+     <span class="u-main"><span class="u-kind">${u.kind}</span><span class="u-title">${u.t}<span class="he">${u.he}</span></span><span class="u-sub">${u.sub}</span>
+     <span class="pills">${STEPS.map(s=>`<span class="pill ${isDone(i,s[0])?'on':''}">${s[1]}</span>`).join('')}</span></span>
+     <span class="chev" aria-hidden="true">›</span></button>`).join('')}</div>
+   <details class="method"><summary>Cómo enseña esta app</summary><ul>
+     <li><b>Lectura primero.</b> Empiezas con textos reales y entiendes por contexto (input comprensible). Lo que no sabes, lo tocas.</li>
+     <li><b>Fonética explícita.</b> Cada letra y cada vocal (nikud) muestra su nombre y su sonido. Decodificar bien al principio acelera todo lo demás.</li>
+     <li><b>Texto y audio juntos.</b> Ver y oír a la vez (codificación dual) fija la forma y el sonido de cada palabra.</li>
+     <li><b>Recordar, no releer.</b> Los ejercicios te obligan a sacar la respuesta de la memoria (práctica de recuperación).</li>
+     <li><b>Repetición espaciada.</b> Cada palabra vuelve a los 1, 2, 4, 8, 16… días, justo antes de olvidarla.</li>
+     <li><b>Práctica intercalada.</b> Se mezclan tipos de ejercicio y palabras de unidades anteriores.</li>
+     <li><b>Escuchar y repetir.</b> Imitas el audio en voz alta (shadowing) para ganar ritmo y pronunciación.</li>
+     <li><b>Gramática en contexto.</b> Las reglas aparecen después de verlas en el texto, y poco a poco.</li>
+   </ul></details></div>`;
+  setTimeout(()=>{const w=$('#voice-warn');if(!w)return;
+    if(!('speechSynthesis' in window)){w.textContent='Tu navegador no permite audio de voz. Prueba con Chrome, Edge o Safari.';w.hidden=false}
+    else if(!heVoice){w.innerHTML='No encontramos una voz en hebreo en este dispositivo, así que el audio puede sonar mal. En Mac: Ajustes del Sistema › Accesibilidad › Contenido leído › Voz del sistema › Gestionar voces › Hebreo. En Windows: Configuración › Hora e idioma › Voz › Agregar voces › Hebreo.';w.hidden=false}},1200);
+}
+
+// ---------- Unidad ----------
+function unit(ui,tab){
+  chrome('home');const u=U[ui];
+  tab=tab||(STEPS.find(s=>!isDone(ui,s[0]))||STEPS[0])[0];
+  app.innerHTML=`<button class="back" data-go="home">‹ Camino</button>
+   <div class="u-head"><span class="u-kind muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">Unidad ${ui+1} · ${u.kind}</span><h1>${u.t}</h1><div class="he-t"><span class="he say">${u.he}</span></div></div>
+   <div class="tabs" role="tablist">${STEPS.map(s=>`<button role="tab" class="${s[0]===tab?'on':''} ${isDone(ui,s[0])?'done':''}" data-go="unit" data-u="${ui}" data-tab="${s[0]}">${isDone(ui,s[0])?'✓ ':''}${s[1]}</button>`).join('')}</div>
+   <div id="tab" class="stack"></div>`;
+  ({read:readTab,letters:lettersTab,practice:practiceTab,grammar:grammarTab})[tab](ui,$('#tab'));
+}
+
+function readTab(ui,el){
+  const u=U[ui],o=S.view;
+  el.innerHTML=`<p class="hint">Lee primero en voz alta e intenta entender. Toca una <b>palabra</b> para oírla y ver cómo se pronuncia; tócala otra vez para ver su significado. En modo <b>letras</b> ves cómo suena cada letra con su vocal. La traducción está oculta a propósito.</p>
+   <div class="controls">
+     <span class="seg" role="group" aria-label="Qué tocar"><button data-mode="w" class="${o.mode==='w'?'on':''}">Palabras</button><button data-mode="l" class="${o.mode==='l'?'on':''}">Letras</button></span>
+     <label class="chk"><input type="checkbox" id="opt-nik" ${o.nik?'checked':''}> Vocales (nikud)</label>
+     <label class="chk"><input type="checkbox" id="opt-tr" ${o.tr?'checked':''}> Transliteración</label>
+     <label class="chk">Velocidad <select id="opt-rate"><option value="0.6">Lenta</option><option value="0.85">Normal</option><option value="1">Rápida</option></select></label>
+   </div>
+   <div class="text mode-${o.mode}" id="text">${u.lines.map((l,li)=>`<div class="line" data-li="${li}">
+     <button class="play" data-play="${li}" aria-label="Escuchar la línea">${PLAY}</button>
+     <div class="l-body"><div class="heline" lang="he">${l.w.map((w,wi)=>`<span class="w" data-wi="${wi}">${clusters(o.nik?w[0]:strip(w[0])).map(c=>isHeb(c)?`<span class="ch">${c}</span>`:c).join('')}</span>`).join(' ')}</div>
+     ${o.tr?`<div class="tr">${l.w.map(w=>w[1]).join(' ')}</div>`:''}
+     <button class="reveal" data-rev>Ver traducción</button><div class="es" hidden>${l.es}</div></div></div>`).join('')}</div>
+   <div class="row"><button class="btn" id="play-all">${PLAY} Escuchar todo</button><button class="btn primary" id="read-done">Ya lo leí · Ir a letras</button></div>`;
+  $('#opt-rate').value=String(S.rate);
+  const rerender=()=>{save();readTab(ui,el)};
+  el.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{o.mode=b.dataset.mode;rerender()});
+  $('#opt-nik').onchange=e=>{o.nik=e.target.checked;rerender()};
+  $('#opt-tr').onchange=e=>{o.tr=e.target.checked;rerender()};
+  $('#opt-rate').onchange=e=>{S.rate=+e.target.value;save()};
+  $('#play-all').onclick=()=>speakLines(u.lines.map((l,li)=>({text:lineText(l),el:el.querySelector(`.line[data-li="${li}"]`)})));
+  $('#read-done').onclick=()=>{mark(ui,'read');u.words.forEach(w=>!w.name&&srsAdd(w.k));save();unit(ui,'letters')};
+  $('#text').onclick=e=>{
+    const t=e.target,line=t.closest('.line');if(!line)return;const l=u.lines[+line.dataset.li];
+    if(t.closest('[data-play]')){speakLines([{text:lineText(l),el:line}]);return}
+    if(t.closest('[data-rev]')){const es=line.querySelector('.es');es.hidden=!es.hidden;t.closest('[data-rev]').textContent=es.hidden?'Ver traducción':'Ocultar traducción';return}
+    if(o.mode==='l'){const c=t.closest('.ch');if(c){if(popFor!==c)hidePop();tapLetter(c,c.textContent)}}
+    else{const w=t.closest('.w');if(w){if(popFor!==w)hidePop();tapWord(w,l.w[+w.dataset.wi])}}
+  };
+}
+
+function unitVowels(u){const s=new Set();u.lines.forEach(l=>l.w.forEach(w=>[...w[0]].forEach(ch=>V[ch]&&s.add(ch))));return VORDER.filter(v=>s.has(v))}
+function lettersTab(ui,el){
+  const u=U[ui];
+  el.innerHTML=`<p class="hint">Estas letras aparecen mucho en el texto. Toca cada una para oír su nombre y su sonido. Después practica hasta reconocerlas sin pensar.</p>
+   <div class="lgrid">${[...u.focus].map(b=>`<button class="lcard" data-cl="${b}"><span class="he">${b}</span><b>${LT[b][0]}</b><small>${LT[b][2]}</small></button>`).join('')}</div>
+   <h3>Vocales (nikud) de este texto</h3>
+   <div class="lgrid">${unitVowels(u).map(v=>`<button class="lcard" data-cl="מ${v}"><span class="he">מ${v}</span><b>${V[v][0]}</b><small>${V[v][1]}</small></button>`).join('')}</div>
+   <div class="row"><button class="btn primary" id="go">Practicar letras y sonidos</button><button class="btn" data-go="alef">Ver todo el álef-bet</button></div>`;
+  $('#go').onclick=()=>run(makeSession(ui,'letters',8),()=>{mark(ui,'letters');unit(ui,'practice')});
+}
+function practiceTab(ui,el){
+  el.innerHTML=`<div class="card"><h3>Práctica mezclada</h3><p class="muted">10 ejercicios de distintos tipos: escuchar, reconocer, construir palabras, ordenar oraciones, completar y repetir en voz alta. Incluye palabras de unidades anteriores para que no se olviden.</p>
+   <div class="row"><button class="btn primary" id="go">Empezar</button></div></div>`;
+  $('#go').onclick=()=>run(makeSession(ui,'mix',10),()=>{mark(ui,'practice');unit(ui,'grammar')});
+}
+function grammarTab(ui,el){
+  const u=U[ui];
+  el.innerHTML=`<p class="hint">Ya viste estas formas en el texto. Aquí solo les ponemos nombre. Toca el hebreo para oírlo.</p>
+   ${u.gram.notes.map(n=>`<div class="card"><h3>${n[0]}</h3><p>${n[1]}</p></div>`).join('')}
+   <div class="row"><button class="btn primary" id="go">Comprobar lo aprendido</button></div>`;
+  $('#go').onclick=()=>run(makeSession(ui,'grammar',6),()=>{mark(ui,'grammar');home()});
+}
+
+// ---------- Generadores de ejercicios ----------
+function ch(title,prompt,opts,ex){const order=shuffle(opts.map((o,i)=>i));return Object.assign({kind:'choice',title,prompt,opts:order.map(i=>opts[i]),ans:order.indexOf(0)},ex||{})}
+const wordExp=w=>`<span class="he say" style="font-size:24px">${w.k}</span> · <i>${w.tr}</i> · ${w.es}`;
+const G={
+  letterName(x){const ls=x.letters;const b=pick(ls);const wrong=shuffle(uniqBy(ALEF.split('').filter(k=>LT[k][0]!==LT[b][0]&&!'ךםןףץ'.includes(k)),k=>LT[k][0])).slice(0,3);
+    return ch('¿Cómo se llama esta letra?',`<div class="q-big">${b}</div>`,[b,...wrong].map(k=>({h:LT[k][0]})),{sayAfter:LT[b][1],key:'n'+b,explain:`<span class="he" style="font-size:26px">${b}</span> se llama <b>${LT[b][0]}</b> y suena <b>${LT[b][2]}</b>.`})},
+  letterSound(x){if(x.syl.length<4)return null;const t=pick(x.syl);const o=shuffle(uniqBy(x.syl.filter(s=>s.s!==t.s),s=>s.s)).slice(0,3);if(o.length<3)return null;
+    return ch('¿Cómo suena?',`<div class="q-big">${t.c}</div>`,[t,...o].map(s=>({h:s.s})),{sayAfter:t.c,key:'s'+t.c,explain:`<span class="he say" style="font-size:26px">${t.c}</span> se lee <b>${t.s}</b>.`})},
+  soundLetter(x){if(x.syl.length<4)return null;const t=pick(x.syl);const o=shuffle(uniqBy(x.syl.filter(s=>s.s!==t.s),s=>s.s)).slice(0,3);if(o.length<3)return null;
+    return ch('Escucha y elige lo que oyes',`<div class="q-sound">${t.s}</div>`,[t,...o].map(s=>({h:s.c,he:1})),{say:t.c,key:'a'+t.c,explain:`<b>${t.s}</b> se escribe <span class="he say" style="font-size:26px">${t.c}</span>.`})},
+  listen(x,t){const p=x.pool;if(p.length<4)return null;t=t||pick(p);const o=shuffle(uniqBy(p.filter(w=>strip(w.k)!==strip(t.k)),w=>strip(w.k))).slice(0,3);if(o.length<3)return null;
+    return ch('Escucha y elige la palabra','<p class="q-help">Toca el altavoz para oírla otra vez.</p>',[t,...o].map(w=>({h:w.k,he:1})),{say:t.k,word:t.k,explain:wordExp(t)})},
+  meaning(x,t){const p=x.pool;if(p.length<4)return null;t=t||pick(p);const o=shuffle(uniqBy(p.filter(w=>w.es!==t.es&&w.k!==t.k),w=>w.es)).slice(0,3);if(o.length<3)return null;
+    return ch('¿Qué significa?',`<div class="q-big">${t.k}</div>`,[t,...o].map(w=>({h:w.es})),{sayAfter:t.k,word:t.k,explain:wordExp(t)})},
+  reverse(x,t){const p=x.pool;if(p.length<4)return null;t=t||pick(p);const o=shuffle(uniqBy(p.filter(w=>w.es!==t.es&&w.k!==t.k),w=>w.k)).slice(0,3);if(o.length<3)return null;
+    return ch(`¿Cómo se dice «${t.es}»?`,'',[t,...o].map(w=>({h:w.k,he:1})),{sayAfter:t.k,word:t.k,explain:wordExp(t)})},
+  build(x,t){const c=x.pool.filter(w=>{const n=clusters(w.k).length;return n>=2&&n<=7});if(!c.length||(t&&!c.includes(t)))return null;t=t||pick(c);const tg=clusters(t.k);
+    const extra=shuffle(x.syl.map(s=>s.c).filter(cc=>!tg.includes(cc))).slice(0,2);
+    return{kind:'build',title:'Construye la palabra',prompt:`<p class="q-help" style="font-size:18px">«${t.es}» · <i>${t.tr}</i></p>`,target:tg,pieces:shuffle([...tg,...extra]),say:t.k,word:t.k,explain:wordExp(t)}},
+  order(x){const ls=x.u.lines.filter(l=>l.w.length>=3&&l.w.length<=8);if(!ls.length)return null;const l=pick(ls);const tg=l.w.map(w=>bare(w[0]));
+    return{kind:'build',words:true,title:'Ordena la oración',prompt:`<p class="q-help" style="font-size:18px">«${l.es}»</p>`,target:tg,pieces:shuffle(tg),sayAfter:lineText(l),key:'o'+l.es,explain:`<span class="he say" style="font-size:22px">${tg.join(' ')}</span><br><i>${l.w.map(w=>w[1]).join(' ')}</i>`}},
+  cloze(x){const ls=x.u.lines.filter(l=>l.w.length>=3);if(!ls.length)return null;const l=pick(ls);
+    const cand=l.w.map((w,i)=>i).filter(i=>{const w=WORDS[bare(l.w[i][0])];return w&&!w.name});if(!cand.length)return null;
+    const i=pick(cand),t=WORDS[bare(l.w[i][0])];
+    const o=shuffle(uniqBy(x.pool.filter(w=>w.k!==t.k&&!l.w.some(z=>bare(z[0])===w.k)),w=>w.k)).slice(0,3);if(o.length<3)return null;
+    const sent=l.w.map((w,j)=>j===i?'<span class="gap">___</span>':bare(w[0])).join(' ');
+    return ch('Completa la oración',`<div class="q-sent">${sent}</div><p class="q-help">«${l.es}»</p>`,[t,...o].map(w=>({h:w.k,he:1})),{sayAfter:lineText(l),word:t.k,key:'c'+l.es+i,explain:wordExp(t)})},
+  shadow(x){const l=pick(x.u.lines);return{kind:'shadow',title:'Escucha y repite en voz alta',line:l,say:lineText(l),key:'h'+l.es}},
+  grammar(x){const q=x.u.gram.quiz;if(!q.length)return null;const g=pick(q);
+    return ch(g.q,'',g.o.map(h=>({h,he:isHeb(strip(h))})),{key:'g'+g.q,explain:`Respuesta: <b class="${isHeb(strip(g.o[0]))?'he say':''}">${g.o[0]}</b>`})},
+};
+const TYPE={letterName:'Letras',letterSound:'Fonética',soundLetter:'Fonética · audio',listen:'Comprensión auditiva',meaning:'Vocabulario',reverse:'Vocabulario',build:'Escritura',order:'Orden de palabras',cloze:'Lectura',shadow:'Pronunciación',grammar:'Gramática'};
+
+function ctxFor(ui){
+  const u=U[ui],syl=[],seen=new Set();
+  u.lines.forEach(l=>l.w.forEach(w=>clusters(bare(w[0])).forEach(c=>{const I=info(c);if(I&&I.v&&I.syl&&!c.includes('\u05B0')&&!seen.has(c)){seen.add(c);syl.push({c,s:I.syl})}})));
+  const own=u.words.filter(w=>!w.name);
+  const old=U.slice(0,ui).flatMap(x=>x.words).filter(w=>!w.name&&S.srs[w.k]&&!own.includes(w));
+  return{u,ui,syl,pool:[...own,...shuffle(old).slice(0,6)],letters:[...u.focus]};
+}
+function weights(i,mode){
+  if(mode==='letters')return{letterName:3,letterSound:4,soundLetter:3};
+  if(mode==='grammar')return{grammar:4,cloze:1.5,order:1};
+  return{letterName:Math.max(2-i*.5,.2),letterSound:Math.max(3-i*.4,.6),soundLetter:Math.max(2.5-i*.3,.5),listen:2,meaning:1.2+i*.3,reverse:.3+i*.35,build:1+i*.15,order:.6+i*.3,cloze:i?.6+i*.3:0,shadow:1,grammar:i?.4+i*.25:.2};
+}
+function wpick(w){const e=Object.entries(w).filter(x=>x[1]>0);let r=Math.random()*e.reduce((s,x)=>s+x[1],0);for(const[k,v]of e){if((r-=v)<0)return k}return e[0][0]}
+function makeSession(ui,mode,n){
+  const x=ctxFor(ui),w=weights(ui,mode),out=[],used=new Set();let last='',tries=0;
+  while(out.length<n&&tries++<300){const t=wpick(w);if(t===last&&tries<250)continue;const e=G[t](x);if(!e)continue;
+    const k=t+(e.key||e.word||'');if(used.has(k))continue;used.add(k);e.type=t;out.push(e);last=t}
+  return out;
+}
+
+// ---------- Motor de ejercicios ----------
+let KEYH=null;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();hidePop()}KEYH&&KEYH(e)});
+function run(list,onFinish,backTo){
+  let i=0,ok=0;const total=list.length;
+  function show(){
+    chrome(null);if(i>=total)return finish();
+    const e=list[i];
+    app.innerHTML=`<div class="run-top"><button class="back" id="quit">✕ Salir</button><div class="bar"><span style="width:${i/total*100}%"></span></div><span class="cnt">${i+1} / ${total}</span></div>
+     <div class="ex"><div class="ex-type">${TYPE[e.type]||''}</div>
+     <div class="ex-head">${e.say?`<button class="spk" id="say" aria-label="Escuchar">${SPK}</button>`:''}<h2>${e.title}</h2></div>
+     ${e.prompt||''}<div id="area"></div><div id="fb"></div></div>`;
+    $('#quit').onclick=()=>{window.speechSynthesis&&speechSynthesis.cancel();backTo?backTo():home()};
+    if(e.say){$('#say').onclick=()=>speak(e.say);setTimeout(()=>speak(e.say),250)}
+    ({choice,build,shadow})[e.kind](e,$('#area'));
+  }
+  function choice(e,area){
+    area.innerHTML=`<div class="opts">${e.opts.map((o,j)=>`<button class="opt ${o.he?'he':''}" data-j="${j}">${o.h}</button>`).join('')}</div>`;
+    const btns=[...area.querySelectorAll('.opt')];
+    const pickJ=j=>{if(btns[0].disabled)return;btns.forEach(b=>b.disabled=true);btns[e.ans].classList.add('ok');if(j!==e.ans)btns[j].classList.add('bad');answer(e,j===e.ans)};
+    btns.forEach(b=>b.onclick=()=>pickJ(+b.dataset.j));
+    KEYH=ev=>{const n=+ev.key;if(n>=1&&n<=btns.length)pickJ(n-1)};
+  }
+  function build(e,area){
+    const cls=e.words?'tile wd':'tile';
+    area.innerHTML=`<div class="answer" id="ans" aria-label="Tu respuesta"></div><div class="tiles" id="tiles">${e.pieces.map((p,j)=>`<button class="${cls}" data-j="${j}">${p}</button>`).join('')}</div>
+     <div class="row"><button class="btn primary" id="check" disabled>Comprobar</button><button class="btn" id="clear">Borrar</button></div>`;
+    const ans=$('#ans'),chosen=[];
+    const sync=()=>{ans.innerHTML=chosen.map((j,n)=>`<button class="${cls}" data-n="${n}">${e.pieces[j]}</button>`).join('');area.querySelectorAll('#tiles .tile').forEach(t=>t.hidden=chosen.includes(+t.dataset.j));$('#check').disabled=chosen.length!==e.target.length};
+    $('#tiles').onclick=ev=>{const t=ev.target.closest('.tile');if(!t)return;chosen.push(+t.dataset.j);if(!e.words)speak(e.pieces[+t.dataset.j]);sync()};
+    ans.onclick=ev=>{const t=ev.target.closest('.tile');if(!t)return;chosen.splice(+t.dataset.n,1);sync()};
+    $('#clear').onclick=()=>{chosen.length=0;sync()};
+    $('#check').onclick=()=>{const good=chosen.map(j=>e.pieces[j]).join('|')===e.target.join('|');area.querySelectorAll('button').forEach(b=>b.disabled=true);ans.style.borderColor=good?'var(--ok)':'var(--bad)';answer(e,good)};
+  }
+  function shadow(e,area){
+    const l=e.line;
+    area.innerHTML=`<div class="card"><div class="shadow-line">${lineText(l)}</div><p class="q-help"><i>${l.w.map(w=>w[1]).join(' ')}</i></p><p class="q-help">«${l.es}»</p></div>
+     <p class="hint">1. Escucha. 2. Repite en voz alta al mismo tiempo que el audio. 3. Repite tú solo.</p>
+     <div class="row"><button class="btn" data-say="${lineText(l)}" data-rate="0.55">Despacio</button><button class="btn" data-say="${lineText(l)}">Normal</button></div>
+     <div class="row"><button class="btn primary" id="sh-ok">Lo dije bien</button><button class="btn" id="sh-bad">Me costó</button></div>`;
+    $('#sh-ok').onclick=()=>{ok++;next()};$('#sh-bad').onclick=next;
+  }
+  function answer(e,good){
+    if(good)ok++;if(e.word)srsHit(e.word,good);save();
+    if(e.sayAfter)speak(e.sayAfter);
+    $('#fb').innerHTML=`<div class="fb ${good?'ok':'bad'}"><h3>${good?'¡Correcto!':'Casi. Mira la respuesta:'}</h3>${e.explain?`<div>${e.explain}</div>`:''}${!good&&e.target?`<div class="he" style="font-size:26px">${e.target.join(e.words?' ':'')}</div>`:''}<div class="row"><button class="btn primary" id="next">Continuar</button></div></div>`;
+    const nb=$('#next');nb.onclick=next;nb.focus();
+    KEYH=ev=>{if(ev.key==='Enter'){ev.preventDefault();next()}};
+  }
+  function next(){KEYH=null;i++;show()}
+  function finish(){
+    bumpStreak();save();chrome(null);
+    const pct=total?Math.round(ok/total*100):0;
+    app.innerHTML=`<div class="stack" style="text-align:center;justify-items:center;padding-top:30px">
+      <div class="he" style="font-size:40px;color:var(--accent)">${pct>=80?'כׇּל הַכָּבוֹד!':'יוֹפִי!'}</div>
+      <div class="score">${ok} / ${total}</div>
+      <p class="muted">${pct>=80?'Muy bien hecho. Las palabras volverán en tu repaso en unos días.':'Buen trabajo. Lo que fallaste volverá pronto en el repaso.'}</p>
+      <div class="row" style="justify-content:center"><button class="btn primary" id="fin">Continuar</button></div></div>`;
+    $('#fin').onclick=()=>onFinish&&onFinish(ok,total);
+  }
+  if(!total){app.innerHTML='<p class="muted">No hay ejercicios disponibles todavía.</p>';return}
+  show();
+}
+
+// ---------- Repaso espaciado ----------
+function review(){
+  const due=dueWords();
+  if(!due.length){chrome('review');
+    const n=Object.keys(S.srs).length,nxt=Object.values(S.srs).map(r=>r.d).sort((a,b)=>a-b)[0];
+    app.innerHTML=`<div class="stack"><h1>Repaso de hoy</h1><div class="card"><h3>${n?'Nada pendiente por hoy':'Aún no tienes palabras'}</h3>
+     <p class="muted">${n?`Tienes ${n} palabras guardadas. La próxima vuelve ${nxt?new Date(nxt).toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'}):'pronto'}.`:'Las palabras se guardan aquí cuando terminas de leer un texto. Empieza por la unidad 1.'}</p>
+     <div class="row"><button class="btn primary" data-go="unit" data-u="0">${n?'Ir al camino':'Empezar la unidad 1'}</button></div></div></div>`;
+    if(n)app.querySelector('[data-go="unit"]').dataset.go='home';
+    return;}
+  const learned=Object.keys(S.srs).map(k=>WORDS[k]).filter(Boolean);
+  const pool=learned.length>=4?learned:[...learned,...U[0].words.filter(w=>!w.name)];
+  const syl=[];U.forEach((u,ui)=>{if(isDone(ui,'read'))syl.push(...ctxFor(ui).syl)});
+  const x={pool,syl:uniqBy(syl,s=>s.c),u:U[0],letters:[]};
+  const list=due.slice(0,12).map(k=>{const w=WORDS[k];for(const t of shuffle(['meaning','reverse','listen','build','meaning'])){const e=G[t](x,w);if(e){e.type=t;return e}}return null}).filter(Boolean);
+  run(list,review,home);
+}
+
+// ---------- Álef-bet ----------
+function alef(){
+  chrome('alef');
+  app.innerHTML=`<div class="stack"><h1>El álef-bet</h1>
+   <p class="hint">22 letras, todas consonantes, y 5 formas finales. Se lee de derecha a izquierda. Las vocales son puntos y rayitas (nikud) debajo, encima o dentro de las letras. En la vida diaria casi no se escriben, así que aprenderás a leer con y sin ellas.</p>
+   <div class="lgrid">${ALEF.split('').map(b=>`<button class="lcard" data-cl="${b}"><span class="he">${b}</span><b>${LT[b][0]}</b><small>${LT[b][2]}</small></button>`).join('')}</div>
+   <h2>Vocales (nikud)</h2><p class="hint">Mostradas sobre la letra מ (m). Toca una fila para oírla.</p>
+   <div class="tbl"><table class="vt"><thead><tr><th>Signo</th><th>Nombre</th><th>Suena</th></tr></thead><tbody>
+   ${VORDER.map(v=>`<tr data-cl="מ${v}" style="cursor:pointer"><td class="he">מ${v}</td><td>${V[v][0]}</td><td>${V[v][1]}</td></tr>`).join('')}
+   <tr data-cl="מוֹ" style="cursor:pointer"><td class="he">מוֹ</td><td>Jolam malé</td><td>o</td></tr>
+   <tr data-cl="מוּ" style="cursor:pointer"><td class="he">מוּ</td><td>Shuruk</td><td>u</td></tr></tbody></table></div>
+   <div class="card"><h3>Tres parejas que cambian con un punto</h3><p><span class="he say">בּ</span> b / <span class="he say">ב</span> v · <span class="he say">כּ</span> k / <span class="he say">כ</span> j · <span class="he say">פּ</span> p / <span class="he say">פ</span> f. Y la שׁ con el punto a la derecha suena sh; a la izquierda (שׂ), s.</p></div>
+   <div class="card"><h3>Letras que se confunden</h3><p><span class="he">ב</span> y <span class="he">כ</span> · <span class="he">ד</span> y <span class="he">ר</span> · <span class="he">ה</span> y <span class="he">ח</span> y <span class="he">ת</span> · <span class="he">ו</span> y <span class="he">ז</span> y <span class="he">ן</span> · <span class="he">ס</span> y <span class="he">ם</span> · <span class="he">ט</span> y <span class="he">מ</span>. Fíjate en las esquinas, los huecos y la altura.</p></div>
+  </div>`;
+  app.querySelectorAll('tr[data-cl]').forEach(r=>r.onclick=()=>{if(popFor!==r)hidePop();tapLetter(r,r.dataset.cl)});
+}
+
+// ---------- Mis palabras ----------
+function words(){
+  chrome('words');
+  const ks=Object.keys(S.srs).filter(k=>WORDS[k]);
+  app.innerHTML=`<div class="stack"><h1>Mis palabras</h1>
+   <p class="hint">${ks.length?`${ks.length} palabras guardadas · ${dueWords().length} para repasar hoy. Las barras verdes muestran cuánto las dominas.`:'Aún no hay palabras. Se guardan al terminar de leer cada texto.'}</p>
+   ${ks.length&&dueWords().length?'<div class="row"><button class="btn primary" data-go="review">Repasar ahora</button></div>':''}
+   ${U.map((u,ui)=>{const ws=u.words.filter(w=>w.u===ui&&S.srs[w.k]);if(!ws.length)return'';
+     return`<h3>${ui+1}. ${u.t}</h3><div class="wlist">${ws.map(w=>`<button class="wrow" data-word="${w.k}"><span class="he">${w.k}</span><span><i class="muted">${w.tr}</i> · ${w.es}</span><span class="lvl" aria-label="Nivel ${S.srs[w.k].b}">${[1,2,3,4,5,6].map(n=>`<i class="${S.srs[w.k].b>n?'on':''}"></i>`).join('')}</span></button>`).join('')}</div>`}).join('')}
+  </div>`;
+}
+
+// ---------- Navegación ----------
+document.addEventListener('click',e=>{
+  const t=e.target;
+  if(popFor&&!t.closest('#pop')&&!popFor.contains(t))hidePop();
+  const g=t.closest('[data-go]');
+  if(g){const v=g.dataset.go;({home,alef,words,review})[v]?({home,alef,words,review})[v]():unit(+g.dataset.u,g.dataset.tab);return}
+  const s=t.closest('[data-say]');if(s){speak(s.dataset.say,s.dataset.rate?+s.dataset.rate:undefined);return}
+  const sy=t.closest('.say');if(sy){speak(sy.textContent);return}
+  const w=t.closest('[data-word]');if(w){const o=WORDS[w.dataset.word];wordSheet(o.k,o.tr,o.es,o.note);return}
+  const c=t.closest('button[data-cl]');if(c){tapLetter(c,c.dataset.cl);return}
+  if(t.closest('#sheet-close'))closeSheet();
+});
+home();
+</script>
+
+</body>
+</html>
