@@ -8,7 +8,7 @@
 <title>Hebreo desde Álef</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%E2%98%85%E2%98%86%E2%98%95%E2%9C%88%EF%B8%8F%E2%9C%95%F0%9F%8C%B3%F0%9F%8D%85%F0%9F%8D%8C%F0%9F%8D%8E%F0%9F%8D%93%F0%9F%8D%97%F0%9F%8D%9A%F0%9F%8D%9E%F0%9F%8D%AB%F0%9F%8D%B5%F0%9F%8D%B7%F0%9F%8D%BD%F0%9F%8F%96%F0%9F%8F%A5%F0%9F%8F%A6%F0%9F%8F%A8%F0%9F%8F%AB%F0%9F%90%9F%F0%9F%92%A7%F0%9F%93%AE%F0%9F%9A%8F%F0%9F%9A%95%F0%9F%9B%8D%F0%9F%9B%92%F0%9F%A5%90%F0%9F%A5%92%F0%9F%A5%95%F0%9F%A5%9A%F0%9F%A5%9B%F0%9F%A5%A1%F0%9F%A7%80%F0%9F%A7%85%F0%9F%A7%BA%F0%9F%AA%99&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%E2%9C%93%E2%9C%95%F0%9F%8D%9E%F0%9F%A5%9B%F0%9F%A5%9A%F0%9F%A7%80%F0%9F%8D%8E%F0%9F%8D%8C%F0%9F%8D%85%F0%9F%A5%92%F0%9F%8D%9A%F0%9F%92%A7%E2%98%95%F0%9F%90%9F%F0%9F%8D%97%F0%9F%8D%AB%F0%9F%8D%93%F0%9F%A5%95%F0%9F%A7%85%F0%9F%8D%B7%F0%9F%8F%A6%F0%9F%8F%96%EF%B8%8F%F0%9F%A7%BA%F0%9F%8F%A8%F0%9F%8C%B3%F0%9F%8D%BD%EF%B8%8F%F0%9F%8F%A5%F0%9F%8F%AB%F0%9F%9A%8F%E2%9C%88%EF%B8%8F%F0%9F%9B%8D%EF%B8%8F%F0%9F%93%AE%E2%98%85%E2%98%86%F0%9F%8D%B5%F0%9F%A5%90%F0%9F%A5%A1%F0%9F%9A%95%F0%9F%9B%92%F0%9F%AA%99%F0%9F%91%AA%F0%9F%A9%BA%F0%9F%8F%A0%F0%9F%91%95%F0%9F%9A%8C%F0%9F%93%85%F0%9F%94%A2%F0%9F%92%BC%F0%9F%8E%AC%F0%9F%92%A1%F0%9F%8E%A8%F0%9F%94%91%F0%9F%92%AC%F0%9F%94%81%F0%9F%94%97%F0%9F%93%98&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600&family=Rubik:wght@400;500;700&display=swap">
 <style>
 /* Layout: one reading column, sticky top bar, bottom sheet for letter/word details. Light-only by request. */
@@ -253,6 +253,18 @@ table.vt{border-collapse:collapse;width:100%;background:var(--card);border-radiu
 .arrows button{width:78px;height:64px;font-size:30px;border-radius:16px;border:1.5px solid var(--line);border-bottom-width:3px;background:var(--card);cursor:pointer;color:var(--ink)}
 .arrows button:hover{border-color:var(--accent)}
 .route{font-size:26px;text-align:center;min-height:36px;letter-spacing:6px;color:var(--accent)}
+.search{width:100%;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.bar.thin{display:block;height:6px;margin-top:6px}
+.meta{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.meta .he{font-size:15px}
+.ct tr[data-say]{cursor:pointer}
+.ct tr[data-say]:hover{background:var(--accent-soft)}
+.ct td.he{font-size:22px;color:var(--accent)}
+.ct td:first-child .he{font-size:16px;color:var(--ink)}
+.ct th{background:var(--paper);color:var(--ink);font-size:13px}
+#sheet.tall{max-height:85vh}
+.flash{justify-items:center;text-align:center}
+.flash .facts{text-align:left}
 @media (max-width:640px){
   .nav{position:fixed;left:0;right:0;bottom:0;z-index:25;margin:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px));padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
   .nav button{display:grid;justify-items:center;gap:1px;font-size:11px;border-radius:10px;padding:4px 2px;position:relative}
@@ -274,9 +286,9 @@ table.vt{border-collapse:collapse;width:100%;background:var(--card);border-radiu
   <span class="streak" id="streak"></span>
   <nav class="nav">
     <button data-go="home" id="nav-home"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg>Camino</button>
+    <button data-go="voc" id="nav-voc"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h12v14H4zM8 3h12v14h-2V5H8z"/></svg>Vocabulario</button>
+    <button data-go="prac" id="nav-prac"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10h2v4H2zM20 10h2v4h-2zM5 6h3v12H5zM16 6h3v12h-3zM8 11h8v2H8z"/></svg>Práctica</button>
     <button data-go="games" id="nav-games"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm8 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-4-4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>Juegos</button>
-    <button data-go="alef" id="nav-alef"><span class="ni" aria-hidden="true">א</span>Álef-bet</button>
-    <button data-go="words" id="nav-words"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h12v14H4zM8 3h12v14h-2V5H8z"/></svg>Palabras</button>
     <button data-go="review" id="nav-review"><svg class="ni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>Repaso<span class="badge" id="due"></span></button>
   </nav>
 </div></header>
@@ -524,7 +536,7 @@ const VORDER=['ַ','ָ','ֵ','ֶ','ִ','ֹ','ֻ','ְ','ֲ','ֱ','ֳ'];
 const $=s=>document.querySelector(s);
 const app=$('#app');
 const strip=s=>s.replace(/[֑-ׇ]/g,'');
-const bare=s=>s.replace(/[!?,.:;"'()]/g,'').trim();
+const bare=s=>s.replace(/[!?,.:;"'()]/g,'').trim().normalize('NFC');
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const pick=a=>a[Math.random()*a.length|0];
 const uniqBy=(a,f)=>{const s=new Set();return a.filter(x=>{const k=f(x);if(s.has(k))return false;s.add(k);return true})};
@@ -560,7 +572,7 @@ U.forEach((u,ui)=>{u.words=[];u.lines.forEach(l=>l.w.forEach(a=>{const k=bare(a[
 // ---------- Estado (solo en este navegador) ----------
 const KEY='hebreo-desde-alef-v1';
 let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
-S.done=S.done||{};S.srs=S.srs||{};S.streak=S.streak||{n:0,last:''};S.view=S.view||{mode:'w',nik:true,tr:false};S.rate=S.rate||0.85;S.games=S.games||{};
+S.done=S.done||{};S.srs=S.srs||{};S.streak=S.streak||{n:0,last:''};S.view=S.view||{mode:'w',nik:true,tr:false};S.rate=S.rate||0.85;S.games=S.games||{};S.skills=S.skills||{};S.srs=Object.fromEntries(Object.entries(S.srs).map(([k,v])=>[k.normalize('NFC'),v]));
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const DAY=864e5,IV=[0,1,2,4,8,16,32,64];
 function srsAdd(k){if(!S.srs[k])S.srs[k]={b:1,d:Date.now()+DAY}}
@@ -591,7 +603,7 @@ function speakLines(items){ // items: [{text, el}]
 }
 
 // ---------- Hoja de detalle ----------
-function openSheet(html){$('#sheet-body').innerHTML=html;$('#sheet').hidden=false;document.body.classList.add('sheet-open')}
+function openSheet(html,tall){$('#sheet-body').innerHTML=html;$('#sheet').classList.toggle('tall',!!tall);$('#sheet').hidden=false;document.body.classList.add('sheet-open')}
 function closeSheet(){$('#sheet').hidden=true;document.body.classList.remove('sheet-open');document.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'))}
 function wordSheet(he,tr,es,note){
   const k=bare(he);
@@ -645,12 +657,16 @@ function home(){
   app.innerHTML=`<div class="stack">
    <section class="hero"><div>
      <h1>Aprende a leer hebreo leyendo hebreo</h1>
-     <p>Diez textos cortos (diálogos, oraciones, poemas y un relato) y minijuegos de la vida diaria te llevan del álef-bet al nivel A2. Primero lees y tocas cada letra para oírla. Luego practicas. La gramática llega cuando ya la viste en el texto.</p>
+     <p>Diez textos cortos, el vocabulario A2 con sus conjugaciones, un banco de ejercicios y minijuegos de la vida diaria te llevan del álef-bet al nivel A2. Primero lees y tocas cada letra para oírla. Luego practicas. La gramática llega cuando ya la viste en el texto.</p>
      <div class="row"><button class="btn primary" data-go="unit" data-u="${next}">${unitDone(next)?'Repasar':'Continuar'}: ${U[next].t}</button>
      <button class="btn" data-go="review">Repaso de hoy · ${d}</button></div></div>
      <div><div class="hero-word">${clusters('שָׁלוֹם').map(c=>`<button data-cl="${c}">${c}</button>`).join('')}</div><div class="hero-cap">Toca cada letra</div></div>
    </section>
    <div class="voice-warn" id="voice-warn" hidden></div>
+   <div class="card"><div class="sec-h"><h2>Vocabulario A2</h2><button class="back" data-go="voc">Ver temas ›</button></div>
+     <p class="muted">${learnedCount()} de ${Object.keys(WORDS).length} palabras en tu repaso · ${VERBS.length} verbos con presente, pasado y futuro</p>
+     <div class="bar"><span style="width:${learnedCount()/Object.keys(WORDS).length*100}%"></span></div>
+     <div class="row"><button class="btn primary" data-go="voc">Aprender palabras</button><button class="btn" data-go="prac">Banco de ejercicios</button></div></div>
    <div class="sec-h"><h2>Vida diaria</h2><button class="back" data-go="games">Ver juegos ›</button></div>
    <div class="games">${GAMES.map(gameCard).join('')}</div>
    <h2>Tu camino</h2>
@@ -802,7 +818,7 @@ function run(list,onFinish,backTo,retry){
     chrome(null);if(i>=list.length)return finish();
     const e=list[i];
     app.innerHTML=`<div class="run-top"><button class="back" id="quit">✕ Salir</button><div class="bar"><span style="width:${i/list.length*100}%"></span></div><span class="cnt">${i+1} / ${list.length}</span></div>
-     <div class="ex"><div class="ex-type">${TYPE[e.type]||''}${e.retry?' · otra vez':''}</div>
+     <div class="ex"><div class="ex-type">${e.tl||TYPE[e.type]||''}${e.retry?' · otra vez':''}</div>
      <div class="ex-head">${e.say?`<button class="spk" id="say" aria-label="Escuchar">${SPK}</button>`:''}<h2>${e.title}</h2></div>
      ${e.prompt||''}<div id="area"></div><div id="fb"></div></div>`;
     $('#quit').onclick=()=>{window.speechSynthesis&&speechSynthesis.cancel();backTo?backTo():home()};
@@ -878,8 +894,8 @@ function review(){
 
 // ---------- Álef-bet ----------
 function alef(){
-  chrome('alef');
-  app.innerHTML=`<div class="stack"><h1>El álef-bet</h1>
+  chrome('prac');
+  app.innerHTML=`<button class="back" data-go="prac">‹ Práctica</button><div class="stack"><h1>El álef-bet</h1>
    <p class="hint">22 letras, todas consonantes, y 5 formas finales. Se lee de derecha a izquierda. Las vocales son puntos y rayitas (nikud) debajo, encima o dentro de las letras. En la vida diaria casi no se escriben, así que aprenderás a leer con y sin ellas.</p>
    <div class="lgrid">${ALEF.split('').map(b=>`<button class="lcard" data-cl="${b}"><span class="he">${b}</span><b>${LT[b][0]}</b><small>${LT[b][2]}</small></button>`).join('')}</div>
    <h2>Vocales (nikud)</h2><p class="hint">Mostradas sobre la letra מ (m). Toca una fila para oírla.</p>
@@ -895,15 +911,16 @@ function alef(){
 
 // ---------- Mis palabras ----------
 function words(){
-  chrome('words');
+  chrome('voc');
   const ks=Object.keys(S.srs).filter(k=>WORDS[k]);
-  const row=w=>`<button class="wrow" data-word="${w.k}"><span class="he">${w.k}</span><span><i class="muted">${w.tr}</i> · ${w.es}</span><span class="lvl" aria-label="Nivel ${S.srs[w.k].b}">${[1,2,3,4,5,6].map(n=>`<i class="${S.srs[w.k].b>n?'on':''}"></i>`).join('')}</span></button>`;
+  const row=w=>`<button class="wrow" data-${VOCK[w.k]?'vk':'word'}="${w.k}"><span class="he">${w.k}</span><span><i class="muted">${w.tr}</i> · ${w.es}</span><span class="lvl" aria-label="Nivel ${S.srs[w.k].b}">${[1,2,3,4,5,6].map(n=>`<i class="${S.srs[w.k].b>n?'on':''}"></i>`).join('')}</span></button>`;
   const grp=(t,ws)=>ws.length?`<h3>${t}</h3><div class="wlist">${ws.map(row).join('')}</div>`:'';
   app.innerHTML=`<div class="stack"><h1>Mis palabras</h1>
    <p class="hint">${ks.length?`${ks.length} palabras guardadas · ${dueWords().length} para repasar hoy. Las barras verdes muestran cuánto las dominas. Toca una palabra para oírla.`:'Aún no hay palabras. Se guardan al terminar de leer cada texto o al acertar en los minijuegos.'}</p>
    ${ks.length&&dueWords().length?'<div class="row"><button class="btn primary" data-go="review">Repasar ahora</button></div>':''}
    ${U.map((u,ui)=>grp(`${ui+1}. ${u.t}`,u.words.filter(w=>w.u===ui&&S.srs[w.k]))).join('')}
    ${grp('Vida diaria (minijuegos)',Object.values(WORDS).filter(w=>w.u==='g'&&S.srs[w.k]))}
+   ${DECKS.map(d=>grp(d.t,d.items.filter(w=>VOCK[w.k]===w&&WORDS[w.k].u==='v'&&S.srs[w.k]).map(w=>WORDS[w.k]))).join('')}
   </div>`;
 }
 
@@ -1072,12 +1089,1115 @@ function games(){
    <div class="games">${GAMES.map(gameCard).join('')}</div></div>`;
 }
 
+// ---------- Banco de vocabulario A2 ----------
+// Formato por línea (separado por |):
+// n|sustantivo|translit.|español|género (m, f, mp = solo plural masc., fp = solo plural fem.)|plural|translit. plural   (- si no tiene)
+// a|adjetivo m.|translit.|español|femenino|translit.[|m. pl.|translit.|f. pl.|translit.]  (si el femenino acaba en ־ָה el plural se calcula)
+// w|palabra o frase|translit.|español
+// v|infinitivo|translit.|español|presente m|tr|f|tr|m.pl|tr|f.pl|tr|pasado yo|tr|él|tr|ella|tr|ellos|tr|futuro yo|tr|él|tr|ellos|tr[|p1=forma:translit]
+const DECKS=[
+{id:'fam',t:'Personas y familia',ico:'👪',src:`
+n|אַבָּא|ába|papá|m|-
+n|אִמָּא|íma|mamá|f|-
+n|אָח|aj|hermano|m|אַחִים|ajím
+n|אָחוֹת|ajót|hermana|f|אֲחָיוֹת|ajayót
+n|מִשְׁפָּחָה|mishpajá|familia|f|מִשְׁפָּחוֹת|mishpajót
+n|אִישׁ|ish|hombre|m|אֲנָשִׁים|anashím
+n|אִשָּׁה|ishá|mujer; esposa|f|נָשִׁים|nashím
+n|יֶלֶד|yéled|niño|m|יְלָדִים|yeladím
+n|יַלְדָּה|yaldá|niña|f|יְלָדוֹת|yeladót
+n|תִּינוֹק|tinók|bebé|m|תִּינוֹקוֹת|tinokót
+n|אָב|av|padre|m|אָבוֹת|avót
+n|אֵם|em|madre|f|אִמָּהוֹת|imahót
+n|הוֹרִים|horím|padres|mp|-
+n|בֵּן|ben|hijo|m|בָּנִים|baním
+n|בַּת|bat|hija|f|בָּנוֹת|banót
+n|סָבָא|sába|abuelo|m|-
+n|סָבְתָא|sávta|abuela|f|-
+n|דּוֹד|dod|tío|m|דּוֹדִים|dodím
+n|דּוֹדָה|dodá|tía|f|דּוֹדוֹת|dodót
+n|בַּעַל|báal|marido|m|בְּעָלִים|be'alím
+n|חָבֵר|javér|amigo; novio|m|חֲבֵרִים|javerím
+n|חֲבֵרָה|javerá|amiga; novia|f|חֲבֵרוֹת|javerót
+n|שָׁכֵן|shajén|vecino|m|שְׁכֵנִים|shjením
+n|אוֹרֵחַ|oréaj|invitado|m|אוֹרְחִים|orjím
+n|בָּחוּר|bajúr|chico; joven|m|בַּחוּרִים|bajurím
+n|בַּחוּרָה|bajurá|chica; joven|f|בַּחוּרוֹת|bajurót
+n|נַעַר|náar|muchacho|m|נְעָרִים|nearím
+n|אָדָם|adám|persona; ser humano|m|בְּנֵי אָדָם|bnei adám
+n|שֵׁם|shem|nombre|m|שֵׁמוֹת|shemót
+n|גִּיל|guil|edad|m|גִּילִים|guilím
+n|נֶכֶד|néjed|nieto|m|נְכָדִים|nejadím
+n|נֶכְדָּה|nejdá|nieta|f|נְכָדוֹת|nejadót
+n|חֲתֻנָּה|jatuná|boda|f|חֲתֻנּוֹת|jatunót
+n|יוֹם הֻלֶּדֶת|yom hulédet|cumpleaños|m|יְמֵי הֻלֶּדֶת|yemei hulédet
+`},
+{id:'body',t:'Cuerpo y salud',ico:'🩺',src:`
+n|גּוּף|guf|cuerpo|m|גּוּפִים|gufím
+n|רֹאשׁ|rosh|cabeza|m|רָאשִׁים|rashím
+n|פָּנִים|paním|cara|mp|-
+n|עַיִן|áyin|ojo|f|עֵינַיִם|eináyim
+n|אֹזֶן|ózen|oreja; oído|f|אָזְנַיִם|oznáyim
+n|אַף|af|nariz|m|אַפִּים|apím
+n|פֶּה|pe|boca|m|פִּיּוֹת|piyót
+n|שֵׁן|shen|diente|f|שִׁנַּיִם|shináyim
+n|שֵׂעָר|seár|pelo|m|שְׂעָרוֹת|searót
+n|יָד|yad|mano|f|יָדַיִם|yadáyim
+n|רֶגֶל|régel|pierna; pie|f|רַגְלַיִם|ragláyim
+n|אֶצְבַּע|etsbá|dedo|f|אֶצְבָּעוֹת|etsbaót
+n|בֶּטֶן|béten|barriga|f|בְּטָנִים|betaním
+n|גַּב|gav|espalda|m|גַּבּוֹת|gabót
+n|לֵב|lev|corazón|m|לְבָבוֹת|levavót
+n|צַוָּאר|tsavár|cuello|m|צַוָּארִים|tsavarím
+n|כָּתֵף|katéf|hombro|f|כְּתֵפַיִם|ktefáyim
+n|בְּרִיאוּת|briút|salud|f|-
+n|רוֹפֵא|rofé|médico|m|רוֹפְאִים|rof'ím
+n|רוֹפְאָה|rof'á|médica|f|רוֹפְאוֹת|rof'ót
+n|תְּרוּפָה|trufá|medicina|f|תְּרוּפוֹת|trufót
+n|כְּאֵב|ke'év|dolor|m|כְּאֵבִים|ke'evím
+n|חֹם|jom|fiebre; calor|m|-
+n|מִרְפָּאָה|mirpaá|clínica|f|מִרְפָּאוֹת|mirpaót
+n|בֵּית מִרְקַחַת|beit mirkájat|farmacia|m|בָּתֵּי מִרְקַחַת|batei mirkájat
+w|כּוֹאֵב לִי|koév li|me duele
+w|רְפוּאָה שְׁלֵמָה|refuá shlemá|que te mejores
+`},
+{id:'home',t:'Casa y objetos',ico:'🏠',src:`
+n|בַּיִת|báyit|casa|m|בָּתִּים|batím
+n|סֵפֶר|séfer|libro|m|סְפָרִים|sfarím
+n|שֻׁלְחָן|shulján|mesa|m|שֻׁלְחָנוֹת|shuljanót
+n|דִּירָה|dirá|departamento|f|דִּירוֹת|dirót
+n|חֶדֶר|jéder|cuarto|m|חֲדָרִים|jadarím
+n|חֲדַר שֵׁנָה|jadar shená|dormitorio|m|חַדְרֵי שֵׁנָה|jadrei shená
+n|סָלוֹן|salón|sala|m|סָלוֹנִים|saloním
+n|מִטְבָּח|mitbáj|cocina|m|מִטְבָּחִים|mitbajím
+n|אַמְבַּטְיָה|ambátya|baño (con tina)|f|אַמְבַּטְיוֹת|ambatyót
+n|שֵׁרוּתִים|sherutím|baño (inodoro)|mp|-
+n|חַלּוֹן|jalón|ventana|m|חַלּוֹנוֹת|jalonót
+n|דֶּלֶת|délet|puerta|f|דְּלָתוֹת|dlatót
+n|קִיר|kir|pared|m|קִירוֹת|kirót
+n|רִצְפָּה|ritspá|piso; suelo|f|רְצָפוֹת|retsafót
+n|גַּג|gag|techo; azotea|m|גַּגּוֹת|gagót
+n|מַדְרֵגוֹת|madregót|escaleras|fp|-
+n|מַעֲלִית|maalít|elevador|f|מַעֲלִיּוֹת|maaliyót
+n|מִרְפֶּסֶת|mirpéset|balcón|f|מִרְפָּסוֹת|mirpasót
+n|גִּנָּה|guiná|jardín|f|גִּנּוֹת|guinót
+n|כִּסֵּא|kisé|silla|m|כִּסְאוֹת|kis'ót
+n|מִטָּה|mitá|cama|f|מִטּוֹת|mitót
+n|סַפָּה|sapá|sofá|f|סַפּוֹת|sapót
+n|אָרוֹן|arón|armario|m|אֲרוֹנוֹת|aronót
+n|מְנוֹרָה|menorá|lámpara|f|מְנוֹרוֹת|menorót
+n|מְקָרֵר|mekarér|refrigerador|m|מְקָרְרִים|mekarerím
+n|תַּנּוּר|tanúr|horno|m|תַּנּוּרִים|tanurím
+n|כִּיּוֹר|kiyór|lavabo; fregadero|m|כִּיּוֹרִים|kiyorím
+n|מִקְלַחַת|miklájat|regadera; ducha|f|מִקְלָחוֹת|miklajót
+n|מַפְתֵּחַ|maftéaj|llave|m|מַפְתְּחוֹת|maftejót
+n|מַחְשֵׁב|majshév|computadora|m|מַחְשְׁבִים|majshevím
+n|טֶלֶפוֹן|télefon|teléfono|m|טֶלֶפוֹנִים|telefoním
+n|טֵלֵוִיזְיָה|televízya|televisión|f|טֵלֵוִיזְיוֹת|televizyót
+n|מַגֶּבֶת|magévet|toalla|f|מַגָּבוֹת|magavót
+n|שָׁעוֹן|shaón|reloj|m|שְׁעוֹנִים|sheoním
+n|תְּמוּנָה|tmuná|foto; cuadro|f|תְּמוּנוֹת|tmunót
+n|כּוֹס|kos|vaso|f|כּוֹסוֹת|kosót
+n|צַלַּחַת|tsalájat|plato|f|צַלָּחוֹת|tsalajót
+n|סַכִּין|sakín|cuchillo|f|סַכִּינִים|sakiním
+n|מַזְלֵג|mazlég|tenedor|m|מַזְלְגוֹת|mazlegót
+n|כַּף|kaf|cuchara|f|כַּפּוֹת|kapót
+n|סִיר|sir|olla|m|סִירִים|sirím
+n|שְׂמִיכָה|smijá|cobija|f|שְׂמִיכוֹת|smijót
+n|כָּרִית|karít|almohada|f|כָּרִיּוֹת|kariyót
+`},
+{id:'food',t:'Comida y bebida',ico:'🍽️',src:`
+n|לֶחֶם|léjem|pan|m|-
+n|מַיִם|máyim|agua|mp|-
+n|קָפֶה|kafé|café|m|-
+n|חַלָּה|jalá|jalá (pan trenzado)|f|חַלּוֹת|jalót
+n|אֹכֶל|ójel|comida|m|-
+n|אֲרוּחָה|arujá|comida (del día)|f|אֲרוּחוֹת|arujót
+n|אֲרוּחַת בֹּקֶר|arujat bóker|desayuno|f|-
+n|אֲרוּחַת צָהֳרַיִם|arujat tsohoráyim|almuerzo|f|-
+n|אֲרוּחַת עֶרֶב|arujat érev|cena|f|-
+n|בֵּיצָה|beitsá|huevo|f|בֵּיצִים|beitsím
+n|גְּבִינָה|gviná|queso|f|גְּבִינוֹת|gvinót
+n|חֶמְאָה|jem'á|mantequilla|f|-
+n|בָּשָׂר|basár|carne|m|-
+n|עוֹף|of|pollo|m|עוֹפוֹת|ofót
+n|דָּג|dag|pescado|m|דָּגִים|dagím
+n|אֹרֶז|órez|arroz|m|-
+n|מָרָק|marák|sopa|m|מְרָקִים|merakím
+n|סָלָט|salát|ensalada|m|סָלָטִים|salatím
+n|יָרָק|yarák|verdura|m|יְרָקוֹת|yerakót
+n|פְּרִי|prí|fruta|m|פֵּרוֹת|perót
+n|תַּפּוּחַ|tapúaj|manzana|m|תַּפּוּחִים|tapujím
+n|תַּפּוּז|tapúz|naranja|m|תַּפּוּזִים|tapuzím
+n|בָּנָנָה|banána|plátano|f|בָּנָנוֹת|bananót
+n|עַגְבָנִיָּה|agvaniyá|tomate|f|עַגְבָנִיּוֹת|agvaniyót
+n|מְלָפְפוֹן|melafefón|pepino|m|מְלָפְפוֹנִים|melafefoním
+n|תַּפּוּחַ אֲדָמָה|tapúaj adamá|papa|m|תַּפּוּחֵי אֲדָמָה|tapujei adamá
+n|גֶּזֶר|guézer|zanahoria|m|-
+n|בָּצָל|batsál|cebolla|m|בְּצָלִים|betsalím
+n|תּוּת|tut|fresa|m|תּוּתִים|tutím
+n|עֵנָב|enáv|uva|m|עֲנָבִים|anavím
+n|אֲבַטִּיחַ|avatíaj|sandía|m|אֲבַטִּיחִים|avatijím
+n|מֶלַח|mélaj|sal|m|-
+n|סֻכָּר|sukár|azúcar|m|-
+n|שֶׁמֶן|shémen|aceite|m|שְׁמָנִים|shmaním
+n|עוּגָה|ugá|pastel|f|עוּגוֹת|ugót
+n|עוּגִיָּה|ugiyá|galleta|f|עוּגִיּוֹת|ugiyót
+n|גְּלִידָה|glidá|helado|f|גְּלִידוֹת|glidót
+n|שׁוֹקוֹלָד|shokolád|chocolate|m|-
+n|מִיץ|mits|jugo|m|מִיצִים|mitsím
+n|תֵּה|te|té|m|-
+n|יַיִן|yáyin|vino|m|יֵינוֹת|yeinót
+n|בִּירָה|bíra|cerveza|f|-
+n|חָלָב|jaláv|leche|m|-
+n|פָלָאפֶל|faláfel|falafel|m|-
+n|חוּמוּס|júmus|hummus|m|-
+n|פִּיתָה|píta|pan pita|f|פִּיתּוֹת|pitót
+n|מֶלְצַר|meltsár|mesero|m|מֶלְצָרִים|meltsarím
+n|תַּפְרִיט|tafrít|menú|m|תַּפְרִיטִים|tafritím
+n|חֶשְׁבּוֹן|jeshbón|cuenta|m|חֶשְׁבּוֹנוֹת|jeshbonót
+`},
+{id:'clothes',t:'Ropa y colores',ico:'👕',src:`
+n|בֶּגֶד|bégued|prenda de ropa|m|בְּגָדִים|begadím
+n|חֻלְצָה|jultsá|camisa; blusa|f|חֻלְצוֹת|jultsót
+n|מִכְנָסַיִם|mijnasáyim|pantalón|mp|-
+n|שִׂמְלָה|simlá|vestido|f|שְׂמָלוֹת|smalót
+n|חֲצָאִית|jatsaít|falda|f|חֲצָאִיּוֹת|jatsaiyót
+n|מְעִיל|meíl|abrigo|m|מְעִילִים|meilím
+n|נַעַל|náal|zapato|f|נַעֲלַיִם|naaláyim
+n|גֶּרֶב|guérev|calcetín|m|גַּרְבַּיִם|garbáyim
+n|כּוֹבַע|kóva|sombrero; gorra|m|כּוֹבָעִים|kovaím
+n|תִּיק|tik|bolsa; mochila|m|תִּיקִים|tikím
+n|מִשְׁקָפַיִם|mishkafáyim|lentes|mp|-
+n|בֶּגֶד יָם|bégued yam|traje de baño|m|בִּגְדֵי יָם|bigdei yam
+n|סְוֶדֶר|svéder|suéter|m|סְוֶדֶרִים|svederím
+n|מִטְרִיָּה|mitriyá|paraguas|f|מִטְרִיּוֹת|mitriyót
+n|צֶבַע|tséva|color|m|צְבָעִים|tsvaím
+a|לָבָן|laván|blanco|לְבָנָה|levaná
+a|שָׁחֹר|shajór|negro|שְׁחֹרָה|shjorá
+a|אָדֹם|adóm|rojo|אֲדֻמָּה|adumá
+a|כָּחֹל|kajól|azul|כְּחֻלָּה|kjulá
+a|יָרֹק|yarók|verde|יְרֻקָּה|yeruká
+a|צָהֹב|tsahóv|amarillo|צְהֻבָּה|tsehubá
+a|כָּתֹם|katóm|anaranjado|כְּתֻמָּה|ktumá
+a|סָגֹל|sagól|morado|סְגֻלָּה|sgulá
+a|וָרֹד|varód|rosa|וְרֻדָּה|vrudá
+a|חוּם|jum|café (color)|חוּמָה|jumá
+a|אָפֹר|afór|gris|אֲפֹרָה|aforá
+`},
+{id:'city',t:'Ciudad, transporte y países',ico:'🚌',src:`
+n|יָם|yam|mar|m|יַמִּים|yamím
+n|שׁוּק|shuk|mercado|m|שְׁוָקִים|shvakím
+n|בַּנְק|bank|banco|m|בַּנְקִים|bankím
+n|מָלוֹן|malón|hotel|m|מְלוֹנוֹת|melonót
+n|מִסְעָדָה|misadá|restaurante|f|מִסְעָדוֹת|misadót
+n|בֵּית סֵפֶר|beit séfer|escuela|m|בָּתֵּי סֵפֶר|batei séfer
+n|בֵּית חוֹלִים|beit jolím|hospital|m|בָּתֵּי חוֹלִים|batei jolím
+n|תַּחֲנָה|tajaná|parada; estación|f|תַּחֲנוֹת|tajanót
+n|שְׂדֵה תְּעוּפָה|sdé teufá|aeropuerto|m|שְׂדוֹת תְּעוּפָה|sdot teufá
+n|פַּארְק|park|parque|m|פַּארְקִים|parkím
+n|קַנְיוֹן|kanyón|centro comercial|m|קַנְיוֹנִים|kanyoním
+n|דֹּאַר|dóar|correo|m|-
+n|עִיר|ir|ciudad|f|עָרִים|arím
+n|רְחוֹב|rejóv|calle|m|רְחוֹבוֹת|rejovót
+n|כְּבִישׁ|kvish|carretera|m|כְּבִישִׁים|kvishím
+n|שְׁכוּנָה|shjuná|barrio|f|שְׁכוּנוֹת|shjunót
+n|כְּפָר|kfar|pueblo|m|כְּפָרִים|kfarím
+n|מֶרְכָּז|merkáz|centro|m|מֶרְכָּזִים|merkazím
+n|כִּכָּר|kikár|plaza; glorieta|f|כִּכָּרוֹת|kikarót
+n|סוּפֶּרְמַרְקֶט|supermárket|supermercado|m|סוּפֶּרְמַרְקֶטִים|supermarketím
+n|חֲנוּת|janút|tienda|f|חֲנֻיּוֹת|januyót
+n|בֵּית קָפֶה|beit kafé|café (lugar)|m|בָּתֵּי קָפֶה|batei kafé
+n|מוּזֵאוֹן|muzeón|museo|m|מוּזֵאוֹנִים|muzeoním
+n|סִפְרִיָּה|sifriyá|biblioteca|f|סִפְרִיּוֹת|sifriyót
+n|בֵּית כְּנֶסֶת|beit knéset|sinagoga|m|בָּתֵּי כְּנֶסֶת|batei knéset
+n|חוֹף|jof|playa|m|חוֹפִים|jofím
+n|מְכוֹנִית|mejonít|coche|f|מְכוֹנִיּוֹת|mejoniyót
+n|אוֹטוֹבּוּס|ótobus|autobús|m|אוֹטוֹבּוּסִים|otobúsim
+n|רַכֶּבֶת|rakévet|tren|f|רַכָּבוֹת|rakavót
+n|אוֹפַנַּיִם|ofanáyim|bicicleta|mp|-
+n|מָטוֹס|matós|avión|m|מְטוֹסִים|metosím
+n|אֳנִיָּה|oniyá|barco|f|אֳנִיּוֹת|oniyót
+n|כַּרְטִיס|kartís|boleto|m|כַּרְטִיסִים|kartisím
+n|רַמְזוֹר|ramzór|semáforo|m|רַמְזוֹרִים|ramzorím
+n|מַפָּה|mapá|mapa|f|מַפּוֹת|mapót
+n|דֶּרֶךְ|dérej|camino|f|דְּרָכִים|drajím
+n|פִּנָּה|piná|esquina|f|פִּנּוֹת|pinót
+w|יִשְׂרָאֵל|israél|Israel
+w|מֶקְסִיקוֹ|méksiko|México
+w|סְפָרַד|sfarád|España
+w|אַרְצוֹת הַבְּרִית|artsót habrít|Estados Unidos
+w|אַרְגֶּנְטִינָה|arguentína|Argentina
+w|צָרְפַת|tsárfat|Francia
+w|יְרוּשָׁלַיִם|yerushaláyim|Jerusalén
+w|תֵּל אָבִיב|tel avív|Tel Aviv
+w|חֵיפָה|jéifa|Haifa
+w|יַם הַמֶּלַח|yam hamélaj|Mar Muerto
+w|אֵירוֹפָּה|eirópa|Europa
+`},
+{id:'time',t:'Tiempo y calendario',ico:'📅',src:`
+n|יוֹם|yom|día|m|יָמִים|yamím
+n|בֹּקֶר|bóker|mañana|m|בְּקָרִים|bkarím
+n|עֶרֶב|érev|tarde; noche|m|עֲרָבִים|aravím
+n|שַׁבָּת|shabát|sábado; Shabat|f|שַׁבָּתוֹת|shabatót
+w|מָחָר|majár|mañana (día siguiente)
+w|אֶתְמוֹל|etmól|ayer
+n|לַיְלָה|láila|noche|m|לֵילוֹת|leilót
+n|צָהֳרַיִם|tsohoráyim|mediodía|mp|-
+n|שָׁבוּעַ|shavúa|semana|m|שָׁבוּעוֹת|shavuót
+n|חֹדֶשׁ|jódesh|mes|m|חֳדָשִׁים|jodashím
+n|שָׁנָה|shaná|año|f|שָׁנִים|shaním
+n|שָׁעָה|shaá|hora|f|שָׁעוֹת|shaót
+n|דַּקָּה|daká|minuto|f|דַּקּוֹת|dakót
+n|שְׁנִיָּה|shniyá|segundo|f|שְׁנִיּוֹת|shniyót
+n|זְמַן|zman|tiempo|m|זְמַנִּים|zmaním
+n|סוֹף שָׁבוּעַ|sof shavúa|fin de semana|m|סוֹפֵי שָׁבוּעַ|sofei shavúa
+n|חַג|jag|fiesta (religiosa)|m|חַגִּים|jaguím
+n|חֻפְשָׁה|jufshá|vacaciones|f|חֻפְשׁוֹת|jufshót
+n|קַיִץ|káyits|verano|m|-
+n|חֹרֶף|jóref|invierno|m|-
+n|אָבִיב|avív|primavera|m|-
+n|סְתָו|stav|otoño|m|-
+w|הַיּוֹם|hayóm|hoy
+w|מָחֳרָתַיִם|mojrotáyim|pasado mañana
+w|שִׁלְשׁוֹם|shilshóm|anteayer
+w|עַכְשָׁו|ajsháv|ahora
+w|לִפְנֵי|lifnéi|antes de; hace (tiempo)
+w|אַחֲרֵי|ajaréi|después de
+w|תָּמִיד|tamíd|siempre
+w|אַף פַּעַם|af páam|nunca
+w|לִפְעָמִים|lifamím|a veces
+w|כְּבָר|kvar|ya
+w|עוֹד|od|todavía; más
+w|מֻקְדָּם|mukdám|temprano
+w|מְאֻחָר|meujár|tarde
+w|יוֹם רִאשׁוֹן|yom rishón|domingo
+w|יוֹם שֵׁנִי|yom shení|lunes
+w|יוֹם שְׁלִישִׁי|yom shlishí|martes
+w|יוֹם רְבִיעִי|yom revií|miércoles
+w|יוֹם חֲמִישִׁי|yom jamishí|jueves
+w|יָנוּאָר|yanuár|enero
+w|פֶבְּרוּאָר|febrúar|febrero
+w|מֶרְץ|merts|marzo
+w|אַפְּרִיל|april|abril
+w|מַאי|mai|mayo
+w|יוּנִי|yúni|junio
+w|יוּלִי|yúli|julio
+w|אוֹגוּסְט|ógust|agosto
+w|סֶפְּטֶמְבֶּר|septémber|septiembre
+w|אוֹקְטוֹבֶּר|október|octubre
+w|נוֹבֶמְבֶּר|novémber|noviembre
+w|דֶּצֶמְבֶּר|detsémber|diciembre
+`},
+{id:'num',t:'Números',ico:'🔢',src:''},
+{id:'work',t:'Trabajo y estudio',ico:'💼',src:`
+n|עֲבוֹדָה|avodá|trabajo|f|עֲבוֹדוֹת|avodót
+n|מִשְׂרָד|misrád|oficina|m|מִשְׂרָדִים|misradím
+n|מְנַהֵל|menahél|jefe; director|m|מְנַהֲלִים|menahalím
+n|עוֹבֵד|ovéd|trabajador|m|עוֹבְדִים|ovdím
+n|מוֹרֶה|moré|maestro|m|מוֹרִים|morím
+n|מוֹרָה|morá|maestra|f|מוֹרוֹת|morót
+n|תַּלְמִיד|talmíd|alumno|m|תַּלְמִידִים|talmidím
+n|תַּלְמִידָה|talmidá|alumna|f|תַּלְמִידוֹת|talmidót
+n|סְטוּדֶנְט|studént|estudiante universitario|m|סְטוּדֶנְטִים|studentím
+n|אוּנִיבֶרְסִיטָה|universíta|universidad|f|אוּנִיבֶרְסִיטָאוֹת|universitaót
+n|כִּתָּה|kitá|clase; salón|f|כִּתּוֹת|kitót
+n|שִׁעוּר|shiúr|lección|m|שִׁעוּרִים|shiurím
+n|שִׁעוּרֵי בַּיִת|shiurei báyit|tarea|mp|-
+n|מִבְחָן|mivján|examen|m|מִבְחָנִים|mivjaním
+n|שְׁאֵלָה|sheelá|pregunta|f|שְׁאֵלוֹת|sheelót
+n|תְּשׁוּבָה|tshuvá|respuesta|f|תְּשׁוּבוֹת|tshuvót
+n|מַחְבֶּרֶת|majbéret|cuaderno|f|מַחְבָּרוֹת|majbarót
+n|עֵט|et|pluma|m|עֵטִים|etím
+n|עִפָּרוֹן|iparón|lápiz|m|עֶפְרוֹנוֹת|efronót
+n|מִלָּה|milá|palabra|f|מִלִּים|milím
+n|מִשְׁפָּט|mishpát|oración; frase|m|מִשְׁפָּטִים|mishpatím
+n|שָׂפָה|safá|idioma|f|שָׂפוֹת|safót
+n|עִבְרִית|ivrít|hebreo (idioma)|f|-
+n|סְפָרַדִּית|sfaradít|español (idioma)|f|-
+n|אַנְגְּלִית|anglít|inglés (idioma)|f|-
+n|מִקְצוֹעַ|miktsóa|profesión; materia|m|מִקְצוֹעוֹת|miktsoót
+n|פְּגִישָׁה|pguishá|reunión; cita|f|פְּגִישׁוֹת|pguishót
+n|כֶּסֶף|késef|dinero|m|-
+n|מַשְׂכֹּרֶת|maskóret|sueldo|f|מַשְׂכֹּרוֹת|maskorót
+n|שׁוֹטֵר|shotér|policía|m|שׁוֹטְרִים|shotrím
+n|נֶהָג|nehág|chofer|m|נֶהָגִים|nehaguím
+n|טַבָּח|tabáj|cocinero|m|טַבָּחִים|tabajím
+n|מְהַנְדֵּס|mehandés|ingeniero|m|מְהַנְדְּסִים|mehandesím
+n|עוֹרֵךְ דִּין|oréj din|abogado|m|עוֹרְכֵי דִּין|orjei din
+n|מַזְכִּירָה|mazkirá|secretaria|f|מַזְכִּירוֹת|mazkirót
+n|אִימֵייל|iméil|correo electrónico|m|אִימֵיילִים|imeilím
+`},
+{id:'nature',t:'Naturaleza, clima y animales',ico:'🌳',src:`
+n|שֶׁמֶשׁ|shémesh|sol|f|-
+n|שָׁמַיִם|shamáyim|cielo|mp|-
+n|כֶּלֶב|kélev|perro|m|כְּלָבִים|klavím
+n|פֶּרַח|peráj|flor|m|פְּרָחִים|prajím
+n|אֶרֶץ|érets|país; tierra|f|אֲרָצוֹת|aratsót
+n|גַּל|gal|ola|m|גַּלִּים|galím
+n|אוֹר|or|luz|m|אוֹרוֹת|orót
+n|יָרֵחַ|yaréaj|luna|m|-
+n|כּוֹכָב|kojáv|estrella|m|כּוֹכָבִים|kojavím
+n|עָנָן|anán|nube|m|עֲנָנִים|ananím
+n|גֶּשֶׁם|guéshem|lluvia|m|גְּשָׁמִים|gshamím
+n|שֶׁלֶג|shéleg|nieve|m|-
+n|רוּחַ|rúaj|viento|f|רוּחוֹת|rujót
+n|מֶזֶג אֲוִיר|mézeg avír|clima|m|-
+n|אֲוִיר|avír|aire|m|-
+n|עֵץ|ets|árbol; madera|m|עֵצִים|etsím
+n|הַר|har|montaña|m|הָרִים|harím
+n|נָהָר|nahár|río|m|נְהָרוֹת|neharót
+n|אֲגַם|agám|lago|m|אֲגַמִּים|agamím
+n|מִדְבָּר|midbár|desierto|m|מִדְבָּרִיּוֹת|midbariyót
+n|עוֹלָם|olám|mundo|m|עוֹלָמוֹת|olamót
+n|חַיָּה|jayá|animal|f|חַיּוֹת|jayót
+n|חָתוּל|jatúl|gato|m|חֲתוּלִים|jatulím
+n|צִפּוֹר|tsipór|pájaro|f|צִפֳּרִים|tsiporím
+n|סוּס|sus|caballo|m|סוּסִים|susím
+n|פָּרָה|pará|vaca|f|פָּרוֹת|parót
+n|אַרְיֵה|aryé|león|m|אֲרָיוֹת|arayót
+n|פִּיל|pil|elefante|m|פִּילִים|pilím
+n|קוֹף|kof|mono|m|קוֹפִים|kofím
+n|נָחָשׁ|najásh|serpiente|m|נְחָשִׁים|nejashím
+n|גָּמָל|gamál|camello|m|גְּמַלִּים|gmalím
+`},
+{id:'free',t:'Tiempo libre y viajes',ico:'🎬',src:`
+n|שִׁיר|shir|canción; poema|m|שִׁירִים|shirím
+n|סֶרֶט|séret|película|m|סְרָטִים|sratím
+n|מוּזִיקָה|múzika|música|f|-
+n|סְפּוֹרְט|sport|deporte|m|-
+n|כַּדּוּרֶגֶל|kaduréguel|fútbol|m|-
+n|כַּדּוּר|kadúr|pelota|m|כַּדּוּרִים|kadurím
+n|מִשְׂחָק|misják|juego; partido|m|מִשְׂחָקִים|misjakím
+n|בְּרֵכָה|brejá|alberca|f|בְּרֵכוֹת|brejót
+n|טִיּוּל|tiyúl|paseo; excursión|m|טִיּוּלִים|tiyulím
+n|נְסִיעָה|nesiá|viaje; trayecto|f|נְסִיעוֹת|nesiót
+n|מְסִבָּה|mesibá|fiesta|f|מְסִבּוֹת|mesibót
+n|מַתָּנָה|mataná|regalo|f|מַתָּנוֹת|matanót
+n|תַּחְבִּיב|tajbív|pasatiempo|m|תַּחְבִּיבִים|tajbivím
+n|מִזְוָדָה|mizvadá|maleta|f|מִזְוָדוֹת|mizvadót
+n|דַּרְכּוֹן|darkón|pasaporte|m|דַּרְכּוֹנִים|darkoním
+n|תַּיָּר|tayár|turista|m|תַּיָּרִים|tayarím
+n|מָקוֹם|makóm|lugar|m|מְקוֹמוֹת|mekomót
+n|עִתּוֹן|itón|periódico|m|עִתּוֹנִים|itoním
+n|הַצָּגָה|hatsagá|obra de teatro|f|הַצָּגוֹת|hatsagót
+n|קוֹלְנוֹעַ|kolnóa|cine|m|-
+n|צִלּוּם|tsilúm|fotografía|m|צִלּוּמִים|tsilumím
+`},
+{id:'shop',t:'Compras y dinero',ico:'🛍️',src:`
+n|מְחִיר|mejír|precio|m|מְחִירִים|mejirím
+n|הֲנָחָה|hanajá|descuento|f|הֲנָחוֹת|hanajót
+n|קֻפָּה|kupá|caja (para pagar)|f|קֻפּוֹת|kupót
+n|שֶׁקֶל|shékel|shekel|m|שְׁקָלִים|shkalím
+n|אֲגוֹרָה|agorá|agorá (centavo)|f|אֲגוֹרוֹת|agorót
+n|כַּרְטִיס אַשְׁרַאי|kartís ashrái|tarjeta de crédito|m|כַּרְטִיסֵי אַשְׁרַאי|kartisei ashrái
+n|קַבָּלָה|kabalá|recibo|f|קַבָּלוֹת|kabalót
+n|שַׂקִּית|sakít|bolsa (de plástico)|f|שַׂקִּיּוֹת|sakiyót
+n|מוֹכֵר|mojér|vendedor|m|מוֹכְרִים|mojrím
+n|לָקוֹחַ|lakóaj|cliente|m|לְקוֹחוֹת|lekojót
+n|מִבְצָע|mivtsá|oferta|m|מִבְצָעִים|mivtsaím
+n|מִידָה|midá|talla; medida|f|מִידוֹת|midót
+n|עֹדֶף|ódef|cambio (dinero)|m|-
+n|קְנִיּוֹת|kniyót|compras|fp|-
+w|זֶה יָקָר מִדַּי|ze yakár midái|es demasiado caro
+w|אֶפְשָׁר לְשַׁלֵּם בְּכַרְטִיס?|efshár leshalém bekartís|¿se puede pagar con tarjeta?
+w|אֶפְשָׁר לִמְדֹּד?|efshár limdód|¿me lo puedo probar?
+`},
+{id:'ideas',t:'Cosas e ideas',ico:'💡',src:`
+n|דָּבָר|davár|cosa|m|דְּבָרִים|dvarím
+n|בְּעָיָה|beayá|problema|f|בְּעָיוֹת|beayót
+n|רַעְיוֹן|rayón|idea|m|רַעְיוֹנוֹת|rayonót
+n|סִפּוּר|sipúr|historia; cuento|m|סִפּוּרִים|sipurím
+n|חַיִּים|jayím|vida|mp|-
+n|אַהֲבָה|ahavá|amor|f|-
+n|שִׂמְחָה|simjá|alegría|f|שְׂמָחוֹת|smajót
+n|חֲלוֹם|jalóm|sueño (al dormir)|m|חֲלוֹמוֹת|jalomót
+n|תָּכְנִית|tojnít|plan; programa|f|תָּכְנִיּוֹת|tojniyót
+n|עֶזְרָה|ezrá|ayuda|f|-
+n|מַצָּב|matsáv|situación|m|מַצָּבִים|matsavím
+n|סִבָּה|sibá|razón; motivo|f|סִבּוֹת|sibót
+n|דֵּעָה|deá|opinión|f|דֵּעוֹת|deót
+n|חֵלֶק|jélek|parte|m|חֲלָקִים|jalakím
+n|צַד|tsad|lado|m|צְדָדִים|tsdadím
+n|מִסְפָּר|mispár|número|m|מִסְפָּרִים|misparím
+n|רְשִׁימָה|reshimá|lista|f|רְשִׁימוֹת|reshimót
+n|מִכְתָּב|mijtáv|carta|m|מִכְתָּבִים|mijtavím
+n|חֲדָשׁוֹת|jadashót|noticias|fp|-
+n|אֱמֶת|emét|verdad|f|-
+n|שֶׁקֶר|shéker|mentira|m|שְׁקָרִים|shkarím
+n|מִלְחָמָה|miljamá|guerra|f|מִלְחָמוֹת|miljamót
+n|חֹפֶשׁ|jófesh|libertad; tiempo libre|m|-
+n|קוֹל|kol|voz; sonido|m|קוֹלוֹת|kolót
+n|מְדִינָה|mediná|estado; país|f|מְדִינוֹת|medinót
+n|עַם|am|pueblo (nación)|m|עַמִּים|amím
+n|תַּרְבּוּת|tarbút|cultura|f|תַּרְבֻּיּוֹת|tarbuyót
+n|דָּת|dat|religión|f|דָּתוֹת|datót
+n|תּוֹרָה|torá|Torá; enseñanza|f|תּוֹרוֹת|torót
+n|תְּפִלָּה|tfilá|oración (rezo)|f|תְּפִלּוֹת|tfilót
+n|בְּרָכָה|brajá|bendición|f|בְּרָכוֹת|brajót
+n|נֵר|ner|vela|m|נֵרוֹת|nerót
+n|מַזָּל|mazál|suerte|m|-
+`},
+{id:'adj',t:'Adjetivos',ico:'🎨',src:`
+a|גָּדוֹל|gadól|grande|גְּדוֹלָה|gdolá
+a|קָטָן|katán|pequeño|קְטַנָּה|ktaná
+a|טוֹב|tov|bueno|טוֹבָה|tová
+a|רַע|ra|malo|רָעָה|raá
+a|יָפֶה|yafé|bonito|יָפָה|yafá
+a|חָדָשׁ|jadásh|nuevo|חֲדָשָׁה|jadashá
+a|יָשָׁן|yashán|viejo (cosa)|יְשָׁנָה|yeshaná
+a|זָקֵן|zakén|anciano|זְקֵנָה|zkená
+a|צָעִיר|tsaír|joven|צְעִירָה|tseirá
+a|גָּבוֹהַּ|gavóa|alto|גְּבוֹהָה|gvohá
+a|נָמוּךְ|namúj|bajo|נְמוּכָה|nemujá
+a|אָרֹךְ|arój|largo|אֲרֻכָּה|aruká
+a|קָצָר|katsár|corto|קְצָרָה|ktsará
+a|חַם|jam|caliente; caluroso|חַמָּה|jamá
+a|קַר|kar|frío|קָרָה|kará
+a|קַל|kal|fácil; ligero|קַלָּה|kalá
+a|קָשֶׁה|kashé|difícil; duro|קָשָׁה|kashá
+a|יָקָר|yakár|caro; querido|יְקָרָה|yekará
+a|זוֹל|zol|barato|זוֹלָה|zolá
+a|מָהִיר|mahír|rápido|מְהִירָה|mehirá
+a|אִטִּי|ití|lento|אִטִּית|itít|אִטִּיִּים|itiyím|אִטִּיּוֹת|itiyót
+a|שָׂמֵחַ|saméaj|feliz|שְׂמֵחָה|smejá
+a|עָצוּב|atsúv|triste|עֲצוּבָה|atsuvá
+a|עָיֵף|ayéf|cansado|עֲיֵפָה|ayefá
+a|רָעֵב|raév|hambriento|רְעֵבָה|reevá
+a|צָמֵא|tsamé|sediento|צְמֵאָה|tsmeá
+a|חוֹלֶה|jolé|enfermo|חוֹלָה|jolá
+a|בָּרִיא|barí|sano|בְּרִיאָה|briá
+a|עָסוּק|asúk|ocupado|עֲסוּקָה|asuká
+a|פָּנוּי|panúi|libre; disponible|פְּנוּיָה|pnuyá
+a|נֶחְמָד|nejmád|simpático|נֶחְמָדָה|nejmadá
+a|חָכָם|jajám|listo; sabio|חֲכָמָה|jajamá
+a|מַצְחִיק|matsjík|gracioso|מַצְחִיקָה|matsjiká
+a|מְעַנְיֵן|meanyén|interesante|מְעַנְיֶנֶת|meanyénet|מְעַנְיְנִים|meanyením|מְעַנְיְנוֹת|meanyenót
+a|חָשׁוּב|jashúv|importante|חֲשׁוּבָה|jashuvá
+a|נָכוֹן|najón|correcto; verdadero|נְכוֹנָה|nejoná
+a|שׁוֹנֶה|shoné|diferente|שׁוֹנָה|shoná
+a|דּוֹמֶה|domé|parecido|דּוֹמָה|domá
+a|רָחוֹק|rajók|lejano|רְחוֹקָה|rejoká
+a|קָרוֹב|karóv|cercano|קְרוֹבָה|krová
+a|נָקִי|nakí|limpio|נְקִיָּה|nekiyá
+a|מְלֻכְלָךְ|melujláj|sucio|מְלֻכְלֶכֶת|melujléjet|מְלֻכְלָכִים|melujlajím|מְלֻכְלָכוֹת|melujlajót
+a|שָׁקֵט|shakét|tranquilo; callado|שְׁקֵטָה|shketá
+a|מָלֵא|malé|lleno|מְלֵאָה|mleá
+a|רֵיק|rek|vacío|רֵיקָה|reká
+a|פָּתוּחַ|patúaj|abierto|פְּתוּחָה|ptujá
+a|סָגוּר|sagúr|cerrado|סְגוּרָה|sgurá
+a|טָעִים|taím|rico (sabroso)|טְעִימָה|teimá
+a|מָתוֹק|matók|dulce|מְתוּקָה|metuká
+a|חָזָק|jazák|fuerte|חֲזָקָה|jazaká
+a|חַלָּשׁ|jalásh|débil|חַלָּשָׁה|jalashá
+a|עָשִׁיר|ashír|rico (con dinero)|עֲשִׁירָה|ashirá
+a|עָנִי|aní|pobre|עֲנִיָּה|aniyá
+a|כָּבֵד|kavéd|pesado|כְּבֵדָה|kvedá
+a|רָטֹב|ratóv|mojado|רְטֻבָּה|retubá
+a|יָבֵשׁ|yavésh|seco|יְבֵשָׁה|yeveshá
+a|רָגִיל|ragíl|normal; común|רְגִילָה|reguilá
+a|מְיֻחָד|meyujád|especial|מְיֻחֶדֶת|meyujédet|מְיֻחָדִים|meyujadím|מְיֻחָדוֹת|meyujadót
+a|אֲמִתִּי|amití|real; auténtico|אֲמִתִּית|amitít|אֲמִתִּיִּים|amitiyím|אֲמִתִּיּוֹת|amitiyót
+a|מְפֻרְסָם|mefursám|famoso|מְפֻרְסֶמֶת|mefursémet|מְפֻרְסָמִים|mefursamím|מְפֻרְסָמוֹת|mefursamót
+a|יִשְׂרְאֵלִי|israelí|israelí|יִשְׂרְאֵלִית|israelít|יִשְׂרְאֵלִים|israelím|יִשְׂרְאֵלִיּוֹת|israeliyót
+a|מֶקְסִיקָנִי|meksikáni|mexicano|מֶקְסִיקָנִית|meksikánit|מֶקְסִיקָנִים|meksikaním|מֶקְסִיקָנִיּוֹת|meksikaniyót
+a|אַחֵר|ajér|otro|אַחֶרֶת|ajéret|אֲחֵרִים|ajerím|אֲחֵרוֹת|ajerót
+a|רִאשׁוֹן|rishón|primero|רִאשׁוֹנָה|rishoná
+a|אַחֲרוֹן|ajarón|último|אַחֲרוֹנָה|ajaroná
+a|מוּכָן|mujan|listo; preparado|מוּכָנָה|mujaná
+a|צָרִיךְ|tsaríj|tener que; necesitar|צְרִיכָה|tsrijá|צְרִיכִים|tsrijím|צְרִיכוֹת|tsrijót
+`},
+{id:'key',t:'Palabras clave',ico:'🔑',src:`
+w|אֲנִי|aní|yo
+w|זֶה|ze|este; esto
+w|יֵשׁ|yesh|hay
+w|גַּם|gam|también
+w|מְאוֹד|meód|muy
+w|בְּסֵדֶר|beséder|bien; de acuerdo
+w|אַתָּה|atá|tú (hombre)
+w|אַתְּ|at|tú (mujer)
+w|הוּא|hu|él
+w|הִיא|hi|ella
+w|אֲנַחְנוּ|anájnu|nosotros
+w|אַתֶּם|atém|ustedes (hombres)
+w|אַתֶּן|atén|ustedes (mujeres)
+w|הֵם|hem|ellos
+w|הֵן|hen|ellas
+w|מִי|mi|¿quién?
+w|מָה|ma|¿qué?
+w|אֵיפֹה|éifo|¿dónde?
+w|לְאָן|leán|¿a dónde?
+w|מֵאַיִן|meáyin|¿de dónde?
+w|מָתַי|matái|¿cuándo?
+w|לָמָּה|láma|¿por qué?
+w|אֵיךְ|eij|¿cómo?
+w|כַּמָּה|káma|¿cuánto?; ¿cuántos?
+w|אֵיזֶה|éize|¿cuál? (masc.)
+w|אֵיזוֹ|éizo|¿cuál? (fem.)
+w|הַאִם|haím|¿acaso? (pregunta de sí o no)
+w|עִם|im|con
+w|בְּלִי|bli|sin
+w|עַל|al|sobre; acerca de
+w|מִתַּחַת לְ|mitájat le|debajo de
+w|לְיַד|leyád|junto a
+w|בֵּין|bein|entre
+w|אֵצֶל|étsel|en casa de
+w|עַד|ad|hasta
+w|בִּשְׁבִיל|bishvíl|para
+w|מוּל|mul|frente a
+w|בְּתוֹךְ|betój|dentro de
+w|שֶׁל|shel|de (posesión)
+w|אוֹ|o|o
+w|אֲבָל|avál|pero
+w|כִּי|ki|porque; que
+w|אִם|im|si (condicional)
+w|רַק|rak|solo; solamente
+w|לָכֵן|lajén|por eso
+w|אָז|az|entonces
+w|כְּמוֹ|kmo|como
+w|כֵּן|ken|sí
+w|לֹא|lo|no
+w|אוּלַי|ulái|quizás
+w|קְצָת|ktsat|un poco
+w|הַרְבֵּה|harbé|mucho
+w|פֹּה|po|aquí
+w|כָּאן|kan|aquí; acá
+w|שָׁם|sham|allí
+w|בֶּטַח|bétaj|claro; seguro
+w|יוֹתֵר|yotér|más
+w|פָּחוֹת|pajót|menos
+w|מַמָּשׁ|mamásh|realmente
+w|כָּל|kol|todo; cada
+w|כֻּלָּם|kulám|todos
+w|מִישֶׁהוּ|míshehu|alguien
+w|שׁוּם דָּבָר|shum davár|nada
+w|אֵין|ein|no hay
+w|זֹאת|zot|esta; esto (fem.)
+w|אֵלֶּה|éle|estos; estas
+w|לְבַד|levád|solo (sin compañía)
+w|בְּיַחַד|beyájad|juntos
+w|אֶפְשָׁר|efshár|se puede; es posible
+w|אָסוּר|asúr|está prohibido
+`},
+{id:'expr',t:'Expresiones útiles',ico:'💬',src:`
+w|שָׁלוֹם|shalóm|hola; paz
+w|תּוֹדָה|todá|gracias
+w|בְּבַקָּשָׁה|bevakashá|por favor; aquí tienes
+w|לְהִתְרָאוֹת|lehitraót|hasta luego
+w|בֹּקֶר טוֹב|bóker tov|buenos días
+w|עֶרֶב טוֹב|érev tov|buenas tardes
+w|לַיְלָה טוֹב|láila tov|buenas noches
+w|סְלִיחָה|slijá|perdón; disculpa
+w|מַה נִּשְׁמָע?|ma nishmá|¿qué tal?
+w|הַכֹּל בְּסֵדֶר|hakól beséder|todo bien
+w|נָעִים מְאוֹד|naím meód|mucho gusto
+w|בְּתֵאָבוֹן|betéavon|buen provecho
+w|לְחַיִּים|lejáyim|¡salud! (brindis)
+w|מַזָּל טוֹב|mazál tov|¡felicidades!
+w|בְּהַצְלָחָה|behatslajá|¡suerte!
+w|אֵין בְּעָיָה|ein beayá|no hay problema
+w|אֲנִי לֹא מֵבִין|aní lo mevín|no entiendo (hombre)
+w|אֲנִי לֹא מְבִינָה|aní lo meviná|no entiendo (mujer)
+w|אַתָּה מְדַבֵּר סְפָרַדִּית?|atá medabér sfaradít|¿hablas español? (a hombre)
+w|לְאַט, בְּבַקָּשָׁה|leát, bevakashá|despacio, por favor
+w|מָה הַשָּׁעָה?|ma hashaá|¿qué hora es?
+w|אֵיפֹה הַשֵּׁרוּתִים?|éifo hasherutím|¿dónde está el baño?
+w|אֵיךְ קוֹרְאִים לְךָ?|eij korím lejá|¿cómo te llamas? (a hombre)
+w|אֵיךְ קוֹרְאִים לָךְ?|eij korím laj|¿cómo te llamas? (a mujer)
+w|קוֹרְאִים לִי|korím li|me llamo
+w|מֵאַיִן אַתָּה?|meáyin atá|¿de dónde eres? (a hombre)
+w|אֲנִי מִמֶּקְסִיקוֹ|aní mi-méksiko|soy de México
+w|בֶּאֱמֶת?|beemét|¿de verdad?
+w|יוֹפִי|yófi|¡genial!
+w|סַבָּבָה|sabába|perfecto (coloquial)
+w|יַאלְלָה|yála|¡vamos!
+w|אֵין דָּבָר|ein davár|no pasa nada
+w|עַל לֹא דָּבָר|al lo davár|de nada
+w|חַג שָׂמֵחַ|jag saméaj|¡feliz fiesta!
+w|שָׁנָה טוֹבָה|shaná tová|¡feliz año nuevo!
+w|כָּל הַכָּבוֹד|kol hakavód|¡muy bien hecho!
+w|אֲנִי מִצְטַעֵר|aní mitsta'ér|lo siento (hombre)
+w|אֲנִי מִצְטַעֶרֶת|aní mitsta'éret|lo siento (mujer)
+w|תּוֹדָה רַבָּה|todá rabá|muchas gracias
+`},
+{id:'verbs',t:'Verbos',ico:'🔁',src:`
+v|לִכְתֹּב|lijtóv|escribir|כּוֹתֵב|kotév|כּוֹתֶבֶת|kotévet|כּוֹתְבִים|kotvím|כּוֹתְבוֹת|kotvót|כָּתַבְתִּי|katávti|כָּתַב|katáv|כָּתְבָה|katvá|כָּתְבוּ|katvú|אֶכְתֹּב|ejtóv|יִכְתֹּב|yijtóv|יִכְתְּבוּ|yijtevú
+v|לִלְמֹד|lilmód|estudiar; aprender|לוֹמֵד|loméd|לוֹמֶדֶת|lomédet|לוֹמְדִים|lomdím|לוֹמְדוֹת|lomdót|לָמַדְתִּי|lamádti|לָמַד|lamád|לָמְדָה|lamdá|לָמְדוּ|lamdú|אֶלְמַד|elmád|יִלְמַד|yilmád|יִלְמְדוּ|yilmedú
+v|לִשְׁמֹר|lishmór|guardar; cuidar|שׁוֹמֵר|shomér|שׁוֹמֶרֶת|shoméret|שׁוֹמְרִים|shomrím|שׁוֹמְרוֹת|shomrót|שָׁמַרְתִּי|shamárti|שָׁמַר|shamár|שָׁמְרָה|shamrá|שָׁמְרוּ|shamrú|אֶשְׁמֹר|eshmór|יִשְׁמֹר|yishmór|יִשְׁמְרוּ|yishmerú
+v|לִסְגֹּר|lisgór|cerrar|סוֹגֵר|sogér|סוֹגֶרֶת|sogéret|סוֹגְרִים|sogrím|סוֹגְרוֹת|sogrót|סָגַרְתִּי|sagárti|סָגַר|sagár|סָגְרָה|sagrá|סָגְרוּ|sagrú|אֶסְגֹּר|esgór|יִסְגֹּר|yisgór|יִסְגְּרוּ|yisguerú
+v|לִפְגֹּשׁ|lifgósh|encontrarse con|פּוֹגֵשׁ|pogésh|פּוֹגֶשֶׁת|poguéshet|פּוֹגְשִׁים|pogshím|פּוֹגְשׁוֹת|pogshót|פָּגַשְׁתִּי|pagáshti|פָּגַשׁ|pagásh|פָּגְשָׁה|pagshá|פָּגְשׁוּ|pagshú|אֶפְגֹּשׁ|efgósh|יִפְגֹּשׁ|yifgósh|יִפְגְּשׁוּ|yifgueshú
+v|לִגְמֹר|ligmór|terminar|גּוֹמֵר|gomér|גּוֹמֶרֶת|goméret|גּוֹמְרִים|gomrím|גּוֹמְרוֹת|gomrót|גָּמַרְתִּי|gamárti|גָּמַר|gamár|גָּמְרָה|gamrá|גָּמְרוּ|gamrú|אֶגְמֹר|egmór|יִגְמֹר|yigmór|יִגְמְרוּ|yigmerú
+v|לִזְכֹּר|lizkór|recordar|זוֹכֵר|zojér|זוֹכֶרֶת|zojéret|זוֹכְרִים|zojrím|זוֹכְרוֹת|zojrót|זָכַרְתִּי|zajárti|זָכַר|zajár|זָכְרָה|zajrá|זָכְרוּ|zajrú|אֶזְכֹּר|ezkór|יִזְכֹּר|yizkór|יִזְכְּרוּ|yizkerú
+v|לִשְׁכֹּחַ|lishkóaj|olvidar|שׁוֹכֵחַ|shojéaj|שׁוֹכַחַת|shojájat|שׁוֹכְחִים|shojjím|שׁוֹכְחוֹת|shojjót|שָׁכַחְתִּי|shajájti|שָׁכַח|shajáj|שָׁכְחָה|shajjá|שָׁכְחוּ|shajjú|אֶשְׁכַּח|eshkáj|יִשְׁכַּח|yishkáj|יִשְׁכְּחוּ|yishkejú
+v|לִפְתֹּחַ|liftóaj|abrir|פּוֹתֵחַ|potéaj|פּוֹתַחַת|potájat|פּוֹתְחִים|potjím|פּוֹתְחוֹת|potjót|פָּתַחְתִּי|patájti|פָּתַח|patáj|פָּתְחָה|patjá|פָּתְחוּ|patjú|אֶפְתַּח|eftáj|יִפְתַּח|yiftáj|יִפְתְּחוּ|yiftejú
+v|לִשְׁלֹחַ|lishlóaj|enviar|שׁוֹלֵחַ|sholéaj|שׁוֹלַחַת|sholájat|שׁוֹלְחִים|sholjím|שׁוֹלְחוֹת|sholjót|שָׁלַחְתִּי|shalájti|שָׁלַח|shaláj|שָׁלְחָה|shaljá|שָׁלְחוּ|shaljú|אֶשְׁלַח|eshláj|יִשְׁלַח|yishláj|יִשְׁלְחוּ|yishlejú
+v|לִשְׁמֹעַ|lishmóa|oír; escuchar|שׁוֹמֵעַ|shoméa|שׁוֹמַעַת|shomáat|שׁוֹמְעִים|shom'ím|שׁוֹמְעוֹת|shom'ót|שָׁמַעְתִּי|shamáti|שָׁמַע|shamá|שָׁמְעָה|sham'á|שָׁמְעוּ|sham'ú|אֶשְׁמַע|eshmá|יִשְׁמַע|yishmá|יִשְׁמְעוּ|yishme'ú
+v|לִקְרֹא|likró|leer; llamar|קוֹרֵא|koré|קוֹרֵאת|korét|קוֹרְאִים|kor'ím|קוֹרְאוֹת|kor'ót|קָרָאתִי|karáti|קָרָא|kará|קָרְאָה|kar'á|קָרְאוּ|kar'ú|אֶקְרָא|ekrá|יִקְרָא|yikrá|יִקְרְאוּ|yikre'ú
+v|לִמְצֹא|limtsó|encontrar|מוֹצֵא|motsé|מוֹצֵאת|motsét|מוֹצְאִים|mots'ím|מוֹצְאוֹת|mots'ót|מָצָאתִי|matsáti|מָצָא|matsá|מָצְאָה|mats'á|מָצְאוּ|mats'ú|אֶמְצָא|emtsá|יִמְצָא|yimtsá|יִמְצְאוּ|yimtse'ú
+v|לִלְבֹּשׁ|lilbósh|ponerse (ropa)|לוֹבֵשׁ|lovésh|לוֹבֶשֶׁת|lovéshet|לוֹבְשִׁים|lovshím|לוֹבְשׁוֹת|lovshót|לָבַשְׁתִּי|laváshti|לָבַשׁ|lavásh|לָבְשָׁה|lavshá|לָבְשׁוּ|lavshú|אֶלְבַּשׁ|elbásh|יִלְבַּשׁ|yilbásh|יִלְבְּשׁוּ|yilbeshú
+v|לִרְקֹד|lirkód|bailar|רוֹקֵד|rokéd|רוֹקֶדֶת|rokédet|רוֹקְדִים|rokdím|רוֹקְדוֹת|rokdót|רָקַדְתִּי|rakádti|רָקַד|rakád|רָקְדָה|rakdá|רָקְדוּ|rakdú|אֶרְקֹד|erkód|יִרְקֹד|yirkód|יִרְקְדוּ|yirkedú
+v|לִשְׁאֹל|lishól|preguntar|שׁוֹאֵל|shoél|שׁוֹאֶלֶת|shoélet|שׁוֹאֲלִים|shoalím|שׁוֹאֲלוֹת|shoalót|שָׁאַלְתִּי|shaálti|שָׁאַל|shaál|שָׁאֲלָה|shaalá|שָׁאֲלוּ|shaalú|אֶשְׁאַל|eshál|יִשְׁאַל|yishál|יִשְׁאֲלוּ|yishalú
+v|לִצְחֹק|litsjók|reír|צוֹחֵק|tsojék|צוֹחֶקֶת|tsojéket|צוֹחֲקִים|tsojakím|צוֹחֲקוֹת|tsojakót|צָחַקְתִּי|tsajákti|צָחַק|tsaják|צָחֲקָה|tsajaká|צָחֲקוּ|tsajakú|אֶצְחַק|etsják|יִצְחַק|yitsják|יִצְחֲקוּ|yitsjakú
+v|לִבְחֹר|livjór|elegir|בּוֹחֵר|bojér|בּוֹחֶרֶת|bojéret|בּוֹחֲרִים|bojarím|בּוֹחֲרוֹת|bojarót|בָּחַרְתִּי|bajárti|בָּחַר|bajár|בָּחֲרָה|bajará|בָּחֲרוּ|bajarú|אֶבְחַר|evjár|יִבְחַר|yivjár|יִבְחֲרוּ|yivjarú
+v|לִכְאֹב|lijóv|doler|כּוֹאֵב|koév|כּוֹאֶבֶת|koévet|כּוֹאֲבִים|koavím|כּוֹאֲבוֹת|koavót|כָּאַבְתִּי|kaávti|כָּאַב|kaáv|כָּאֲבָה|kaavá|כָּאֲבוּ|kaavú|אֶכְאַב|ejáv|יִכְאַב|yijáv|יִכְאֲבוּ|yijavú
+v|לִישֹׁן|lishón|dormir|יָשֵׁן|yashén|יְשֵׁנָה|yeshená|יְשֵׁנִים|yeshením|יְשֵׁנוֹת|yeshenót|יָשַׁנְתִּי|yashánti|יָשַׁן|yashán|יָשְׁנָה|yashná|יָשְׁנוּ|yashnú|אִישַׁן|ishán|יִישַׁן|yishán|יִישְׁנוּ|yishnú
+v|לֶאֱכֹל|leejól|comer|אוֹכֵל|ojél|אוֹכֶלֶת|ojélet|אוֹכְלִים|ojlím|אוֹכְלוֹת|ojlót|אָכַלְתִּי|ajálti|אָכַל|ajál|אָכְלָה|ajlá|אָכְלוּ|ajlú|אֹכַל|ojál|יֹאכַל|yojál|יֹאכְלוּ|yojlú
+v|לֶאֱהֹב|leehóv|amar; gustar|אוֹהֵב|ohév|אוֹהֶבֶת|ohévet|אוֹהֲבִים|ohavím|אוֹהֲבוֹת|ohavót|אָהַבְתִּי|ahávti|אָהַב|aháv|אָהֲבָה|ahavá|אָהֲבוּ|ahavú|אֹהַב|oháv|יֹאהַב|yoháv|יֹאהֲבוּ|yohavú
+v|לוֹמַר|lomár|decir (formal)|אוֹמֵר|omér|אוֹמֶרֶת|oméret|אוֹמְרִים|omrím|אוֹמְרוֹת|omrót|אָמַרְתִּי|amárti|אָמַר|amár|אָמְרָה|amrá|אָמְרוּ|amrú|אֹמַר|omár|יֹאמַר|yomár|יֹאמְרוּ|yomrú
+v|לַעֲבֹד|laavód|trabajar|עוֹבֵד|ovéd|עוֹבֶדֶת|ovédet|עוֹבְדִים|ovdím|עוֹבְדוֹת|ovdót|עָבַדְתִּי|avádti|עָבַד|avád|עָבְדָה|avdá|עָבְדוּ|avdú|אֶעֱבֹד|eevód|יַעֲבֹד|yaavód|יַעַבְדוּ|yaavdú
+v|לַעֲזֹר|laazór|ayudar|עוֹזֵר|ozér|עוֹזֶרֶת|ozéret|עוֹזְרִים|ozrím|עוֹזְרוֹת|ozrót|עָזַרְתִּי|azárti|עָזַר|azár|עָזְרָה|azrá|עָזְרוּ|azrú|אֶעֱזֹר|eezór|יַעֲזֹר|yaazór|יַעַזְרוּ|yaazrú
+v|לַעֲמֹד|laamód|estar de pie|עוֹמֵד|oméd|עוֹמֶדֶת|omédet|עוֹמְדִים|omdím|עוֹמְדוֹת|omdót|עָמַדְתִּי|amádti|עָמַד|amád|עָמְדָה|amdá|עָמְדוּ|amdú|אֶעֱמֹד|eemód|יַעֲמֹד|yaamód|יַעַמְדוּ|yaamdú
+v|לַעֲבֹר|laavór|pasar; cruzar|עוֹבֵר|ovér|עוֹבֶרֶת|ovéret|עוֹבְרִים|ovrím|עוֹבְרוֹת|ovrót|עָבַרְתִּי|avárti|עָבַר|avár|עָבְרָה|avrá|עָבְרוּ|avrú|אֶעֱבֹר|eevór|יַעֲבֹר|yaavór|יַעַבְרוּ|yaavrú
+v|לַחְשֹׁב|lajshóv|pensar|חוֹשֵׁב|joshév|חוֹשֶׁבֶת|joshévet|חוֹשְׁבִים|joshvím|חוֹשְׁבוֹת|joshvót|חָשַׁבְתִּי|jashávti|חָשַׁב|jasháv|חָשְׁבָה|jashvá|חָשְׁבוּ|jashvú|אֶחְשֹׁב|ejshóv|יַחְשֹׁב|yajshóv|יַחְשְׁבוּ|yajshevú
+v|לַחְזֹר|lajzór|volver|חוֹזֵר|jozér|חוֹזֶרֶת|jozéret|חוֹזְרִים|jozrím|חוֹזְרוֹת|jozrót|חָזַרְתִּי|jazárti|חָזַר|jazár|חָזְרָה|jazrá|חָזְרוּ|jazrú|אֶחְזֹר|ejzór|יַחְזֹר|yajzór|יַחְזְרוּ|yajzerú
+v|לִנְהֹג|linhóg|manejar (conducir)|נוֹהֵג|nohég|נוֹהֶגֶת|nohéguet|נוֹהֲגִים|nohaguím|נוֹהֲגוֹת|nohagót|נָהַגְתִּי|nahágti|נָהַג|nahág|נָהֲגָה|nahagá|נָהֲגוּ|nahagú|אֶנְהַג|enhág|יִנְהַג|yinhág|יִנְהֲגוּ|yinhagú
+v|לִשְׁכַּב|lishkáv|acostarse|שׁוֹכֵב|shojév|שׁוֹכֶבֶת|shojévet|שׁוֹכְבִים|shojvím|שׁוֹכְבוֹת|shojvót|שָׁכַבְתִּי|shajávti|שָׁכַב|shajáv|שָׁכְבָה|shajvá|שָׁכְבוּ|shajvú|אֶשְׁכַּב|eshkáv|יִשְׁכַּב|yishkáv|יִשְׁכְּבוּ|yishkevú
+v|לִמְכֹּר|limkór|vender|מוֹכֵר|mojér|מוֹכֶרֶת|mojéret|מוֹכְרִים|mojrím|מוֹכְרוֹת|mojrót|מָכַרְתִּי|majárti|מָכַר|majár|מָכְרָה|majrá|מָכְרוּ|majrú|אֶמְכֹּר|emkór|יִמְכֹּר|yimkór|יִמְכְּרוּ|yimkerú
+v|לִשְׁבֹּר|lishbór|romper|שׁוֹבֵר|shovér|שׁוֹבֶרֶת|shovéret|שׁוֹבְרִים|shovrím|שׁוֹבְרוֹת|shovrót|שָׁבַרְתִּי|shavárti|שָׁבַר|shavár|שָׁבְרָה|shavrá|שָׁבְרוּ|shavrú|אֶשְׁבֹּר|eshbór|יִשְׁבֹּר|yishbór|יִשְׁבְּרוּ|yishberú
+v|לִסְפֹּר|lispór|contar (números)|סוֹפֵר|sofér|סוֹפֶרֶת|soféret|סוֹפְרִים|sofrím|סוֹפְרוֹת|sofrót|סָפַרְתִּי|safárti|סָפַר|safár|סָפְרָה|safrá|סָפְרוּ|safrú|אֶסְפֹּר|espór|יִסְפֹּר|yispór|יִסְפְּרוּ|yisperú
+v|לִפְחֹד|lifjód|tener miedo|פּוֹחֵד|pojéd|פּוֹחֶדֶת|pojédet|פּוֹחֲדִים|pojadím|פּוֹחֲדוֹת|pojadót|פָּחַדְתִּי|pajádti|פָּחַד|pajád|פָּחֲדָה|pajadá|פָּחֲדוּ|pajadú|אֶפְחַד|efjád|יִפְחַד|yifjád|יִפְחֲדוּ|yifjadú
+v|לִטְעֹם|litóm|probar (comida)|טוֹעֵם|toém|טוֹעֶמֶת|toémet|טוֹעֲמִים|toamím|טוֹעֲמוֹת|toamót|טָעַמְתִּי|taámti|טָעַם|taám|טָעֲמָה|taamá|טָעֲמוּ|taamú|אֶטְעַם|etám|יִטְעַם|yitám|יִטְעֲמוּ|yitamú
+v|לָגוּר|lagúr|vivir (residir)|גָּר|gar|גָּרָה|gará|גָּרִים|garím|גָּרוֹת|garót|גַּרְתִּי|gárti|גָּר|gar|גָּרָה|gára|גָּרוּ|gáru|אָגוּר|agúr|יָגוּר|yagúr|יָגוּרוּ|yagúru
+v|לָקוּם|lakúm|levantarse|קָם|kam|קָמָה|kamá|קָמִים|kamím|קָמוֹת|kamót|קַמְתִּי|kámti|קָם|kam|קָמָה|káma|קָמוּ|kámu|אָקוּם|akúm|יָקוּם|yakúm|יָקוּמוּ|yakúmu
+v|לָרוּץ|larúts|correr|רָץ|rats|רָצָה|ratsá|רָצִים|ratsím|רָצוֹת|ratsót|רַצְתִּי|rátsti|רָץ|rats|רָצָה|rátsa|רָצוּ|rátsu|אָרוּץ|arúts|יָרוּץ|yarúts|יָרוּצוּ|yarútsu
+v|לָשִׂים|lasím|poner|שָׂם|sam|שָׂמָה|samá|שָׂמִים|samím|שָׂמוֹת|samót|שַׂמְתִּי|sámti|שָׂם|sam|שָׂמָה|sáma|שָׂמוּ|sámu|אָשִׂים|asím|יָשִׂים|yasím|יָשִׂימוּ|yasímu
+v|לָשִׁיר|lashír|cantar|שָׁר|shar|שָׁרָה|shará|שָׁרִים|sharím|שָׁרוֹת|sharót|שַׁרְתִּי|shárti|שָׁר|shar|שָׁרָה|shára|שָׁרוּ|sháru|אָשִׁיר|ashír|יָשִׁיר|yashír|יָשִׁירוּ|yashíru
+v|לָטוּס|latús|volar (en avión)|טָס|tas|טָסָה|tasá|טָסִים|tasím|טָסוֹת|tasót|טַסְתִּי|tásti|טָס|tas|טָסָה|tása|טָסוּ|tásu|אָטוּס|atús|יָטוּס|yatús|יָטוּסוּ|yatúsu
+v|לָבוֹא|lavó|venir|בָּא|ba|בָּאָה|baá|בָּאִים|baím|בָּאוֹת|baót|בָּאתִי|báti|בָּא|ba|בָּאָה|báa|בָּאוּ|báu|אָבוֹא|avó|יָבוֹא|yavó|יָבוֹאוּ|yavóu
+v|לָנוּחַ|lanúaj|descansar|נָח|naj|נָחָה|najá|נָחִים|najím|נָחוֹת|najót|נַחְתִּי|nájti|נָח|naj|נָחָה|nája|נָחוּ|náju|אָנוּחַ|anúaj|יָנוּחַ|yanúaj|יָנוּחוּ|yanúju
+v|לִקְנוֹת|liknót|comprar|קוֹנֶה|koné|קוֹנָה|koná|קוֹנִים|koním|קוֹנוֹת|konót|קָנִיתִי|kaníti|קָנָה|kaná|קָנְתָה|kantá|קָנוּ|kanú|אֶקְנֶה|ekné|יִקְנֶה|yikné|יִקְנוּ|yiknú
+v|לִשְׁתּוֹת|lishtót|beber|שׁוֹתֶה|shoté|שׁוֹתָה|shotá|שׁוֹתִים|shotím|שׁוֹתוֹת|shotót|שָׁתִיתִי|shatíti|שָׁתָה|shatá|שָׁתְתָה|shatetá|שָׁתוּ|shatú|אֶשְׁתֶּה|eshté|יִשְׁתֶּה|yishté|יִשְׁתּוּ|yishtú
+v|לִבְנוֹת|livnót|construir|בּוֹנֶה|boné|בּוֹנָה|boná|בּוֹנִים|boním|בּוֹנוֹת|bonót|בָּנִיתִי|baníti|בָּנָה|baná|בָּנְתָה|bantá|בָּנוּ|banú|אֶבְנֶה|evné|יִבְנֶה|yivné|יִבְנוּ|yivnú
+v|לִרְאוֹת|lirót|ver|רוֹאֶה|roé|רוֹאָה|roá|רוֹאִים|roím|רוֹאוֹת|roót|רָאִיתִי|raíti|רָאָה|raá|רָאֲתָה|raatá|רָאוּ|raú|אֶרְאֶה|ereé|יִרְאֶה|yireé|יִרְאוּ|yirú
+v|לִהְיוֹת|lihyót|ser; estar|-|-|-|-|-|-|-|-|הָיִיתִי|hayíti|הָיָה|hayá|הָיְתָה|haytá|הָיוּ|háyu|אֶהְיֶה|ehyé|יִהְיֶה|yihyé|יִהְיוּ|yihyú
+v|לַעֲשׂוֹת|laasót|hacer|עוֹשֶׂה|osé|עוֹשָׂה|osá|עוֹשִׂים|osím|עוֹשׂוֹת|osót|עָשִׂיתִי|asíti|עָשָׂה|asá|עָשְׂתָה|astá|עָשׂוּ|asú|אֶעֱשֶׂה|eesé|יַעֲשֶׂה|yaasé|יַעֲשׂוּ|yaasú
+v|לַעֲלוֹת|laalót|subir; costar|עוֹלֶה|olé|עוֹלָה|olá|עוֹלִים|olím|עוֹלוֹת|olót|עָלִיתִי|alíti|עָלָה|alá|עָלְתָה|altá|עָלוּ|alú|אֶעֱלֶה|eelé|יַעֲלֶה|yaalé|יַעֲלוּ|yaalú
+v|לַעֲנוֹת|laanót|responder|עוֹנֶה|oné|עוֹנָה|oná|עוֹנִים|oním|עוֹנוֹת|onót|עָנִיתִי|aníti|עָנָה|aná|עָנְתָה|antá|עָנוּ|anú|אֶעֱנֶה|eené|יַעֲנֶה|yaané|יַעֲנוּ|yaanú
+v|לִרְצוֹת|lirtsót|querer|רוֹצֶה|rotsé|רוֹצָה|rotsá|רוֹצִים|rotsím|רוֹצוֹת|rotsót|רָצִיתִי|ratsíti|רָצָה|ratsá|רָצְתָה|ratstá|רָצוּ|ratsú|אֶרְצֶה|ertsé|יִרְצֶה|yirtsé|יִרְצוּ|yirtsú
+v|לִשְׂחוֹת|lisjót|nadar|שׂוֹחֶה|sojé|שׂוֹחָה|sojá|שׂוֹחִים|sojím|שׂוֹחוֹת|sojót|שָׂחִיתִי|sajíti|שָׂחָה|sajá|שָׂחֲתָה|sajatá|שָׂחוּ|sajú|אֶשְׂחֶה|esjé|יִשְׂחֶה|yisjé|יִשְׂחוּ|yisjú
+v|לִבְכּוֹת|livkót|llorar|בּוֹכֶה|bojé|בּוֹכָה|bojá|בּוֹכִים|bojím|בּוֹכוֹת|bojót|בָּכִיתִי|bajíti|בָּכָה|bajá|בָּכְתָה|bajtá|בָּכוּ|bajú|אֶבְכֶּה|evké|יִבְכֶּה|yivké|יִבְכּוּ|yivkú
+v|לִפְנוֹת|lifnót|girar; dirigirse|פּוֹנֶה|poné|פּוֹנָה|poná|פּוֹנִים|poním|פּוֹנוֹת|ponót|פָּנִיתִי|paníti|פָּנָה|paná|פָּנְתָה|pantá|פָּנוּ|panú|אֶפְנֶה|efné|יִפְנֶה|yifné|יִפְנוּ|yifnú
+v|לִנְסֹעַ|linsóa|viajar; ir (en vehículo)|נוֹסֵעַ|noséa|נוֹסַעַת|nosáat|נוֹסְעִים|nos'ím|נוֹסְעוֹת|nos'ót|נָסַעְתִּי|nasáti|נָסַע|nasá|נָסְעָה|nas'á|נָסְעוּ|nas'ú|אֶסַּע|esá|יִסַּע|yisá|יִסְעוּ|yis'ú
+v|לָתֵת|latét|dar|נוֹתֵן|notén|נוֹתֶנֶת|noténet|נוֹתְנִים|notním|נוֹתְנוֹת|notnót|נָתַתִּי|natáti|נָתַן|natán|נָתְנָה|natná|נָתְנוּ|natnú|אֶתֵּן|etén|יִתֵּן|yitén|יִתְּנוּ|yitnú|p1=נָתַנּוּ:natánu
+v|לִנְפֹּל|linpól|caer|נוֹפֵל|nofél|נוֹפֶלֶת|nofélet|נוֹפְלִים|noflím|נוֹפְלוֹת|noflót|נָפַלְתִּי|nafálti|נָפַל|nafál|נָפְלָה|naflá|נָפְלוּ|naflú|אֶפֹּל|epól|יִפֹּל|yipól|יִפְּלוּ|yiplú
+v|לָלֶכֶת|laléjet|ir; caminar|הוֹלֵךְ|holéj|הוֹלֶכֶת|holéjet|הוֹלְכִים|holjím|הוֹלְכוֹת|holjót|הָלַכְתִּי|halájti|הָלַךְ|haláj|הָלְכָה|haljá|הָלְכוּ|haljú|אֵלֵךְ|eléj|יֵלֵךְ|yeléj|יֵלְכוּ|yeljú
+v|לָשֶׁבֶת|lashévet|sentarse; estar sentado|יוֹשֵׁב|yoshév|יוֹשֶׁבֶת|yoshévet|יוֹשְׁבִים|yoshvím|יוֹשְׁבוֹת|yoshvót|יָשַׁבְתִּי|yashávti|יָשַׁב|yasháv|יָשְׁבָה|yashvá|יָשְׁבוּ|yashvú|אֵשֵׁב|eshév|יֵשֵׁב|yeshév|יֵשְׁבוּ|yeshvú
+v|לָרֶדֶת|larédet|bajar|יוֹרֵד|yoréd|יוֹרֶדֶת|yorédet|יוֹרְדִים|yordím|יוֹרְדוֹת|yordót|יָרַדְתִּי|yarádti|יָרַד|yarád|יָרְדָה|yardá|יָרְדוּ|yardú|אֵרֵד|eréd|יֵרֵד|yeréd|יֵרְדוּ|yerdú
+v|לָצֵאת|latsét|salir|יוֹצֵא|yotsé|יוֹצֵאת|yotsét|יוֹצְאִים|yots'ím|יוֹצְאוֹת|yots'ót|יָצָאתִי|yatsáti|יָצָא|yatsá|יָצְאָה|yats'á|יָצְאוּ|yats'ú|אֵצֵא|etsé|יֵצֵא|yetsé|יֵצְאוּ|yetse'ú
+v|לָדַעַת|ladáat|saber|יוֹדֵעַ|yodéa|יוֹדַעַת|yodáat|יוֹדְעִים|yod'ím|יוֹדְעוֹת|yod'ót|יָדַעְתִּי|yadáti|יָדַע|yadá|יָדְעָה|yad'á|יָדְעוּ|yad'ú|אֵדַע|edá|יֵדַע|yedá|יֵדְעוּ|yed'ú
+v|לָקַחַת|lakájat|tomar; llevarse|לוֹקֵחַ|lokéaj|לוֹקַחַת|lokájat|לוֹקְחִים|lokjím|לוֹקְחוֹת|lokjót|לָקַחְתִּי|lakájti|לָקַח|lakáj|לָקְחָה|lakjá|לָקְחוּ|lakjú|אֶקַּח|ekáj|יִקַּח|yikáj|יִקְחוּ|yikjú
+v|לְהַגִּיד|lehaguíd|decir; contar algo|מַגִּיד|maguíd|מַגִּידָה|maguidá|מַגִּידִים|maguidím|מַגִּידוֹת|maguidót|הִגַּדְתִּי|higádti|הִגִּיד|higuíd|הִגִּידָה|higuída|הִגִּידוּ|higuídu|אַגִּיד|aguíd|יַגִּיד|yaguíd|יַגִּידוּ|yaguídu
+v|לְדַבֵּר|ledabér|hablar|מְדַבֵּר|medabér|מְדַבֶּרֶת|medabéret|מְדַבְּרִים|medabrím|מְדַבְּרוֹת|medabrót|דִּבַּרְתִּי|dibárti|דִּבֵּר|dibér|דִּבְּרָה|dibrá|דִּבְּרוּ|dibrú|אֲדַבֵּר|adabér|יְדַבֵּר|yedabér|יְדַבְּרוּ|yedabrú
+v|לְשַׁלֵּם|leshalém|pagar|מְשַׁלֵּם|meshalém|מְשַׁלֶּמֶת|meshalémet|מְשַׁלְּמִים|meshalmím|מְשַׁלְּמוֹת|meshalmót|שִׁלַּמְתִּי|shilámti|שִׁלֵּם|shilém|שִׁלְּמָה|shilmá|שִׁלְּמוּ|shilmú|אֲשַׁלֵּם|ashalém|יְשַׁלֵּם|yeshalém|יְשַׁלְּמוּ|yeshalmú
+v|לְבַקֵּשׁ|levakésh|pedir|מְבַקֵּשׁ|mevakésh|מְבַקֶּשֶׁת|mevakéshet|מְבַקְּשִׁים|mevakshím|מְבַקְּשׁוֹת|mevakshót|בִּקַּשְׁתִּי|bikáshti|בִּקֵּשׁ|bikésh|בִּקְּשָׁה|bikshá|בִּקְּשׁוּ|bikshú|אֲבַקֵּשׁ|avakésh|יְבַקֵּשׁ|yevakésh|יְבַקְּשׁוּ|yevakshú
+v|לְחַפֵּשׂ|lejapés|buscar|מְחַפֵּשׂ|mejapés|מְחַפֶּשֶׂת|mejapéset|מְחַפְּשִׂים|mejapsím|מְחַפְּשׂוֹת|mejapsót|חִפַּשְׂתִּי|jipásti|חִפֵּשׂ|jipés|חִפְּשָׂה|jipsá|חִפְּשׂוּ|jipsú|אֲחַפֵּשׂ|ajapés|יְחַפֵּשׂ|yejapés|יְחַפְּשׂוּ|yejapsú
+v|לְסַפֵּר|lesapér|contar (una historia)|מְסַפֵּר|mesapér|מְסַפֶּרֶת|mesapéret|מְסַפְּרִים|mesaprím|מְסַפְּרוֹת|mesaprót|סִפַּרְתִּי|sipárti|סִפֵּר|sipér|סִפְּרָה|siprá|סִפְּרוּ|siprú|אֲסַפֵּר|asapér|יְסַפֵּר|yesapér|יְסַפְּרוּ|yesaprú
+v|לְבַשֵּׁל|levashél|cocinar|מְבַשֵּׁל|mevashél|מְבַשֶּׁלֶת|mevashélet|מְבַשְּׁלִים|mevashlím|מְבַשְּׁלוֹת|mevashlót|בִּשַּׁלְתִּי|bishálti|בִּשֵּׁל|bishél|בִּשְּׁלָה|bishlá|בִּשְּׁלוּ|bishlú|אֲבַשֵּׁל|avashél|יְבַשֵּׁל|yevashél|יְבַשְּׁלוּ|yevashlú
+v|לְטַיֵּל|letayél|pasear; ir de viaje|מְטַיֵּל|metayél|מְטַיֶּלֶת|metayélet|מְטַיְּלִים|metaylím|מְטַיְּלוֹת|metaylót|טִיַּלְתִּי|tiyálti|טִיֵּל|tiyél|טִיְּלָה|tiylá|טִיְּלוּ|tiylú|אֲטַיֵּל|atayél|יְטַיֵּל|yetayél|יְטַיְּלוּ|yetaylú
+v|לְנַקּוֹת|lenakót|limpiar|מְנַקֶּה|menaké|מְנַקָּה|menaká|מְנַקִּים|menakím|מְנַקּוֹת|menakót|נִקִּיתִי|nikíti|נִקָּה|niká|נִקְּתָה|niktá|נִקּוּ|nikú|אֲנַקֶּה|anaké|יְנַקֶּה|yenaké|יְנַקּוּ|yenakú
+v|לְחַכּוֹת|lejakót|esperar|מְחַכֶּה|mejaké|מְחַכָּה|mejaká|מְחַכִּים|mejakím|מְחַכּוֹת|mejakót|חִכִּיתִי|jikíti|חִכָּה|jiká|חִכְּתָה|jiktá|חִכּוּ|jikú|אֲחַכֶּה|ajaké|יְחַכֶּה|yejaké|יְחַכּוּ|yejakú
+v|לְשַׂחֵק|lesajék|jugar|מְשַׂחֵק|mesajék|מְשַׂחֶקֶת|mesajéket|מְשַׂחֲקִים|mesajakím|מְשַׂחֲקוֹת|mesajakót|שִׂחַקְתִּי|sijákti|שִׂחֵק|sijék|שִׂחֲקָה|sijaká|שִׂחֲקוּ|sijakú|אֲשַׂחֵק|asajék|יְשַׂחֵק|yesajék|יְשַׂחֲקוּ|yesajakú
+v|לְנַגֵּן|lenaguén|tocar (un instrumento)|מְנַגֵּן|menaguén|מְנַגֶּנֶת|menaguénet|מְנַגְּנִים|menagním|מְנַגְּנוֹת|menagnót|נִגַּנְתִּי|nigánti|נִגֵּן|niguén|נִגְּנָה|nigná|נִגְּנוּ|nignú|אֲנַגֵּן|anaguén|יְנַגֵּן|yenaguén|יְנַגְּנוּ|yenagnú
+v|לְקַבֵּל|lekabél|recibir|מְקַבֵּל|mekabél|מְקַבֶּלֶת|mekabélet|מְקַבְּלִים|mekablím|מְקַבְּלוֹת|mekablót|קִבַּלְתִּי|kibálti|קִבֵּל|kibél|קִבְּלָה|kiblá|קִבְּלוּ|kiblú|אֲקַבֵּל|akabél|יְקַבֵּל|yekabél|יְקַבְּלוּ|yekablú
+v|לְלַמֵּד|lelaméd|enseñar|מְלַמֵּד|melaméd|מְלַמֶּדֶת|melamédet|מְלַמְּדִים|melamdím|מְלַמְּדוֹת|melamdót|לִמַּדְתִּי|limádti|לִמֵּד|liméd|לִמְּדָה|limdá|לִמְּדוּ|limdú|אֲלַמֵּד|alaméd|יְלַמֵּד|yelaméd|יְלַמְּדוּ|yelamdú
+v|לְתַקֵּן|letakén|arreglar; corregir|מְתַקֵּן|metakén|מְתַקֶּנֶת|metakénet|מְתַקְּנִים|metakním|מְתַקְּנוֹת|metaknót|תִּקַּנְתִּי|tikánti|תִּקֵּן|tikén|תִּקְּנָה|tikná|תִּקְּנוּ|tiknú|אֲתַקֵּן|atakén|יְתַקֵּן|yetakén|יְתַקְּנוּ|yetaknú
+v|לְצַלֵּם|letsalém|tomar fotos|מְצַלֵּם|metsalém|מְצַלֶּמֶת|metsalémet|מְצַלְּמִים|metsalmím|מְצַלְּמוֹת|metsalmót|צִלַּמְתִּי|tsilámti|צִלֵּם|tsilém|צִלְּמָה|tsilmá|צִלְּמוּ|tsilmú|אֲצַלֵּם|atsalém|יְצַלֵּם|yetsalém|יְצַלְּמוּ|yetsalmú
+v|לְצַיֵּר|letsayér|dibujar; pintar|מְצַיֵּר|metsayér|מְצַיֶּרֶת|metsayéret|מְצַיְּרִים|metsayrím|מְצַיְּרוֹת|metsayrót|צִיַּרְתִּי|tsiyárti|צִיֵּר|tsiyér|צִיְּרָה|tsiyrá|צִיְּרוּ|tsiyrú|אֲצַיֵּר|atsayér|יְצַיֵּר|yetsayér|יְצַיְּרוּ|yetsayrú
+v|לְסַדֵּר|lesadér|ordenar; acomodar|מְסַדֵּר|mesadér|מְסַדֶּרֶת|mesadéret|מְסַדְּרִים|mesadrím|מְסַדְּרוֹת|mesadrót|סִדַּרְתִּי|sidárti|סִדֵּר|sidér|סִדְּרָה|sidrá|סִדְּרוּ|sidrú|אֲסַדֵּר|asadér|יְסַדֵּר|yesadér|יְסַדְּרוּ|yesadrú
+v|לְבַקֵּר|levakér|visitar|מְבַקֵּר|mevakér|מְבַקֶּרֶת|mevakéret|מְבַקְּרִים|mevakrím|מְבַקְּרוֹת|mevakrót|בִּקַּרְתִּי|bikárti|בִּקֵּר|bikér|בִּקְּרָה|bikrá|בִּקְּרוּ|bikrú|אֲבַקֵּר|avakér|יְבַקֵּר|yevakér|יְבַקְּרוּ|yevakrú
+v|לְבָרֵךְ|levaréj|bendecir|מְבָרֵךְ|mevaréj|מְבָרֶכֶת|mevaréjet|מְבָרְכִים|mevarjím|מְבָרְכוֹת|mevarjót|בֵּרַכְתִּי|berájti|בֵּרֵךְ|beréj|בֵּרְכָה|berjá|בֵּרְכוּ|berjú|אֲבָרֵךְ|avaréj|יְבָרֵךְ|yevaréj|יְבָרְכוּ|yevarjú
+v|לְהַתְחִיל|lehatjíl|empezar|מַתְחִיל|matjíl|מַתְחִילָה|matjilá|מַתְחִילִים|matjilím|מַתְחִילוֹת|matjilót|הִתְחַלְתִּי|hitjálti|הִתְחִיל|hitjíl|הִתְחִילָה|hitjíla|הִתְחִילוּ|hitjílu|אַתְחִיל|atjíl|יַתְחִיל|yatjíl|יַתְחִילוּ|yatjílu
+v|לְהַזְמִין|lehazmín|invitar; pedir (en un lugar)|מַזְמִין|mazmín|מַזְמִינָה|mazminá|מַזְמִינִים|mazminím|מַזְמִינוֹת|mazminót|הִזְמַנְתִּי|hizmánti|הִזְמִין|hizmín|הִזְמִינָה|hizmína|הִזְמִינוּ|hizmínu|אַזְמִין|azmín|יַזְמִין|yazmín|יַזְמִינוּ|yazmínu
+v|לְהַסְבִּיר|lehasbír|explicar|מַסְבִּיר|masbír|מַסְבִּירָה|masbirá|מַסְבִּירִים|masbirím|מַסְבִּירוֹת|masbirót|הִסְבַּרְתִּי|hisbárti|הִסְבִּיר|hisbír|הִסְבִּירָה|hisbíra|הִסְבִּירוּ|hisbíru|אַסְבִּיר|asbír|יַסְבִּיר|yasbír|יַסְבִּירוּ|yasbíru
+v|לְהַרְגִּישׁ|leharguísh|sentir|מַרְגִּישׁ|marguísh|מַרְגִּישָׁה|marguishá|מַרְגִּישִׁים|marguishím|מַרְגִּישׁוֹת|marguishót|הִרְגַּשְׁתִּי|hirgáshti|הִרְגִּישׁ|hirguísh|הִרְגִּישָׁה|hirguísha|הִרְגִּישׁוּ|hirguíshu|אַרְגִּישׁ|arguísh|יַרְגִּישׁ|yarguísh|יַרְגִּישׁוּ|yarguíshu
+v|לְהַמְשִׁיךְ|lehamshíj|continuar|מַמְשִׁיךְ|mamshíj|מַמְשִׁיכָה|mamshijá|מַמְשִׁיכִים|mamshijím|מַמְשִׁיכוֹת|mamshijót|הִמְשַׁכְתִּי|himshájti|הִמְשִׁיךְ|himshíj|הִמְשִׁיכָה|himshíja|הִמְשִׁיכוּ|himshíju|אַמְשִׁיךְ|amshíj|יַמְשִׁיךְ|yamshíj|יַמְשִׁיכוּ|yamshíju
+v|לְהַחְלִיט|lehajlít|decidir|מַחְלִיט|majlít|מַחְלִיטָה|majlitá|מַחְלִיטִים|majlitím|מַחְלִיטוֹת|majlitót|הֶחְלַטְתִּי|hejlátti|הֶחְלִיט|hejlít|הֶחְלִיטָה|hejlíta|הֶחְלִיטוּ|hejlítu|אַחְלִיט|ajlít|יַחְלִיט|yajlít|יַחְלִיטוּ|yajlítu
+v|לְהַפְסִיק|lehafsík|dejar de; parar|מַפְסִיק|mafsík|מַפְסִיקָה|mafsiká|מַפְסִיקִים|mafsikím|מַפְסִיקוֹת|mafsikót|הִפְסַקְתִּי|hifsákti|הִפְסִיק|hifsík|הִפְסִיקָה|hifsíka|הִפְסִיקוּ|hifsíku|אַפְסִיק|afsík|יַפְסִיק|yafsík|יַפְסִיקוּ|yafsíku
+v|לְהַכִּיר|lehakír|conocer (a alguien)|מַכִּיר|makír|מַכִּירָה|makirá|מַכִּירִים|makirím|מַכִּירוֹת|makirót|הִכַּרְתִּי|hikárti|הִכִּיר|hikír|הִכִּירָה|hikíra|הִכִּירוּ|hikíru|אַכִּיר|akír|יַכִּיר|yakír|יַכִּירוּ|yakíru
+v|לְהַדְלִיק|lehadlík|encender|מַדְלִיק|madlík|מַדְלִיקָה|madliká|מַדְלִיקִים|madlikím|מַדְלִיקוֹת|madlikót|הִדְלַקְתִּי|hidlákti|הִדְלִיק|hidlík|הִדְלִיקָה|hidlíka|הִדְלִיקוּ|hidlíku|אַדְלִיק|adlík|יַדְלִיק|yadlík|יַדְלִיקוּ|yadlíku
+v|לְהַצְלִיחַ|lehatslíaj|lograr; tener éxito|מַצְלִיחַ|matslíaj|מַצְלִיחָה|matslijá|מַצְלִיחִים|matslijím|מַצְלִיחוֹת|matslijót|הִצְלַחְתִּי|hitslájti|הִצְלִיחַ|hitslíaj|הִצְלִיחָה|hitslíja|הִצְלִיחוּ|hitslíju|אַצְלִיחַ|atslíaj|יַצְלִיחַ|yatslíaj|יַצְלִיחוּ|yatslíju
+v|לְהַאֲמִין|lehaamín|creer|מַאֲמִין|maamín|מַאֲמִינָה|maaminá|מַאֲמִינִים|maaminím|מַאֲמִינוֹת|maaminót|הֶאֱמַנְתִּי|heemánti|הֶאֱמִין|heemín|הֶאֱמִינָה|heemína|הֶאֱמִינוּ|heemínu|אַאֲמִין|aamín|יַאֲמִין|yaamín|יַאֲמִינוּ|yaamínu
+v|לְהָבִין|lehavín|entender|מֵבִין|mevín|מְבִינָה|meviná|מְבִינִים|meviním|מְבִינוֹת|mevinót|הֵבַנְתִּי|hevánti|הֵבִין|hevín|הֵבִינָה|hevína|הֵבִינוּ|hevínu|אָבִין|avín|יָבִין|yavín|יָבִינוּ|yavínu
+v|לְהָכִין|lehajín|preparar|מֵכִין|mejín|מְכִינָה|mejiná|מְכִינִים|mejiním|מְכִינוֹת|mejinót|הֵכַנְתִּי|hejánti|הֵכִין|hejín|הֵכִינָה|hejína|הֵכִינוּ|hejínu|אָכִין|ajín|יָכִין|yajín|יָכִינוּ|yajínu
+v|לְהָבִיא|lehaví|traer|מֵבִיא|meví|מְבִיאָה|meviá|מְבִיאִים|meviím|מְבִיאוֹת|meviót|הֵבֵאתִי|hevéti|הֵבִיא|heví|הֵבִיאָה|hevía|הֵבִיאוּ|hevíu|אָבִיא|aví|יָבִיא|yaví|יָבִיאוּ|yavíu
+v|לְהַרְאוֹת|leharót|mostrar|מַרְאֶה|mar'é|מַרְאָה|mar'á|מַרְאִים|mar'ím|מַרְאוֹת|mar'ót|הֶרְאֵיתִי|her'éti|הֶרְאָה|her'á|הֶרְאֲתָה|her'atá|הֶרְאוּ|her'ú|אַרְאֶה|ar'é|יַרְאֶה|yar'é|יַרְאוּ|yar'ú
+v|לְהַגִּיעַ|lehaguía|llegar|מַגִּיעַ|maguía|מַגִּיעָה|maguiá|מַגִּיעִים|maguiím|מַגִּיעוֹת|maguiót|הִגַּעְתִּי|higáti|הִגִּיעַ|higuía|הִגִּיעָה|higuí'a|הִגִּיעוּ|higuíu|אַגִּיעַ|aguía|יַגִּיעַ|yaguía|יַגִּיעוּ|yaguíu
+v|לְהוֹרִיד|lehoríd|bajar algo; descargar|מוֹרִיד|moríd|מוֹרִידָה|moridá|מוֹרִידִים|moridím|מוֹרִידוֹת|moridót|הוֹרַדְתִּי|horádti|הוֹרִיד|horíd|הוֹרִידָה|horída|הוֹרִידוּ|horídu|אוֹרִיד|oríd|יוֹרִיד|yoríd|יוֹרִידוּ|yorídu
+v|לְהִתְלַבֵּשׁ|lehitlabésh|vestirse|מִתְלַבֵּשׁ|mitlabésh|מִתְלַבֶּשֶׁת|mitlabéshet|מִתְלַבְּשִׁים|mitlabshím|מִתְלַבְּשׁוֹת|mitlabshót|הִתְלַבַּשְׁתִּי|hitlabáshti|הִתְלַבֵּשׁ|hitlabésh|הִתְלַבְּשָׁה|hitlabshá|הִתְלַבְּשׁוּ|hitlabshú|אֶתְלַבֵּשׁ|etlabésh|יִתְלַבֵּשׁ|yitlabésh|יִתְלַבְּשׁוּ|yitlabshú
+v|לְהִתְרַחֵץ|lehitrajéts|bañarse|מִתְרַחֵץ|mitrajéts|מִתְרַחֶצֶת|mitrajétset|מִתְרַחֲצִים|mitrajatsím|מִתְרַחֲצוֹת|mitrajatsót|הִתְרַחַצְתִּי|hitrajátsti|הִתְרַחֵץ|hitrajéts|הִתְרַחֲצָה|hitrajatsá|הִתְרַחֲצוּ|hitrajatsú|אֶתְרַחֵץ|etrajéts|יִתְרַחֵץ|yitrajéts|יִתְרַחֲצוּ|yitrajatsú
+v|לְהִתְקַשֵּׁר|lehitkashér|llamar (por teléfono)|מִתְקַשֵּׁר|mitkashér|מִתְקַשֶּׁרֶת|mitkashéret|מִתְקַשְּׁרִים|mitkashrím|מִתְקַשְּׁרוֹת|mitkashrót|הִתְקַשַּׁרְתִּי|hitkashárti|הִתְקַשֵּׁר|hitkashér|הִתְקַשְּׁרָה|hitkashrá|הִתְקַשְּׁרוּ|hitkashrú|אֶתְקַשֵּׁר|etkashér|יִתְקַשֵּׁר|yitkashér|יִתְקַשְּׁרוּ|yitkashrú
+v|לְהִתְחַתֵּן|lehitjatén|casarse|מִתְחַתֵּן|mitjatén|מִתְחַתֶּנֶת|mitjaténet|מִתְחַתְּנִים|mitjatním|מִתְחַתְּנוֹת|mitjatnót|הִתְחַתַּנְתִּי|hitjatánti|הִתְחַתֵּן|hitjatén|הִתְחַתְּנָה|hitjatná|הִתְחַתְּנוּ|hitjatnú|אֶתְחַתֵּן|etjatén|יִתְחַתֵּן|yitjatén|יִתְחַתְּנוּ|yitjatnú
+v|לְהִתְעַנְיֵן|lehitanyén|interesarse|מִתְעַנְיֵן|mitanyén|מִתְעַנְיֶנֶת|mitanyénet|מִתְעַנְיְנִים|mitanyením|מִתְעַנְיְנוֹת|mitanyenót|הִתְעַנְיַנְתִּי|hitanyánti|הִתְעַנְיֵן|hitanyén|הִתְעַנְיְנָה|hitanyená|הִתְעַנְיְנוּ|hitanyenú|אֶתְעַנְיֵן|etanyén|יִתְעַנְיֵן|yitanyén|יִתְעַנְיְנוּ|yitanyenú
+v|לְהִסְתַּכֵּל|lehistakél|mirar|מִסְתַּכֵּל|mistakél|מִסְתַּכֶּלֶת|mistakélet|מִסְתַּכְּלִים|mistaklím|מִסְתַּכְּלוֹת|mistaklót|הִסְתַּכַּלְתִּי|histakálti|הִסְתַּכֵּל|histakél|הִסְתַּכְּלָה|histaklá|הִסְתַּכְּלוּ|histaklú|אֶסְתַּכֵּל|estakél|יִסְתַּכֵּל|yistakél|יִסְתַּכְּלוּ|yistaklú
+v|לְהִשְׁתַּמֵּשׁ|lehishtamésh|usar|מִשְׁתַּמֵּשׁ|mishtamésh|מִשְׁתַּמֶּשֶׁת|mishtaméshet|מִשְׁתַּמְּשִׁים|mishtamshím|מִשְׁתַּמְּשׁוֹת|mishtamshót|הִשְׁתַּמַּשְׁתִּי|hishtamáshti|הִשְׁתַּמֵּשׁ|hishtamésh|הִשְׁתַּמְּשָׁה|hishtamshá|הִשְׁתַּמְּשׁוּ|hishtamshú|אֶשְׁתַּמֵּשׁ|eshtamésh|יִשְׁתַּמֵּשׁ|yishtamésh|יִשְׁתַּמְּשׁוּ|yishtamshú
+v|לְהִתְאַמֵּן|lehitamén|entrenar|מִתְאַמֵּן|mitamén|מִתְאַמֶּנֶת|mitaménet|מִתְאַמְּנִים|mitamním|מִתְאַמְּנוֹת|mitamnót|הִתְאַמַּנְתִּי|hitamánti|הִתְאַמֵּן|hitamén|הִתְאַמְּנָה|hitamná|הִתְאַמְּנוּ|hitamnú|אֶתְאַמֵּן|etamén|יִתְאַמֵּן|yitamén|יִתְאַמְּנוּ|yitamnú
+v|לְהִתְפַּלֵּל|lehitpalél|rezar|מִתְפַּלֵּל|mitpalél|מִתְפַּלֶּלֶת|mitpalélet|מִתְפַּלְּלִים|mitpalelím|מִתְפַּלְּלוֹת|mitpalelót|הִתְפַּלַּלְתִּי|hitpalálti|הִתְפַּלֵּל|hitpalél|הִתְפַּלְּלָה|hitpalelá|הִתְפַּלְּלוּ|hitpalelú|אֶתְפַּלֵּל|etpalél|יִתְפַּלֵּל|yitpalél|יִתְפַּלְּלוּ|yitpalelú
+v|לְהִכָּנֵס|lehikanés|entrar|נִכְנָס|nijnás|נִכְנֶסֶת|nijnéset|נִכְנָסִים|nijnasím|נִכְנָסוֹת|nijnasót|נִכְנַסְתִּי|nijnásti|נִכְנַס|nijnás|נִכְנְסָה|nijnesá|נִכְנְסוּ|nijnesú|אֶכָּנֵס|ekanés|יִכָּנֵס|yikanés|יִכָּנְסוּ|yikansú
+v|לְהִפָּגֵשׁ|lehipagésh|reunirse|נִפְגָּשׁ|nifgásh|נִפְגֶּשֶׁת|nifguéshet|נִפְגָּשִׁים|nifgashím|נִפְגָּשׁוֹת|nifgashót|נִפְגַּשְׁתִּי|nifgáshti|נִפְגַּשׁ|nifgásh|נִפְגְּשָׁה|nifgueshá|נִפְגְּשׁוּ|nifgueshú|אֶפָּגֵשׁ|epagésh|יִפָּגֵשׁ|yipagésh|יִפָּגְשׁוּ|yipagshú
+v|לְהִשָּׁאֵר|lehishaér|quedarse|נִשְׁאָר|nishár|נִשְׁאֶרֶת|nishéret|נִשְׁאָרִים|nisharím|נִשְׁאָרוֹת|nisharót|נִשְׁאַרְתִּי|nishárti|נִשְׁאַר|nishár|נִשְׁאֲרָה|nishará|נִשְׁאֲרוּ|nisharú|אֶשָּׁאֵר|eshaér|יִשָּׁאֵר|yishaér|יִשָּׁאֲרוּ|yishaarú
+v|-|-|poder|יָכוֹל|yajól|יְכוֹלָה|yejolá|יְכוֹלִים|yejolím|יְכוֹלוֹת|yejolót|יָכֹלְתִּי|yajólti|יָכֹל|yajól|יָכְלָה|yajlá|יָכְלוּ|yajlú|אוּכַל|ujál|יוּכַל|yujál|יוּכְלוּ|yujlú
+`},
+];
+
+// Números: forma femenina (para contar y la hora) y masculina
+const NUMF=[[0,'אֶפֶס','éfes'],[1,'אַחַת','ajat'],[2,'שְׁתַּיִם','shtáyim'],[3,'שָׁלוֹשׁ','shalósh'],[4,'אַרְבַּע','árba'],[5,'חָמֵשׁ','jamésh'],[6,'שֵׁשׁ','shesh'],[7,'שֶׁבַע','shéva'],[8,'שְׁמוֹנֶה','shmoné'],[9,'תֵּשַׁע','tésha'],[10,'עֶשֶׂר','éser'],[11,'אַחַת עֶשְׂרֵה','ajat esré'],[12,'שְׁתֵּים עֶשְׂרֵה','shteim esré'],[13,'שְׁלוֹשׁ עֶשְׂרֵה','shlosh esré'],[14,'אַרְבַּע עֶשְׂרֵה','arba esré'],[15,'חֲמֵשׁ עֶשְׂרֵה','jamesh esré'],[16,'שֵׁשׁ עֶשְׂרֵה','shesh esré'],[17,'שְׁבַע עֶשְׂרֵה','shva esré'],[18,'שְׁמוֹנֶה עֶשְׂרֵה','shmoné esré'],[19,'תְּשַׁע עֶשְׂרֵה','tsha esré'],[20,'עֶשְׂרִים','esrím'],[30,'שְׁלוֹשִׁים','shloshím'],[40,'אַרְבָּעִים','arbaím'],[50,'חֲמִשִּׁים','jamishím'],[60,'שִׁשִּׁים','shishím'],[70,'שִׁבְעִים','shivím'],[80,'שְׁמוֹנִים','shmoním'],[90,'תִּשְׁעִים','tishím'],[100,'מֵאָה','meá'],[200,'מָאתַיִם','matáyim'],[1000,'אֶלֶף','élef'],[2000,'אַלְפַּיִם','alpáyim']];
+const NUMM=[[1,'אֶחָד','ejád'],[2,'שְׁנַיִם','shnáyim'],[3,'שְׁלוֹשָׁה','shloshá'],[4,'אַרְבָּעָה','arbaá'],[5,'חֲמִשָּׁה','jamishá'],[6,'שִׁשָּׁה','shishá'],[7,'שִׁבְעָה','shivá'],[8,'שְׁמוֹנָה','shmoná'],[9,'תִּשְׁעָה','tishá'],[10,'עֲשָׂרָה','asará']];
+
+// Preposiciones con pronombre: yo, tú m., tú f., él, ella, nosotros, ustedes m., ustedes f., ellos, ellas
+const PRON=['yo','tú (m)','tú (f)','él','ella','nosotros','ustedes (m)','ustedes (f)','ellos','ellas'];
+const PRON_HE=['אֲנִי','אַתָּה','אַתְּ','הוּא','הִיא','אֲנַחְנוּ','אַתֶּם','אַתֶּן','הֵם','הֵן'];
+const PREPS=[
+ {p:'לְ',es:'a; para',f:[['לִי','li'],['לְךָ','lejá'],['לָךְ','laj'],['לוֹ','lo'],['לָהּ','la'],['לָנוּ','lánu'],['לָכֶם','lajém'],['לָכֶן','lajén'],['לָהֶם','lahém'],['לָהֶן','lahén']]},
+ {p:'שֶׁל',es:'de (posesión)',f:[['שֶׁלִּי','shelí'],['שֶׁלְּךָ','sheljá'],['שֶׁלָּךְ','sheláj'],['שֶׁלּוֹ','sheló'],['שֶׁלָּהּ','shelá'],['שֶׁלָּנוּ','shelánu'],['שֶׁלָּכֶם','shelajém'],['שֶׁלָּכֶן','shelajén'],['שֶׁלָּהֶם','shelahém'],['שֶׁלָּהֶן','shelahén']]},
+ {p:'עִם',es:'con',f:[['אִתִּי','ití'],['אִתְּךָ','itjá'],['אִתָּךְ','itáj'],['אִתּוֹ','itó'],['אִתָּהּ','itá'],['אִתָּנוּ','itánu'],['אִתְּכֶם','itjém'],['אִתְּכֶן','itjén'],['אִתָּם','itám'],['אִתָּן','itán']]},
+ {p:'אֶת',es:'(objeto directo)',f:[['אוֹתִי','otí'],['אוֹתְךָ','otjá'],['אוֹתָךְ','otáj'],['אוֹתוֹ','otó'],['אוֹתָהּ','otá'],['אוֹתָנוּ','otánu'],['אֶתְכֶם','etjém'],['אֶתְכֶן','etjén'],['אוֹתָם','otám'],['אוֹתָן','otán']]},
+ {p:'בְּ',es:'en',f:[['בִּי','bi'],['בְּךָ','bejá'],['בָּךְ','baj'],['בּוֹ','bo'],['בָּהּ','ba'],['בָּנוּ','bánu'],['בָּכֶם','bajém'],['בָּכֶן','bajén'],['בָּהֶם','bahém'],['בָּהֶן','bahén']]},
+ {p:'אֵצֶל',es:'en casa de',f:[['אֶצְלִי','etslí'],['אֶצְלְךָ','etsljá'],['אֶצְלֵךְ','etsléj'],['אֶצְלוֹ','etsló'],['אֶצְלָהּ','etslá'],['אֶצְלֵנוּ','etslénu'],['אֶצְלְכֶם','etsljém'],['אֶצְלְכֶן','etsljén'],['אֶצְלָם','etslám'],['אֶצְלָן','etslán']]},
+ {p:'עַל',es:'sobre; acerca de',f:[['עָלַי','alái'],['עָלֶיךָ','aléja'],['עָלַיִךְ','aláyij'],['עָלָיו','aláv'],['עָלֶיהָ','aléha'],['עָלֵינוּ','aléinu'],['עֲלֵיכֶם','aleijém'],['עֲלֵיכֶן','aleijén'],['עֲלֵיהֶם','aleihém'],['עֲלֵיהֶן','aleihén']]},
+ {p:'מִן',es:'de; desde',f:[['מִמֶּנִּי','miméni'],['מִמְּךָ','mimjá'],['מִמֵּךְ','miméj'],['מִמֶּנּוּ','miménu'],['מִמֶּנָּה','mimená'],['מֵאִתָּנוּ','meitánu'],['מִכֶּם','mikém'],['מִכֶּן','mikén'],['מֵהֶם','mehém'],['מֵהֶן','mehén']]},
+];
+
+// Preguntas: palabra interrogativa, pregunta con hueco, respuesta, traducción de la pregunta
+const QW=[
+ ['אֵיפֹה','___ אַתָּה גָּר?','אֲנִי גָּר בְּחֵיפָה.','¿Dónde vives?'],
+ ['מָתַי','___ הַשִּׁעוּר?','הַשִּׁעוּר מָחָר בְּעֶשֶׂר.','¿Cuándo es la clase?'],
+ ['מִי','___ זֶה?','זֶה הָאָח שֶׁלִּי.','¿Quién es?'],
+ ['מָה','___ אַתָּה אוֹכֵל?','אֲנִי אוֹכֵל פָלָאפֶל.','¿Qué comes?'],
+ ['כַּמָּה','___ זֶה עוֹלֶה?','זֶה עוֹלֶה עֶשְׂרִים שְׁקָלִים.','¿Cuánto cuesta?'],
+ ['לָמָּה','___ אַתְּ עֲצוּבָה?','כִּי הַחָתוּל שֶׁלִּי חוֹלֶה.','¿Por qué estás triste?'],
+ ['אֵיךְ','___ אַתָּה נוֹסֵעַ לָעֲבוֹדָה?','בְּאוֹטוֹבּוּס.','¿Cómo vas al trabajo?'],
+ ['לְאָן','___ אַתֶּם הוֹלְכִים?','אֲנַחְנוּ הוֹלְכִים לַיָּם.','¿A dónde van?'],
+ ['מֵאַיִן','___ אַתְּ?','אֲנִי מִמֶּקְסִיקוֹ.','¿De dónde eres?'],
+ ['אֵיזֶה','___ סֶרֶט אַתָּה רוֹצֶה לִרְאוֹת?','אֶת הַסֶּרֶט הֶחָדָשׁ.','¿Qué película quieres ver?'],
+ ['כַּמָּה','___ יְלָדִים יֵשׁ לָכֶם?','יֵשׁ לָנוּ שְׁלוֹשָׁה יְלָדִים.','¿Cuántos hijos tienen?'],
+ ['מָתַי','___ אַתְּ קָמָה בַּבֹּקֶר?','אֲנִי קָמָה בְּשֶׁבַע.','¿A qué hora te levantas?'],
+ ['מִי','___ רוֹצֶה קָפֶה?','אֲנִי!','¿Quién quiere café?'],
+ ['אֵיפֹה','___ הַתַּחֲנָה?','הַתַּחֲנָה לְיַד הַבַּנְק.','¿Dónde está la parada?'],
+ ['לָמָּה','___ לֹא בָּאתָ אֶתְמוֹל?','כִּי הָיִיתִי חוֹלֶה.','¿Por qué no viniste ayer?'],
+ ['אֵיזוֹ','___ שִׂמְלָה אַתְּ אוֹהֶבֶת?','אֶת הַשִּׂמְלָה הָאֲדֻמָּה.','¿Qué vestido te gusta?'],
+ ['אֵיךְ','___ קוֹרְאִים לְךָ?','קוֹרְאִים לִי דָּנִי.','¿Cómo te llamas?'],
+ ['מָה','___ הַשָּׁעָה?','הַשָּׁעָה שָׁלוֹשׁ.','¿Qué hora es?'],
+];
+
+// Frases correctas: artículo, preposiciones, יֵשׁ/אֵין, אֶת, concordancia (la primera opción es la correcta)
+const SYN=[
+ {q:'«en la casa»',o:['בַּבַּיִת','בְּבַיִת','הַבַּיִת'],e:'בְּ (en) + הַ (la) se funden en בַּ.'},
+ {q:'«a la escuela»',o:['לְבֵית הַסֵּפֶר','בְּבֵית הַסֵּפֶר','מִבֵּית הַסֵּפֶר'],e:'לְ = a (dirección). בְּ = en, מִ = desde.'},
+ {q:'«desde el mercado»',o:['מֵהַשּׁוּק','לַשּׁוּק','בַּשּׁוּק'],e:'מִ / מֵ = de, desde.'},
+ {q:'«y un perro»',o:['וְכֶלֶב','הַכֶּלֶב','בְּכֶלֶב'],e:'וְ = y, pegada a la palabra.'},
+ {q:'«el libro de Dani»',o:['הַסֵּפֶר שֶׁל דָּנִי','סֵפֶר הַשֶּׁל דָּנִי','הַסֵּפֶר בְּדָנִי'],e:'Posesión: sustantivo con הַ + שֶׁל + dueño.'},
+ {q:'«la casa grande»',o:['הַבַּיִת הַגָּדוֹל','הַבַּיִת גָּדוֹל','בַּיִת הַגָּדוֹל'],e:'Si el sustantivo lleva הַ, el adjetivo también. Sin el segundo הַ es una oración: «la casa es grande».'},
+ {q:'«La casa es grande.»',o:['הַבַּיִת גָּדוֹל','הַבַּיִת הַגָּדוֹל','בַּיִת הַגָּדוֹל'],e:'En presente no hay verbo «ser»: sustantivo con הַ + adjetivo sin הַ.'},
+ {q:'«No hay leche.»',o:['אֵין חָלָב','לֹא חָלָב','יֵשׁ חָלָב'],e:'אֵין = no hay. לֹא niega verbos y adjetivos.'},
+ {q:'«Tengo un coche.»',o:['יֵשׁ לִי מְכוֹנִית','אֲנִי מְכוֹנִית','יֵשׁ אֲנִי מְכוֹנִית'],e:'Tener = יֵשׁ + לְ + persona: יֵשׁ לִי.'},
+ {q:'«No tengo tiempo.»',o:['אֵין לִי זְמַן','לֹא לִי זְמַן','יֵשׁ לִי לֹא זְמַן'],e:'No tener = אֵין + לְ: אֵין לִי.'},
+ {q:'«Él tiene hambre.»',o:['הוּא רָעֵב','יֵשׁ לוֹ רָעֵב','הוּא רְעֵבָה'],e:'Se dice con adjetivo: «él (está) hambriento».'},
+ {q:'«Veo a Dani.»',o:['אֲנִי רוֹאֶה אֶת דָּנִי','אֲנִי רוֹאֶה דָּנִי אֶת','אֲנִי רוֹאֶה לְדָנִי'],e:'Los nombres propios son definidos: llevan אֶת.'},
+ {q:'«Veo un perro.»',o:['אֲנִי רוֹאֶה כֶּלֶב','אֲנִי רוֹאֶה אֶת כֶּלֶב','אֲנִי רוֹאֶה הַכֶּלֶב'],e:'אֶת solo va con objetos definidos («el perro»), no con «un perro».'},
+ {q:'«Veo el perro.»',o:['אֲנִי רוֹאֶה אֶת הַכֶּלֶב','אֲנִי רוֹאֶה הַכֶּלֶב','אֲנִי רוֹאֶה אֶת כֶּלֶב'],e:'Objeto directo con הַ → אֶת הַ…'},
+ {q:'«Quiero dormir.»',o:['אֲנִי רוֹצֶה לִישֹׁן','אֲנִי רוֹצֶה יָשֵׁן','אֲנִי לִישֹׁן רוֹצֶה'],e:'Querer + infinitivo (empieza con ל).'},
+ {q:'«Tengo que trabajar.» (hombre)',o:['אֲנִי צָרִיךְ לַעֲבֹד','אֲנִי צָרִיךְ עוֹבֵד','אֲנִי צְרִיכָה לַעֲבֹד'],e:'צָרִיךְ (m.) / צְרִיכָה (f.) + infinitivo.'},
+ {q:'«Estas casas son nuevas.»',o:['הַבָּתִּים הָאֵלֶּה חֲדָשִׁים','הַבָּתִּים הָאֵלֶּה חֲדָשׁוֹת','הַבָּתִּים הָאֵלֶּה חָדָשׁ'],e:'בַּיִת es masculino aunque su plural sea irregular: adjetivo en ־ִים.'},
+ {q:'«dos niñas»',o:['שְׁתֵּי יְלָדוֹת','שְׁנֵי יְלָדוֹת','שְׁתַּיִם יְלָדוֹת'],e:'Antes de un sustantivo: שְׁתֵּי (f.) / שְׁנֵי (m.).'},
+ {q:'«dos niños»',o:['שְׁנֵי יְלָדִים','שְׁתֵּי יְלָדִים','שְׁנַיִם יְלָדִים'],e:'Masculino delante de sustantivo: שְׁנֵי.'},
+ {q:'«tres niñas»',o:['שָׁלוֹשׁ יְלָדוֹת','שְׁלוֹשָׁה יְלָדוֹת','שָׁלוֹשׁ יְלָדִים'],e:'Sustantivo femenino → número femenino (sin ־ָה).'},
+ {q:'«tres niños»',o:['שְׁלוֹשָׁה יְלָדִים','שָׁלוֹשׁ יְלָדִים','שְׁלוֹשָׁה יְלָדוֹת'],e:'Sustantivo masculino → número masculino (con ־ָה). ¡Al revés de lo que parece!'},
+ {q:'«Esta es mi hermana.»',o:['זֹאת הָאָחוֹת שֶׁלִּי','אֵלֶּה הָאָחוֹת שֶׁלִּי','זֹאת אָחוֹת הַשֶּׁלִּי'],e:'זֹאת para femenino singular, זֶה masculino, אֵלֶּה plural.'},
+ {q:'«este libro»',o:['הַסֵּפֶר הַזֶּה','זֶה סֵפֶר','הַזֶּה סֵפֶר'],e:'«este» va detrás con artículo: הַסֵּפֶר הַזֶּה. (זֶה הַסֵּפֶר = «este es el libro»).'},
+ {q:'«No sé.» (mujer)',o:['אֲנִי לֹא יוֹדַעַת','אֲנִי אֵין יוֹדַעַת','לֹא אֲנִי יוֹדַעַת'],e:'לֹא va justo antes del verbo.'},
+ {q:'«Me gusta el café.»',o:['אֲנִי אוֹהֵב קָפֶה','אֲנִי אוֹהֵב לְקָפֶה','לִי אוֹהֵב קָפֶה'],e:'«Gustar» se dice con אוֹהֵב / אוֹהֶבֶת.'},
+ {q:'«Vivo en Tel Aviv.» (hombre)',o:['אֲנִי גָּר בְּתֵל אָבִיב','אֲנִי גָּר לְתֵל אָבִיב','אֲנִי גָּר מִתֵּל אָבִיב'],e:'בְּ = en (lugar).'},
+ {q:'«Voy a Jerusalén.» (mujer)',o:['אֲנִי נוֹסַעַת לִירוּשָׁלַיִם','אֲנִי נוֹסַעַת בִּירוּשָׁלַיִם','אֲנִי נוֹסֵעַ לִירוּשָׁלַיִם'],e:'לְ = a (destino); la mujer dice נוֹסַעַת.'},
+ {q:'«Ayer estuve en casa.»',o:['אֶתְמוֹל הָיִיתִי בַּבַּיִת','אֶתְמוֹל אֲנִי בַּבַּיִת','אֶתְמוֹל אֶהְיֶה בַּבַּיִת'],e:'En pasado sí se usa «ser/estar»: הָיִיתִי.'},
+ {q:'«Mañana voy a escribir.»',o:['מָחָר אֶכְתֹּב','מָחָר כָּתַבְתִּי','מָחָר אֲנִי כָּתַב'],e:'Futuro de «yo»: prefijo א.'},
+];
+
+const EXTRA_GRAM=[
+ ['El presente: 4 formas',`Cambia por género y número, no por persona: <span class="he say">כּוֹתֵב</span> (m.), <span class="he say">כּוֹתֶבֶת</span> (f.), <span class="he say">כּוֹתְבִים</span> (m. pl.), <span class="he say">כּוֹתְבוֹת</span> (f. pl.). Por eso siempre se dice el pronombre: <span class="he say">אֲנִי כּוֹתֵב</span>.`],
+ ['El pasado: terminaciones',`Se pegan a la raíz: <span class="he say">כָּתַבְתִּי</span> (yo), <span class="he say">כָּתַבְתָּ</span> (tú m.), <span class="he say">כָּתַבְתְּ</span> (tú f.), <span class="he say">כָּתַב</span> (él), <span class="he say">כָּתְבָה</span> (ella), <span class="he say">כָּתַבְנוּ</span> (nosotros), <span class="he say">כָּתְבוּ</span> (ellos). En 1.ª y 2.ª persona puedes omitir el pronombre.`],
+ ['El futuro: prefijos',`Se añade una letra al inicio: א (yo), ת (tú, ella), י (él, ellos), נ (nosotros): <span class="he say">אֶכְתֹּב</span>, <span class="he say">תִּכְתֹּב</span>, <span class="he say">יִכְתֹּב</span>, <span class="he say">נִכְתֹּב</span>, <span class="he say">יִכְתְּבוּ</span>. «Tú» femenino añade ־ִי: <span class="he say">תִּכְתְּבִי</span>.`],
+ ['Las familias de verbos (binyanim)',`Cada verbo sigue un modelo. Se reconocen por el presente: pa'al <span class="he say">כּוֹתֵב</span>, pi'el <span class="he say">מְדַבֵּר</span>, hif'il <span class="he say">מַתְחִיל</span>, hitpa'el <span class="he say">מִתְלַבֵּשׁ</span>, nif'al <span class="he say">נִכְנָס</span>. Si dominas un verbo de cada familia, puedes conjugar casi todos.`],
+ ['Verbos de raíz débil',`Con ו o י en medio de la raíz (<span class="he say">קָם</span>, <span class="he say">גָּר</span>) el presente y el pasado casi coinciden: הוּא קָם es «se levanta» o «se levantó»; el contexto lo aclara. Los que terminan en ה (<span class="he say">קוֹנֶה</span>) hacen el pasado en ־ִיתִי: <span class="he say">קָנִיתִי</span>.`],
+ ['Plurales',`Masculino ־ִים, femenino ־וֹת: <span class="he say">סֵפֶר → סְפָרִים</span>. Hay irregulares: <span class="he say">מִלָּה → מִלִּים</span> (f.), <span class="he say">שֻׁלְחָן → שֻׁלְחָנוֹת</span> (m.). El género no cambia: שֻׁלְחָנוֹת sigue siendo masculino.`],
+ ['Concordancia',`El adjetivo va detrás y copia género, número y artículo: <span class="he say">יֶלֶד קָטָן</span>, <span class="he say">יַלְדָּה קְטַנָּה</span>, <span class="he say">הַיְּלָדִים הַקְּטַנִּים</span>.`],
+ ['Tener: יֵשׁ / אֵין + לְ',`<span class="he say">יֵשׁ לִי</span> = tengo; <span class="he say">אֵין לִי</span> = no tengo; <span class="he say">יֵשׁ לָהּ אָח</span> = ella tiene un hermano.`],
+ ['Negar',`<span class="he say">לֹא</span> niega verbos y adjetivos: <span class="he say">אֲנִי לֹא יוֹדֵעַ</span>. <span class="he say">אֵין</span> niega la existencia: <span class="he say">אֵין חָלָב</span> (no hay leche).`],
+ ['Preposiciones con pronombre',`Se unen al pronombre: <span class="he say">לִי</span> (a mí), <span class="he say">שֶׁלִּי</span> (mío), <span class="he say">אִתִּי</span> (conmigo), <span class="he say">אוֹתִי</span> (a mí, objeto). La tabla completa está en Recursos.`],
+ ['Números y género',`Para contar y para la hora se usa la forma femenina: <span class="he say">אַחַת, שְׁתַּיִם, שָׁלוֹשׁ</span>. Con sustantivos masculinos va la forma masculina, que termina en ־ָה: <span class="he say">שְׁלוֹשָׁה יְלָדִים</span>; con femeninos, la femenina: <span class="he say">שָׁלוֹשׁ יְלָדוֹת</span>.`],
+ ['La hora',`<span class="he say">מָה הַשָּׁעָה?</span> — <span class="he say">הַשָּׁעָה שָׁלוֹשׁ</span> (son las 3), <span class="he say">שָׁלוֹשׁ וָחֵצִי</span> (3:30), <span class="he say">שָׁלוֹשׁ וָרֶבַע</span> (3:15).`],
+ ['Este, esta, estos',`<span class="he say">זֶה</span> (m.), <span class="he say">זֹאת</span> (f.), <span class="he say">אֵלֶּה</span> (pl.). Detrás del sustantivo con artículo significa «este»: <span class="he say">הַבַּיִת הַזֶּה</span>.`],
+ ['Querer, poder, tener que',`Van seguidos de infinitivo (empieza con ל): <span class="he say">אֲנִי רוֹצֶה לִלְמֹד</span>, <span class="he say">אֲנִי יָכוֹל לָבוֹא</span>, <span class="he say">אֲנִי צָרִיךְ לַעֲבֹד</span>.`],
+];
+
+
+// ---------- Conjugación ----------
+const NF=s=>s.normalize('NFC');
+// Pasado: tú m., tú f. y nosotros salen de «yo» (־תִּי)
+function pastFrom(p){
+  const c=clusters(p[0]),n=c.length,dg=c[n-2].includes('ּ'),base=c.slice(0,n-2),bs=base.join(''),last=base[base.length-1]||'';
+  const bt=p[1].replace(/ti$/,''),nun=last[0]==='נ'&&last.includes('ְ');
+  return{s2m:[NF(bs+(dg?'תָּ':'תָ')),bt+'ta'],s2f:[NF(bs+(dg?'תְּ':'ת')),bt+'t'],
+    p1:nun?[NF(base.slice(0,-1).join('')+'נּוּ'),bt.replace(/n$/,'')+'nu']:[NF(bs+'נוּ'),bt+'nu']};
+}
+// Futuro: cambia la letra inicial י por ת o נ
+function swapY(he,tr,L){const c=clusters(he);if(c[0][0]!=='י')return null;c[0]=(L==='ת'?'תּ':'נ')+c[0].slice(1);return[NF(c.join('')),tr.replace(/^y/,L==='ת'?'t':'n')]}
+function futFrom(m3,p3){
+  const t=swapY(m3[0],m3[1],'ת'),c=clusters(p3[0]);let f2=null;
+  if(c[c.length-1]==='וּ'){c.pop();c[c.length-1]+='ִ';c.push('י');f2=swapY(c.join(''),p3[1].replace(/ú$/,'í').replace(/u$/,'i'),'ת')}
+  return{s2m:t,s3f:t,p1:swapY(m3[0],m3[1],'נ'),s2f:f2};
+}
+function parseVerb(f){
+  const P=i=>f[i]&&f[i]!=='-'?[NF(f[i]),f[i+1]]:null;
+  const inf=P(1),pres=P(4)?{m:P(4),f:P(6),mp:P(8),fp:P(10)}:null;
+  const past=Object.assign({s1:P(12),s3m:P(14),s3f:P(16),p3:P(18)},pastFrom(P(12)));
+  const fut=Object.assign({s1:P(20),s3m:P(22),p3:P(24)},futFrom(P(22),P(24)));
+  f.slice(26).forEach(ov=>{const m=ov.match(/^(\w+)=([^:]+):(.+)$/);if(m)past[m[1]]=[NF(m[2]),m[3]]});
+  const head=inf||pres.m;return{t:'v',he:head[0],tr:head[1],es:f[3],c:{inf,pres,past,fut}};
+}
+// Femenino ־ָה → plurales ־ִים / ־וֹת
+function femPl(f,ftr){const c=clusters(f),n=c.length;if(n<2||c[n-1]!=='ה'||!c[n-2].includes('ָ'))return null;
+  const p=c[n-2].replace('ָ',''),b=c.slice(0,n-2).join(''),bt=ftr.replace(/[aá]$/,'');
+  return[[NF(b+p+'ִים'),bt+'ím'],[NF(b+p+'וֹת'),bt+'ót']]}
+
+// ---------- Índice del vocabulario ----------
+const VOC=[],VOCK={},VERBS=[],VERBK={};
+DECKS.forEach(d=>{
+  d.items=[];
+  const add=o=>{o.k=bare(o.he);o.deck=d.id;d.items.push(o);if(!VOCK[o.k]){VOCK[o.k]=o;VOC.push(o)}if(o.t==='v'&&!VERBK[o.k]){VERBK[o.k]=o;VERBS.push(o)}
+    if(!WORDS[o.k])WORDS[o.k]={k:o.k,tr:o.tr,es:o.es,note:'',u:'v'}};
+  if(d.id==='num'){NUMF.forEach(q=>add({t:'w',he:NF(q[1]),tr:q[2],es:q[0]+(q[0]>0&&q[0]<20?' (fem., para contar)':''),n:q[0]}));NUMM.forEach(q=>add({t:'w',he:NF(q[1]),tr:q[2],es:q[0]+' (masc.)',n:q[0]}));
+    add({t:'w',he:NF('חֲצִי'),tr:'jatsí',es:'medio; mitad'});add({t:'w',he:NF('רֶבַע'),tr:'réva',es:'cuarto (¼)'});return}
+  d.src.trim().split('\n').forEach(line=>{const f=line.split('|').map(x=>x.trim());if(f.length<4)return;let o;
+    if(f[0]==='n')o={t:'n',he:NF(f[1]),tr:f[2],es:f[3],g:f[4],pl:f[5]&&f[5]!=='-'?NF(f[5]):'',pltr:f[6]||''};
+    else if(f[0]==='a'){o={t:'a',he:NF(f[1]),tr:f[2],es:f[3],f:NF(f[4]),ftr:f[5]};
+      if(f[6]){o.mp=NF(f[6]);o.mptr=f[7];o.fp=NF(f[8]);o.fptr=f[9]}else{const pl=femPl(o.f,o.ftr);if(pl){[o.mp,o.mptr]=pl[0];[o.fp,o.fptr]=pl[1]}}}
+    else if(f[0]==='v')o=parseVerb(f);
+    else o={t:'w',he:NF(f[1]),tr:f[2],es:f[3]};
+    add(o)});
+});
+let SYL=null;
+function allSyl(){if(SYL)return SYL;const seen=new Set();SYL=[];VOC.forEach(w=>clusters(w.k).forEach(c=>{const I=info(c);if(I&&I.v&&I.syl&&!c.includes('ְ')&&!seen.has(c)){seen.add(c);SYL.push({c,s:I.syl})}}));return SYL}
+function scopePool(){const sc=S.scope||'all';const p=sc==='seen'?VOC.filter(w=>S.srs[w.k]):sc==='all'?VOC:VOC.filter(w=>w.deck===sc);return p.length>=4?p:VOC}
+const bx=extra=>Object.assign({pool:scopePool(),syl:allSyl(),letters:[...'אבגדהוזחטיכלמנסעפצקרשת'],u:U[0]},extra||{});
+const learnedCount=()=>Object.keys(S.srs).filter(k=>WORDS[k]).length;
+
+// ---------- Generadores del banco de ejercicios ----------
+const nounsOf=x=>{const p=x.pool.filter(w=>w.t==='n'&&w.g);return p.length>=4?p:VOC.filter(w=>w.t==='n'&&w.g)};
+const vexp=w=>`<span class="he say" style="font-size:24px">${w.he||w.k}</span> · <i>${w.tr}</i> · ${w.es}`;
+function gNoNik(x){const p=x.pool;const t=pick(p);const o=shuffle(uniqBy(p.filter(w=>w.es!==t.es&&w.k!==t.k),w=>w.es)).slice(0,3);if(o.length<3)return null;
+  return ch('¿Qué significa? (sin vocales)',`<div class="q-big">${strip(t.k)}</div><p class="q-help">Así se escribe en carteles, periódicos y mensajes.</p>`,[t,...o].map(w=>({h:w.es})),{sayAfter:t.k,word:t.k,explain:vexp(t)})}
+function genderHint(t){const s=strip(t.he),fem=t.g[0]==='f',end=/[הת]$/.test(s);
+  return fem&&!end?' Ojo: es femenino aunque no termina en ה ni ת.':!fem&&end?' Ojo: termina como femenino, pero es masculino.':''}
+function gGender(x){const t=pick(nounsOf(x)),fem=t.g[0]==='f';
+  return ch('¿Masculino o femenino?',`<div class="q-big" style="font-size:46px">${t.he}</div><p class="q-help">${t.es}</p>`,[{h:fem?'Femenino':'Masculino'},{h:fem?'Masculino':'Femenino'}],
+    {sayAfter:t.he,word:t.k,key:'g'+t.k,explain:`<span class="he say">${t.he}</span> es <b>${fem?'femenino':'masculino'}</b>${t.g.length>1?' y siempre va en plural':''}.${t.pl?` Plural: <span class="he say">${t.pl}</span>.`:''}${genderHint(t)}`})}
+function wrongPl(pl){const c=clusters(pl),n=c.length;if(n<3)return null;
+  if(c[n-1]==='ם'&&c[n-2]==='י'&&c[n-3].includes('ִ'))return NF(c.slice(0,n-3).join('')+c[n-3].replace('ִ','')+'וֹת');
+  if(c[n-1]==='ת'&&c[n-2]==='וֹ')return NF(c.slice(0,n-3).join('')+c[n-3]+'ִים');return null}
+function gPlural(x){const ns=nounsOf(x).filter(w=>w.pl&&w.g.length===1&&!w.he.includes(' '));if(!ns.length)return null;const t=pick(ns);
+  const other=pick(VOC.filter(v=>v.t==='n'&&v.pl&&v!==t&&!v.pl.includes(' '))).pl;
+  const opts=uniqBy([t.pl,wrongPl(t.pl),t.he,other].filter(Boolean),s=>s);
+  const irr=(t.g==='f'&&/ים$/.test(strip(t.pl)))||(t.g==='m'&&/ות$/.test(strip(t.pl)));
+  return ch('¿Cuál es el plural?',`<div class="q-big" style="font-size:46px">${t.he}</div><p class="q-help">${t.es}</p>`,opts.map(h=>({h,he:1})),
+    {sayAfter:t.pl,word:t.k,key:'p'+t.k,explain:`<span class="he say">${t.he}</span> → <span class="he say">${t.pl}</span> · <i>${t.pltr}</i>${irr?' · plural irregular: el género no cambia.':''}`})}
+function gAgree(x){const as=x.pool.filter(w=>w.t==='a'&&w.mp),ad=pick(as.length?as:VOC.filter(w=>w.t==='a'&&w.mp)),n=pick(nounsOf(x));
+  const plOnly=n.g.length>1,usePl=plOnly||(!!n.pl&&Math.random()<.5),nh=usePl&&!plOnly?n.pl:n.he,fem=n.g[0]==='f';
+  const forms=[[ad.he,ad.tr],[ad.f,ad.ftr],[ad.mp,ad.mptr],[ad.fp,ad.fptr]],idx=(usePl?2:0)+(fem?1:0),right=forms[idx];
+  const o=uniqBy(forms.filter((f,i)=>i!==idx&&f[0]!==right[0]),f=>f[0]);
+  return ch('Elige la forma correcta del adjetivo',`<div class="q-sent">${nh} <span class="gap">___</span></div><p class="q-help">${n.es}${usePl&&!plOnly?' (plural)':''} + «${ad.es}»</p>`,[right,...o].map(f=>({h:f[0],he:1})),
+    {sayAfter:nh+' '+right[0],word:ad.k,key:'a'+n.k+ad.k+usePl,explain:`<span class="he say" style="font-size:24px">${nh} ${right[0]}</span> · <i>${right[1]}</i><br>${n.he} es ${fem?'femenino':'masculino'} ${usePl?'plural':'singular'}.`})}
+const PRES_P=[['אֲנִי','m','yo (hombre)'],['אֲנִי','f','yo (mujer)'],['אַתָּה','m','tú (hombre)'],['אַתְּ','f','tú (mujer)'],['הוּא','m','él'],['הִיא','f','ella'],['אֲנַחְנוּ','mp','nosotros'],['אַתֶּם','mp','ustedes (hombres)'],['אַתֶּן','fp','ustedes (mujeres)'],['הֵם','mp','ellos'],['הֵן','fp','ellas']];
+const PF_P=[['אֲנִי','s1','yo'],['אַתָּה','s2m','tú (hombre)'],['אַתְּ','s2f','tú (mujer)'],['הוּא','s3m','él'],['הִיא','s3f','ella'],['אֲנַחְנוּ','p1','nosotros'],['הֵם','p3','ellos'],['הֵן','p3','ellas']];
+const TN={pres:'presente',past:'pasado',fut:'futuro'};
+function gVerb(x,tense){const vs=(x.verbs||VERBS).filter(v=>tense!=='pres'||v.c.pres);if(!vs.length)return null;const v=pick(vs),c=v.c;
+  const P=pick(tense==='pres'?PRES_P:PF_P),form=c[tense][P[1]];if(!form)return null;
+  const o=shuffle(uniqBy(Object.values(c[tense]).filter(f=>f&&f[0]!==form[0]),f=>f[0])).slice(0,3);if(o.length<3)return null;
+  return ch(`Conjuga «${v.es}» en ${TN[tense]}`,`<div class="q-sent">${P[0]} <span class="gap">___</span></div><p class="q-help">${P[2]}</p>`,[form,...o].map(f=>({h:f[0],he:1})),
+    {sayAfter:P[0]+' '+form[0],word:v.k,key:tense+v.k+P[0]+P[1],explain:`<span class="he say" style="font-size:24px">${P[0]} ${form[0]}</span> · <i>${form[1]}</i> <button class="btn" data-verb="${v.k}" style="padding:3px 10px;font-size:13px">Ver tabla</button>`})}
+const TL={inf:'Infinitivo',pres:'Presente',past:'Pasado',fut:'Futuro'};
+function vCells(v){const c=v.c,out=[];if(c.inf)out.push(['inf',c.inf,'infinitivo']);
+  if(c.pres)[['m','m. sing.'],['f','f. sing.'],['mp','m. pl.'],['fp','f. pl.']].forEach(([k,l])=>out.push(['pres',c.pres[k],'presente · '+l]));
+  ['past','fut'].forEach(t=>PF_P.slice(0,7).forEach(p=>c[t][p[1]]&&out.push([t,c[t][p[1]],TN[t]+' · '+p[2]])));return out}
+function gTense(x){const v=pick(x.verbs||VERBS),cells=vCells(v),by={};cells.forEach(([t,f])=>(by[f[0]]=by[f[0]]||new Set()).add(t));
+  const okc=cells.filter(([t,f])=>by[f[0]].size===1);if(!okc.length)return null;const [t,f,lab]=pick(okc);
+  return ch('¿En qué tiempo está?',`<div class="q-big" style="font-size:46px">${f[0]}</div><p class="q-help">${v.es}</p>`,[t,...Object.keys(TL).filter(k=>k!==t)].map(k=>({h:TL[k]})),
+    {sayAfter:f[0],word:v.k,key:'t'+f[0],explain:`<span class="he say">${f[0]}</span> · <i>${f[1]}</i> = ${lab}`})}
+function gInf(x){const vs=(x.verbs||VERBS).filter(v=>v.c.inf);if(vs.length<4)return null;const t=pick(vs),o=shuffle(uniqBy(vs.filter(v=>v!==t&&v.es!==t.es),v=>v.es)).slice(0,3);
+  const ex={sayAfter:t.he,word:t.k,key:'i'+t.k,explain:vexp(t)};
+  return Math.random()<.5?ch(`¿Cómo se dice «${t.es}»?`,'<p class="q-help">Los infinitivos empiezan con ל</p>',[t,...o].map(v=>({h:v.he,he:1})),ex)
+    :ch('¿Qué significa este verbo?',`<div class="q-big" style="font-size:46px">${t.he}</div>`,[t,...o].map(v=>({h:v.es})),ex)}
+function gPrep(){const p=pick(PREPS),i=Math.random()*10|0,right=p.f[i],o=shuffle(p.f.filter((f,j)=>j!==i)).slice(0,3);
+  return ch('Une la preposición con el pronombre',`<div class="q-sent">${p.p} + ${PRON_HE[i]}</div><p class="q-help">${p.es} + ${PRON[i]}</p>`,[right,...o].map(f=>({h:f[0],he:1})),
+    {sayAfter:right[0],key:'pr'+p.p+i,explain:`<span class="he say" style="font-size:24px">${right[0]}</span> · <i>${right[1]}</i> = ${p.es} + ${PRON[i]}`})}
+function gNum(){const mode=pick(['read','listen','price']);
+  if(mode==='price'){let n;do{n=20+Math.random()*80|0}while(n%10===1);const h=numHe(n),he=h[0]+' שְׁקָלִים';
+    const o=shuffle(uniqBy([n+1,n-1,n+10,n-10,n+2].filter(v=>v>1&&v<100&&v!==n),v=>v)).slice(0,3);
+    return ch('¿Cuánto cuesta?','<p class="q-help">Escucha el precio. Con שְׁקָלִים (masculino) el número va en masculino.</p>',[n,...o].map(v=>({h:'₪'+v})),{say:he,key:'pz'+n,explain:`<span class="he say">${he}</span> · <i>${h[1]} shkalím</i> = ₪${n}`})}
+  const t=pick(NUMF),o=shuffle(NUMF.filter(q=>q!==t)).slice(0,3),ex=`${t[0]} = <span class="he say" style="font-size:24px">${t[1]}</span> · <i>${t[2]}</i>`;
+  return mode==='read'?ch(`¿Cómo se dice ${t[0]}?`,'<p class="q-help">Forma femenina, la que se usa para contar</p>',[t,...o].map(q=>({h:q[1],he:1})),{sayAfter:t[1],key:'n'+t[0],explain:ex})
+    :ch('Escucha y elige el número','<p class="q-help">Toca el altavoz para repetir.</p>',[t,...o].map(q=>({h:String(q[0])})),{say:t[1],key:'nl'+t[0],explain:ex})}
+function timeHe(h,m){const q=NUMF.find(z=>z[0]===h);return['הַשָּׁעָה '+q[1]+(m===15?' וָרֶבַע':m===30?' וָחֵצִי':''),'ha-shaá '+q[2]+(m===15?' va-réva':m===30?' va-jétsi':'')]}
+function gTime(){const h=1+Math.random()*12|0,m=pick([0,15,30]),lab=(h,m)=>h+':'+String(m).padStart(2,'0'),t=timeHe(h,m),listen=Math.random()<.5;
+  const cand=[[h,(m+15)%45],[h%12+1,m],[h===1?12:h-1,m],[h,(m+30)%45],[h%12+1,(m+15)%45]];const o=uniqBy(cand.map(([a,b])=>lab(a,b)).filter(s=>s!==lab(h,m)),s=>s).slice(0,3);
+  return ch('¿Qué hora es?',listen?'<p class="q-help">Escucha la hora.</p>':`<div class="q-sent">${t[0]}</div>`,[lab(h,m),...o].map(s=>({h:s})),
+    {say:listen?t[0]:undefined,sayAfter:listen?undefined:t[0],key:'h'+h+m+listen,explain:`<span class="he say">${t[0]}</span> · <i>${t[1]}</i> = ${lab(h,m)}`})}
+function gQW(){const q=pick(QW),o=shuffle(uniqBy(QW.filter(z=>z[0]!==q[0]),z=>z[0])).slice(0,3).map(z=>z[0]);
+  return ch('Elige la palabra que falta',`<div class="q-sent">${q[1].replace('___','<span class="gap">___</span>')}</div><p class="q-help">Respuesta: <span class="he" style="font-size:20px">${q[2]}</span></p>`,[q[0],...o].map(h=>({h,he:1})),
+    {sayAfter:q[1].replace('___',q[0]),key:'q'+q[1],explain:`<span class="he say" style="font-size:22px">${q[1].replace('___',q[0])}</span> = ${q[3]}`})}
+function gSyn(){const q=pick(SYN);return ch(`¿Cómo se dice ${q.q}?`,'',q.o.map(h=>({h,he:1})),{sayAfter:q.o[0],key:'sy'+q.q,explain:`<span class="he say" style="font-size:22px">${q.o[0]}</span><br>${q.e}`})}
+function gUnitGram(){const q=pick(U.flatMap(u=>u.gram.quiz));return ch(q.q,'',q.o.map(h=>({h,he:isHeb(strip(h))})),{key:'ug'+q.q,explain:`Respuesta: <b class="${isHeb(strip(q.o[0]))?'he say':''}">${q.o[0]}</b>`})}
+function gLetters(x){return pick([G.letterName,G.letterSound,G.letterSound,G.soundLetter])(x)}
+const vb=t=>x=>gVerb(x,t);
+const SKILLS=[
+ {id:'v-mean',t:'Significado',d:'Ves una palabra en hebreo y eliges qué significa.',g:x=>G.meaning(x)},
+ {id:'v-rev',t:'Del español al hebreo',d:'Eliges la palabra hebrea correcta.',g:x=>G.reverse(x)},
+ {id:'v-listen',t:'Escucha y elige',d:'Oyes una palabra y la reconoces escrita.',g:x=>G.listen(x)},
+ {id:'v-nonik',t:'Leer sin vocales',d:'Palabras sin nikud, como en la calle.',g:gNoNik},
+ {id:'v-spell',t:'Deletrear',d:'Construyes la palabra sílaba a sílaba.',g:x=>G.build(x)},
+ {id:'n-gender',t:'Género',d:'¿Masculino o femenino?',g:gGender},
+ {id:'n-plural',t:'Plurales',d:'Regulares e irregulares.',g:gPlural},
+ {id:'a-agree',t:'Concordancia',d:'Sustantivo + adjetivo en la forma correcta.',g:gAgree},
+ {id:'syn',t:'Frases correctas',d:'Artículo, preposiciones, יֵשׁ / אֵין, אֶת y números.',g:gSyn},
+ {id:'prep',t:'Preposiciones con pronombre',d:'לִי, שֶׁלְּךָ, אִתָּהּ, אוֹתָנוּ…',g:gPrep},
+ {id:'qw',t:'Palabras interrogativas',d:'מִי, מָה, אֵיפֹה, מָתַי, לָמָּה…',g:gQW},
+ {id:'units',t:'Gramática de las lecturas',d:'Las preguntas de las 10 unidades.',g:gUnitGram},
+ {id:'vb-pres',t:'Presente',d:'Las 4 formas según quién habla.',g:vb('pres')},
+ {id:'vb-past',t:'Pasado',d:'Yo, tú, él, ella, nosotros, ellos.',g:vb('past')},
+ {id:'vb-fut',t:'Futuro',d:'Prefijos א, ת, י, נ.',g:vb('fut')},
+ {id:'vb-tense',t:'¿Qué tiempo es?',d:'Reconoce el tiempo de un verbo.',g:gTense},
+ {id:'vb-inf',t:'Infinitivos',d:'El verbo en su forma básica.',g:gInf},
+ {id:'num',t:'Números y precios',d:'Leer, escuchar y pagar.',g:gNum},
+ {id:'time',t:'La hora',d:'שָׁלוֹשׁ וָחֵצִי, אַרְבַּע וָרֶבַע…',g:gTime},
+ {id:'letters',t:'Letras y sonidos',d:'Todo el álef-bet con sus vocales.',g:gLetters},
+];
+const SKG=[['Vocabulario',['v-mean','v-rev','v-listen','v-nonik','v-spell']],['Gramática',['n-gender','n-plural','a-agree','syn','prep','qw','units']],['Verbos',['vb-pres','vb-past','vb-fut','vb-tense','vb-inf']],['Números, tiempo y letras',['num','time','letters']]];
+const EXAM=['v-mean','v-rev','v-listen','v-nonik','n-gender','n-plural','a-agree','syn','prep','qw','vb-pres','vb-past','vb-fut','vb-tense','num','time'];
+SKILLS.push({id:'exam',t:'Examen A2 mixto',d:'20 preguntas de todos los temas.',n:20,g:x=>{const id=pick(EXAM),s=SKILLS.find(k=>k.id===id);const e=s.g(x);if(e)e.tl=s.t;return e}});
+function makeBank(sk,n,x){x=x||bx();const out=[],used=new Set();let tries=0;
+  while(out.length<n&&tries++<n*30){const e=sk.g(x);if(!e)continue;const key=(e.key||'')+(e.word||'')+e.title+(e.prompt||'');if(used.has(key))continue;used.add(key);e.tl=e.tl||sk.t;out.push(e)}return out}
+function startSkill(id){const sk=SKILLS.find(s=>s.id===id);if(!sk)return;
+  const go=()=>run(makeBank(sk,sk.n||10),(ok,tot)=>{S.skills=S.skills||{};S.skills[id]=Math.max(S.skills[id]||0,Math.round(ok/tot*100));save();prac()},prac,go);go()}
+function deckMix(x){const p=x.pool,gens=[x=>G.meaning(x),x=>G.reverse(x),x=>G.listen(x),gNoNik,x=>G.build(x)];
+  if(p.some(w=>w.t==='n'&&w.g))gens.push(gGender,gGender);if(p.some(w=>w.t==='n'&&w.pl))gens.push(gPlural);if(p.some(w=>w.t==='a'&&w.mp))gens.push(gAgree,gAgree);
+  const vs=p.filter(w=>w.t==='v');if(vs.length){x.verbs=vs;gens.push(vb('pres'),vb('past'),vb('fut'),gTense,gInf)}return pick(gens)(x)}
+function practiceVerb(k){const v=VERBK[k];closeSheet();const sk={t:'Verbo: '+v.es,g:x=>pick([vb('pres'),vb('past'),vb('fut'),gTense])(x)};
+  const go=()=>run(makeBank(sk,10,bx({verbs:[v]})),prac,prac,go);go()}
+
+// ---------- Vistas: vocabulario ----------
+const lvl=k=>{const b=S.srs[k]?S.srs[k].b:0;return`<span class="lvl" aria-label="Nivel ${b}">${[1,2,3,4,5,6].map(n=>`<i class="${b>n?'on':''}"></i>`).join('')}</span>`};
+function meta(w){if(w.t==='n')return(w.g[0]==='m'?'m.':'f.')+(w.g.length>1?' pl.':'')+(w.pl?' · pl. <span class="he">'+w.pl+'</span>':'');if(w.t==='a')return'f. <span class="he">'+w.f+'</span>';if(w.t==='v')return'verbo · tabla ›';return''}
+const vrow=w=>`<button class="wrow" data-${VOCK[w.k]?'vk':'word'}="${w.k}"><span class="he">${w.he}</span><span><i class="muted">${w.tr}</i> · ${w.es}<small class="meta">${meta(w)}</small></span>${lvl(w.k)}</button>`;
+const fold=s=>s.normalize('NFD').replace(/[̀-֑ͯ-ׇ']/g,'').toLowerCase();
+function formsHTML(w){const sy=(a,b)=>`<span class="he say" style="font-size:22px">${a}</span> <i class="muted">${b}</i>`;
+  if(w.t==='n')return`<div class="facts"><div><span class="lab">Género</span><b>${w.g[0]==='m'?'masculino':'femenino'}${w.g.length>1?' (plural)':''}</b></div>${w.pl?`<div><span class="lab">Plural</span>${sy(w.pl,w.pltr)}</div>`:''}</div>`;
+  if(w.t==='a')return`<div class="facts"><div><span class="lab">m.</span>${sy(w.he,w.tr)}</div><div><span class="lab">f.</span>${sy(w.f,w.ftr)}</div>${w.mp?`<div><span class="lab">m. pl.</span>${sy(w.mp,w.mptr)}</div><div><span class="lab">f. pl.</span>${sy(w.fp,w.fptr)}</div>`:''}</div>`;
+  return''}
+function vocSheet(w){if(w.t==='v')return verbSheet(w);
+  openSheet(`<div class="sh-top"><div class="big">${w.he}</div><div><div class="tr-b">${w.tr}</div><div class="es-b">${w.es}</div></div></div>${formsHTML(w)}
+   <div class="row"><button class="btn primary" data-say="${w.he}">${SPK} Escuchar</button><button class="btn" data-say="${w.he}" data-rate="0.5">Despacio</button></div>
+   <div class="lab">Toca una letra</div><div class="mini">${clusters(w.k).filter(isHeb).map(c=>`<button data-cl="${c}">${c}</button>`).join('')}</div>`);speak(w.he)}
+const PRES_ROWS=[['m','אֲנִי · אַתָּה · הוּא','m. sing.'],['f','אֲנִי · אַתְּ · הִיא','f. sing.'],['mp','אֲנַחְנוּ · אַתֶּם · הֵם','m. pl.'],['fp','אֲנַחְנוּ · אַתֶּן · הֵן','f. pl.']];
+function verbTable(v){const c=v.c,row=(lab,es,f)=>f?`<tr data-say="${f[0]}"><td><span class="he">${lab}</span> <small class="muted">${es}</small></td><td class="he">${f[0]}</td><td><i>${f[1]}</i></td></tr>`:'';
+  const sec=t=>`<tr><th colspan="3">${t}</th></tr>`;
+  return`<div class="tbl"><table class="vt ct"><tbody>${c.inf?sec('Infinitivo')+row('','',c.inf):''}
+   ${c.pres?sec('Presente')+PRES_ROWS.map(r=>row(r[1],r[2],c.pres[r[0]])).join(''):''}
+   ${sec('Pasado')+PF_P.slice(0,7).map(p=>row(p[0]==='הֵם'?'הֵם · הֵן':p[0],p[2],c.past[p[1]])).join('')}
+   ${sec('Futuro')+PF_P.slice(0,7).map(p=>row(p[0]==='הֵם'?'הֵם · הֵן':p[0],p[2],c.fut[p[1]])).join('')}</tbody></table></div>`}
+function verbSheet(v){openSheet(`<div class="sh-top"><div class="big" style="font-size:42px">${v.he}</div><div><div class="es-b">${v.es}</div><div class="tr-b">${v.tr}</div></div></div>
+   <p class="note">Toca una fila para oírla.${v.c.pres?'':' Este verbo no se usa en presente.'}</p>${verbTable(v)}
+   <div class="row"><button class="btn primary" data-vprac="${v.k}">Practicar este verbo</button></div>`,true);speak(v.he)}
+function voc(){
+  chrome('voc');const tot=Object.keys(WORDS).length,n=learnedCount();
+  app.innerHTML=`<div class="stack"><h1>Vocabulario A2</h1>
+   <div class="card"><div class="row" style="justify-content:space-between"><b>${n} de ${tot} palabras en tu repaso</b><span class="muted">${Math.round(n/tot*100)} %</span></div>
+    <div class="bar"><span style="width:${n/tot*100}%"></span></div>
+    <p class="muted" style="font-size:14px">${DECKS.length} temas con sustantivos (género y plural), adjetivos (4 formas) y ${VERBS.length} verbos conjugados en presente, pasado y futuro. Una palabra entra a tu repaso cuando la estudias en tarjetas o la aciertas en un ejercicio.</p>
+    <div class="row"><button class="btn primary" id="new10">Aprender 10 palabras nuevas</button><button class="btn" data-go="review">Repasar hoy · ${dueWords().length}</button><button class="btn" data-go="words">Mis palabras</button></div></div>
+   <input class="search" type="search" id="vs" placeholder="Busca en español, hebreo o transliteración" aria-label="Buscar palabra">
+   <div id="vres" class="wlist"></div>
+   <h2>Temas</h2><div class="games">${DECKS.map(d=>{const k=d.items.filter(w=>S.srs[w.k]).length;return`<button class="gcard" data-deck="${d.id}"><span class="emo" aria-hidden="true">${d.ico}</span><b>${d.t}</b><small>${d.items.length} palabras · ${k} en repaso</small><span class="bar thin"><span style="width:${k/d.items.length*100}%"></span></span></button>`}).join('')}</div></div>`;
+  $('#new10').onclick=()=>{const d=DECKS.find(d=>d.items.some(w=>!S.srs[w.k]))||DECKS[0];study(d.id)};
+  $('#vs').oninput=e=>{const q=fold(e.target.value.trim());$('#vres').innerHTML=q.length<2?'':(VOC.concat(Object.values(WORDS).filter(w=>!VOCK[w.k]&&!w.name).map(w=>({t:'w',he:w.k,k:w.k,tr:w.tr,es:w.es}))).filter(w=>fold(w.he).includes(q)||fold(w.tr).includes(q)||fold(w.es).includes(q)).slice(0,40).map(vrow).join('')||'<p class="muted">Sin resultados.</p>')};
+}
+function deckView(id){
+  chrome('voc');const d=DECKS.find(x=>x.id===id),k=d.items.filter(w=>S.srs[w.k]).length;
+  app.innerHTML=`<button class="back" data-go="voc">‹ Vocabulario</button><div class="stack">
+   <div class="u-head"><span class="u-kind muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">Tema</span><h1><span class="emo">${d.ico}</span> ${d.t}</h1><p class="muted">${d.items.length} palabras · ${k} en tu repaso. Toca una palabra para oírla${d.id==='verbs'?' y ver su conjugación':' y ver sus formas'}.</p></div>
+   <div class="row"><button class="btn primary" id="st">Tarjetas: 10 palabras</button><button class="btn" id="pr">Practicar este tema</button></div>
+   <div class="wlist">${d.items.map(vrow).join('')}</div></div>`;
+  $('#st').onclick=()=>study(id);
+  $('#pr').onclick=()=>{const go=()=>run(makeBank({t:d.t,g:deckMix},12,bx({pool:d.items.length>=4?d.items:VOC})),()=>deckView(id),()=>deckView(id),go);go()};
+}
+// Tarjetas: primero palabras nuevas, luego las menos sabidas
+function study(id){
+  const d=DECKS.find(x=>x.id===id),fresh=shuffle(d.items.filter(w=>!S.srs[w.k])),known=d.items.filter(w=>S.srs[w.k]).sort((a,b)=>S.srs[a.k].b-S.srs[b.k].b);
+  const cards=[...fresh,...known].slice(0,10);let i=0,ok=0;
+  function show(){chrome('voc');if(i>=cards.length)return end();const w=cards[i];
+    app.innerHTML=`<div class="run-top"><button class="back" id="quit">✕ Salir</button><div class="bar"><span style="width:${i/cards.length*100}%"></span></div><span class="cnt">${i+1} / ${cards.length}</span></div>
+     <div class="ex"><div class="ex-type">Tarjetas · ${d.t}${S.srs[w.k]?'':' · nueva'}</div><h2>¿Sabes qué significa?</h2>
+     <div class="card flash"><div class="q-big">${w.he}</div><div class="row" style="justify-content:center"><button class="btn" data-say="${w.he}">${SPK} Escuchar</button></div>
+      <div id="back" hidden><div class="tr-b" style="text-align:center">${w.tr}</div><div class="es-b" style="text-align:center">${w.es}</div>${formsHTML(w)}${w.t==='v'?verbTable(w):''}</div></div>
+     <div class="row" id="ctrl"><button class="btn primary" id="flip">Mostrar respuesta</button></div></div>`;
+    speak(w.he);$('#quit').onclick=()=>deckView(id);
+    const flip=()=>{$('#back').hidden=false;$('#ctrl').innerHTML='<button class="btn" id="no">No la sabía</button><button class="btn primary" id="yes">La sabía</button>';
+      $('#no').onclick=()=>{srsHit(w.k,false);save();i++;show()};$('#yes').onclick=()=>{srsHit(w.k,true);ok++;save();i++;show()};KEYH=null};
+    $('#flip').onclick=flip;KEYH=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}}}
+  function end(){bumpStreak();save();chrome('voc');
+    app.innerHTML=`<div class="stack" style="text-align:center;justify-items:center;padding-top:30px"><div class="score">${ok} / ${cards.length}</div>
+     <p class="muted">Ya están en tu repaso. Las que no sabías vuelven en unos minutos; las demás, en días.</p>
+     <div class="row" style="justify-content:center"><button class="btn primary" id="pr">Practicar estas palabras</button><button class="btn" id="more">Otras 10 tarjetas</button><button class="btn" data-go="voc">Volver</button></div></div>`;
+    $('#more').onclick=()=>study(id);
+    $('#pr').onclick=()=>{const go=()=>run(makeBank({t:d.t,g:deckMix},10,bx({pool:cards.length>=4?cards:d.items})),()=>deckView(id),()=>deckView(id),go);go()}}
+  show();
+}
+
+// ---------- Vistas: práctica y recursos ----------
+const RES=[['alef','Álef-bet','א','Letras, vocales y sonidos'],['verbs','Tablas de verbos','🔁',VERBS.length+' verbos conjugados'],['preps','Preposiciones con pronombre','🔗','לִי, שֶׁלִּי, אִתִּי…'],['nums','Números y la hora','🔢','Femenino, masculino y horas'],['gram','Gramática','📘','Todas las reglas en un lugar']];
+function prac(){
+  chrome('prac');S.skills=S.skills||{};
+  const card=id=>{const s=SKILLS.find(k=>k.id===id),b=S.skills[id];return`<button class="gcard" data-skill="${id}"><b>${s.t}</b><small>${s.d}</small><span class="stars">${b!=null?'Mejor: '+b+' %':'Nuevo'}</span></button>`};
+  app.innerHTML=`<div class="stack"><h1>Banco de ejercicios</h1>
+   <p class="hint">Cada sesión genera preguntas nuevas, así que puedes practicar cada tema todas las veces que quieras. Lo que falles vuelve al final.</p>
+   <div class="card"><b>Examen A2 mixto</b><p class="muted" style="font-size:14px">20 preguntas de vocabulario, gramática, verbos y números.</p><div class="row"><button class="btn primary" data-skill="exam">Empezar examen</button>${S.skills.exam!=null?`<span class="stars">Mejor: ${S.skills.exam} %</span>`:''}</div></div>
+   <label class="chk" for="scope">Vocabulario de: <select id="scope"><option value="all">Todos los temas</option><option value="seen">Solo palabras de mi repaso</option>${DECKS.map(d=>`<option value="${d.id}">${d.t}</option>`).join('')}</select></label>
+   ${SKG.map(([t,ids])=>`<h2>${t}</h2><div class="games">${ids.map(card).join('')}</div>`).join('')}
+   <h2>Recursos</h2><div class="games">${RES.map(r=>`<button class="gcard" data-res="${r[0]}"><span class="emo he" aria-hidden="true">${r[2]}</span><b>${r[1]}</b><small>${r[3]}</small></button>`).join('')}</div></div>`;
+  $('#scope').value=S.scope||'all';$('#scope').onchange=e=>{S.scope=e.target.value;save()};
+}
+function resPage(id){
+  if(id==='alef')return alef();
+  chrome('prac');const back='<button class="back" data-go="prac">‹ Práctica</button>';
+  if(id==='verbs'){app.innerHTML=`${back}<div class="stack"><h1>Tablas de verbos</h1><p class="hint">${VERBS.length} verbos en infinitivo, presente, pasado y futuro. Toca uno para ver su tabla y practicarlo.</p>
+     <input class="search" type="search" id="vs" placeholder="Busca un verbo" aria-label="Buscar verbo"><div class="wlist" id="vl"></div></div>`;
+    const draw=q=>{$('#vl').innerHTML=VERBS.filter(v=>!q||fold(v.he+v.tr+v.es).includes(q)).map(v=>`<button class="wrow" data-verb="${v.k}"><span class="he">${v.he}</span><span><i class="muted">${v.tr}</i> · ${v.es}<small class="meta">${v.c.pres?'<span class="he">'+v.c.pres.m[0]+'</span> · ':''}<span class="he">${v.c.past.s3m[0]}</span> · <span class="he">${v.c.fut.s3m[0]}</span></small></span>${lvl(v.k)}</button>`).join('')};
+    draw('');$('#vs').oninput=e=>draw(fold(e.target.value.trim()));return}
+  if(id==='preps'){app.innerHTML=`${back}<div class="stack"><h1>Preposiciones con pronombre</h1><p class="hint">En hebreo la preposición y el pronombre se escriben juntos. Toca una fila para oírla.</p>
+     ${PREPS.map(p=>`<h3><span class="he">${p.p}</span> · ${p.es}</h3><div class="tbl"><table class="vt ct"><tbody>${p.f.map((f,i)=>`<tr data-say="${f[0]}"><td><span class="he">${PRON_HE[i]}</span> <small class="muted">${PRON[i]}</small></td><td class="he">${f[0]}</td><td><i>${f[1]}</i></td></tr>`).join('')}</tbody></table></div>`).join('')}
+     <div class="row"><button class="btn primary" data-skill="prep">Practicar</button></div></div>`;return}
+  if(id==='nums'){const tr=r=>`<tr data-say="${r[1]}"><td>${r[0]}</td><td class="he">${r[1]}</td><td><i>${r[2]}</i></td></tr>`;
+    app.innerHTML=`${back}<div class="stack"><h1>Números y la hora</h1><p class="hint">La forma femenina se usa para contar, para la hora y con sustantivos femeninos. La masculina, con sustantivos masculinos (y termina en ־ָה).</p>
+     <h3>Femenino (para contar)</h3><div class="tbl"><table class="vt ct"><tbody>${NUMF.map(tr).join('')}</tbody></table></div>
+     <h3>Masculino</h3><div class="tbl"><table class="vt ct"><tbody>${NUMM.map(tr).join('')}</tbody></table></div>
+     <h3>La hora</h3><div class="tbl"><table class="vt ct"><tbody>${[[3,0],[3,15],[3,30],[12,0],[1,30]].map(([h,m])=>{const t=timeHe(h,m);return tr([h+':'+String(m).padStart(2,'0'),t[0],t[1]])}).join('')}</tbody></table></div>
+     <div class="row"><button class="btn primary" data-skill="num">Practicar números</button><button class="btn" data-skill="time">Practicar la hora</button></div></div>`;return}
+  if(id==='gram'){app.innerHTML=`${back}<div class="stack"><h1>Gramática A2</h1><p class="hint">Todas las reglas de la app. Toca el hebreo para oírlo.</p>
+     ${EXTRA_GRAM.map(n=>`<div class="card"><h3>${n[0]}</h3><p>${n[1]}</p></div>`).join('')}
+     ${U.map((u,i)=>`<h2>${i+1}. ${u.t}</h2>${u.gram.notes.map(n=>`<div class="card"><h3>${n[0]}</h3><p>${n[1]}</p></div>`).join('')}`).join('')}
+     <div class="row"><button class="btn primary" data-skill="syn">Practicar frases</button><button class="btn" data-skill="units">Practicar gramática de las lecturas</button></div></div>`;return}
+}
+
 // ---------- Navegación ----------
 document.addEventListener('click',e=>{
   const t=e.target;
   if(popFor&&!t.closest('#pop')&&!popFor.contains(t))hidePop();
   const g=t.closest('[data-go]');
-  if(g){const v=g.dataset.go,V={home,alef,words,review,games};V[v]?V[v]():unit(+g.dataset.u,g.dataset.tab);return}
+  if(g){const v=g.dataset.go,V={home,alef,words,review,games,voc,prac};V[v]?V[v]():unit(+g.dataset.u,g.dataset.tab);return}
+  const dk=t.closest('[data-deck]');if(dk){deckView(dk.dataset.deck);return}
+  const vk=t.closest('[data-vk]');if(vk&&VOCK[vk.dataset.vk]){vocSheet(VOCK[vk.dataset.vk]);return}
+  const vr=t.closest('[data-verb]');if(vr&&VERBK[vr.dataset.verb]){verbSheet(VERBK[vr.dataset.verb]);return}
+  const vp=t.closest('[data-vprac]');if(vp){practiceVerb(vp.dataset.vprac);return}
+  const sk=t.closest('[data-skill]');if(sk){closeSheet();startSkill(sk.dataset.skill);return}
+  const rs=t.closest('[data-res]');if(rs){resPage(rs.dataset.res);return}
   const ph=t.closest('[data-ph]');if(ph){tapWord(ph,PH[+ph.dataset.ph]);return}
   const gm=t.closest('[data-game]');if(gm){const G0=GAMES.find(x=>x.id===gm.dataset.game);G0.fn(G0);return}
   const s=t.closest('[data-say]');if(s){speak(s.dataset.say,s.dataset.rate?+s.dataset.rate:undefined);return}
