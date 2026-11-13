@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#F7F9FC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hebreo">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="description" content="Aprende hebreo desde cero hasta A2 leyendo textos reales: toca cada letra y palabra para oírla.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Hebreo desde Álef</title>
@@ -2209,5 +2217,23 @@ document.addEventListener('click',e=>{
 home();
 </script>
 
+<div id="install-tip" hidden role="note">
+  <span>Instala la app: toca <b>Compartir</b> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l4 4h-3v8h-2V7H8l4-4zM5 10h3v2H6v8h12v-8h-2v-2h3v11H5z"/></svg> y luego <b>«Añadir a pantalla de inicio»</b>.</span>
+  <button type="button" id="install-x" aria-label="Cerrar aviso">✕</button>
+</div>
+<style>
+#install-tip{position:fixed;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--ink);color:var(--paper);font-size:14px;box-shadow:var(--shadow)}
+#install-tip[hidden]{display:none}
+#install-tip svg{width:16px;height:16px;fill:currentColor;vertical-align:-3px}
+#install-tip button{margin-left:auto;border:0;background:none;color:inherit;font-size:16px;cursor:pointer}
+@media (min-width:641px){#install-tip{bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto}}
+</style>
+<script>
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+(()=>{const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+ const app=navigator.standalone||matchMedia('(display-mode: standalone)').matches;let off=false;try{off=localStorage.getItem('hideInstall')==='1'}catch(e){}
+ const tip=document.getElementById('install-tip');if(ios&&!app&&!off)tip.hidden=false;
+ document.getElementById('install-x').onclick=()=>{tip.hidden=true;try{localStorage.setItem('hideInstall','1')}catch(e){}}})();
+</script>
 </body>
 </html>
